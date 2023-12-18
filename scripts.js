@@ -203,7 +203,6 @@ if (changedCheckbox.checked) {
 
             break;
     }
-    counter.textContent = attCounter;
 
 } 
     else {
@@ -382,7 +381,6 @@ if (changedCheckbox.checked) {
                 
                 break;             
         }
-        counter.textContent = attCounter;
 
     }
 };

@@ -124,82 +124,152 @@ if (changedCheckbox.checked) {
 
         case 1:
             //Skill 001    
-            if(skill_1_1.hasClass('char-skills')) {
+            if(skill_1_1.hasClass('char-skills') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
                 skill_1_1.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_1_1.hasClass('char-skills-orange')) {
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
+                skill_1_2.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills')) {
+                skill_1_3.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
                 skill_1_1.removeClass('char-skills-orange').addClass('char-skills-red')
-            };
-            
+            } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                skill_1_2.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-orange')) {
+                skill_1_3.removeClass('char-skills-orange').addClass('char-skills-red')
+            } 
 
             //Skill 002
 
-            if(skill_2_1.hasClass('char-skills')) {
+            if(skill_2_1.hasClass('char-skills') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
                 skill_2_1.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_2_1.hasClass('char-skills-orange')) {
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
+                skill_2_2.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills')) {
+                skill_2_3.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
                 skill_2_1.removeClass('char-skills-orange').addClass('char-skills-red')
-            };
+            } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                skill_2_2.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-orange')) {
+                skill_2_3.removeClass('char-skills-orange').addClass('char-skills-red')
+            } 
 
             //Skill 003
 
-            if(skill_3_1.hasClass('char-skills')) {
+            if(skill_3_1.hasClass('char-skills') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
                 skill_3_1.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_3_1.hasClass('char-skills-orange')) {
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
+                skill_3_2.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills')) {
+                skill_3_3.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
                 skill_3_1.removeClass('char-skills-orange').addClass('char-skills-red')
-            };            
+            } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                skill_3_2.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-orange')) {
+                skill_3_3.removeClass('char-skills-orange').addClass('char-skills-red')
+            }            
 
             break;
         case 2:
             //Skill 001
 
-            if(skill_1_2.hasClass('char-skills')) {
+            if(skill_1_1.hasClass('char-skills') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
+                skill_1_1.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
                 skill_1_2.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_1_2.hasClass('char-skills-orange')) {
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills')) {
+                skill_1_3.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                skill_1_1.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
                 skill_1_2.removeClass('char-skills-orange').addClass('char-skills-red')
-            };
+            } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-orange')) {
+                skill_1_3.removeClass('char-skills-orange').addClass('char-skills-red')
+            } 
 
             //Skill 002
 
-            if(skill_2_2.hasClass('char-skills')) {
+            if(skill_2_1.hasClass('char-skills') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
+                skill_2_1.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
                 skill_2_2.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_2_2.hasClass('char-skills-orange')) {
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills')) {
+                skill_2_3.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                skill_2_1.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
                 skill_2_2.removeClass('char-skills-orange').addClass('char-skills-red')
-            };
+            } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-orange')) {
+                skill_2_3.removeClass('char-skills-orange').addClass('char-skills-red')
+            } 
 
             //Skill 003
 
-            if(skill_3_2.hasClass('char-skills')) {
+            if(skill_3_1.hasClass('char-skills') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
+                skill_3_1.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
                 skill_3_2.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_3_2.hasClass('char-skills-orange')) {
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills')) {
+                skill_3_3.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                skill_3_1.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
                 skill_3_2.removeClass('char-skills-orange').addClass('char-skills-red')
-            };            
+            } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-orange')) {
+                skill_3_3.removeClass('char-skills-orange').addClass('char-skills-red')
+            }              
 
 
             break;
         case 3:
             //Skill 001
 
-            if(skill_1_3.hasClass('char-skills')) {
+            if(skill_1_1.hasClass('char-skills') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
+                skill_1_1.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
+                skill_1_2.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills')) {
                 skill_1_3.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_1_3.hasClass('char-skills-orange')) {
+            } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                skill_1_1.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                skill_1_2.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-orange')) {
                 skill_1_3.removeClass('char-skills-orange').addClass('char-skills-red')
-            };
-
+            } 
 
             //Skill 002
 
-            if(skill_2_3.hasClass('char-skills')) {
+            if(skill_2_1.hasClass('char-skills') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
+                skill_2_1.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
+                skill_2_2.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills')) {
                 skill_2_3.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_2_3.hasClass('char-skills-orange')) {
+            } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                skill_2_1.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                skill_2_2.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-orange')) {
                 skill_2_3.removeClass('char-skills-orange').addClass('char-skills-red')
-            };
+            } 
 
             //Skill 003
 
-            if(skill_3_3.hasClass('char-skills')) {
+            if(skill_3_1.hasClass('char-skills') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
+                skill_3_1.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
+                skill_3_2.removeClass('char-skills').addClass('char-skills-orange')
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills')) {
                 skill_3_3.removeClass('char-skills').addClass('char-skills-orange')
-            } else if (skill_3_3.hasClass('char-skills-orange')) {
+            } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                skill_3_1.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                skill_3_2.removeClass('char-skills-orange').addClass('char-skills-red')
+            } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-orange')) {
                 skill_3_3.removeClass('char-skills-orange').addClass('char-skills-red')
-            };            
+            }             
 
             break;
     }
@@ -303,81 +373,155 @@ if (changedCheckbox.checked) {
         switch (attCounter) {
             case 0:
                 //Skill 001
-                if(skill_1_1.hasClass('char-skills-red')) {
+                if(skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-red')) {
+                    skill_1_3.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-orange')) {
+                    skill_1_2.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
                     skill_1_1.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_1_1.hasClass('char-skills-orange')) {
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                    skill_1_3.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills')) {
+                    skill_1_2.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
                     skill_1_1.removeClass('char-skills-orange').addClass('char-skills')
-                };
+                } 
 
                 //Skill 002
 
-                if(skill_2_1.hasClass('char-skills-red')) {
+                if(skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-red')) {
+                    skill_2_3.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-orange')) {
+                    skill_2_2.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
                     skill_2_1.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_2_1.hasClass('char-skills-orange')) {
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                    skill_2_3.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills')) {
+                    skill_2_2.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
                     skill_2_1.removeClass('char-skills-orange').addClass('char-skills')
-                };
+                } 
 
                 //Skill 003
 
-                if(skill_3_1.hasClass('char-skills-red')) {
+                if(skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-red')) {
+                    skill_3_3.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-orange')) {
+                    skill_3_2.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
                     skill_3_1.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_3_1.hasClass('char-skills-orange')) {
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                    skill_3_3.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills')) {
+                    skill_3_2.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
                     skill_3_1.removeClass('char-skills-orange').addClass('char-skills')
-                };                
+                }               
 
                 
                 break;
             case 1:
                 //Skill 001
 
-                if(skill_1_2.hasClass('char-skills-red')) {
+                //Skill 001
+                if(skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-red')) {
+                    skill_1_3.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-orange')) {
                     skill_1_2.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_1_2.hasClass('char-skills-orange')) {
+                } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                    skill_1_1.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                    skill_1_3.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills')) {
                     skill_1_2.removeClass('char-skills-orange').addClass('char-skills')
-                };
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
+                    skill_1_1.removeClass('char-skills-orange').addClass('char-skills')
+                } 
 
                 //Skill 002
 
-                if(skill_2_2.hasClass('char-skills-red')) {
+                if(skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-red')) {
+                    skill_2_3.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-orange')) {
                     skill_2_2.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_2_2.hasClass('char-skills-orange')) {
+                } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                    skill_2_1.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                    skill_2_3.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills')) {
                     skill_2_2.removeClass('char-skills-orange').addClass('char-skills')
-                };
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
+                    skill_2_1.removeClass('char-skills-orange').addClass('char-skills')
+                } 
 
-                //Skill 002
+                //Skill 003
 
-                if(skill_3_2.hasClass('char-skills-red')) {
+                if(skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-red')) {
+                    skill_3_3.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-orange')) {
                     skill_3_2.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_3_2.hasClass('char-skills-orange')) {
+                } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                    skill_3_1.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                    skill_3_3.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills')) {
                     skill_3_2.removeClass('char-skills-orange').addClass('char-skills')
-                };                
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
+                    skill_3_1.removeClass('char-skills-orange').addClass('char-skills')
+                }                
                 
                               
                 break;
             case 2:
                 //Skill 001
 
-                if(skill_1_3.hasClass('char-skills-red')) {
+                //Skill 001
+                if(skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-red')) {
                     skill_1_3.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_1_3.hasClass('char-skills-orange')) {
+                } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-red') && skill_1_3.hasClass('char-skills-orange')) {
+                    skill_1_2.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_1_1.hasClass('char-skills-red') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
+                    skill_1_1.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills-orange')) {
                     skill_1_3.removeClass('char-skills-orange').addClass('char-skills')
-                };
-                
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills-orange') && skill_1_3.hasClass('char-skills')) {
+                    skill_1_2.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_1_1.hasClass('char-skills-orange') && skill_1_2.hasClass('char-skills') && skill_1_3.hasClass('char-skills')) {
+                    skill_1_1.removeClass('char-skills-orange').addClass('char-skills')
+                } 
+
                 //Skill 002
 
-                if(skill_2_3.hasClass('char-skills-red')) {
+                if(skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-red')) {
                     skill_2_3.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_2_3.hasClass('char-skills-orange')) {
+                } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-red') && skill_2_3.hasClass('char-skills-orange')) {
+                    skill_2_2.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_2_1.hasClass('char-skills-red') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
+                    skill_2_1.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills-orange')) {
                     skill_2_3.removeClass('char-skills-orange').addClass('char-skills')
-                };
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills-orange') && skill_2_3.hasClass('char-skills')) {
+                    skill_2_2.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_2_1.hasClass('char-skills-orange') && skill_2_2.hasClass('char-skills') && skill_2_3.hasClass('char-skills')) {
+                    skill_2_1.removeClass('char-skills-orange').addClass('char-skills')
+                } 
 
                 //Skill 003
 
-                if(skill_3_3.hasClass('char-skills-red')) {
+                if(skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-red')) {
                     skill_3_3.removeClass('char-skills-red').addClass('char-skills-orange')
-                } else if (skill_3_3.hasClass('char-skills-orange')) {
+                } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-red') && skill_3_3.hasClass('char-skills-orange')) {
+                    skill_3_2.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_3_1.hasClass('char-skills-red') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
+                    skill_3_1.removeClass('char-skills-red').addClass('char-skills-orange')
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills-orange')) {
                     skill_3_3.removeClass('char-skills-orange').addClass('char-skills')
-                };                
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills-orange') && skill_3_3.hasClass('char-skills')) {
+                    skill_3_2.removeClass('char-skills-orange').addClass('char-skills')
+                } else if (skill_3_1.hasClass('char-skills-orange') && skill_3_2.hasClass('char-skills') && skill_3_3.hasClass('char-skills')) {
+                    skill_3_1.removeClass('char-skills-orange').addClass('char-skills')
+                }              
                 
                 break;             
         }

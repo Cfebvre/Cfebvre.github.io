@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    <title>Athan Character Sheet Generator</title>
+        <!-- Include jQuery library -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <!--Reference Javascript File-->
+        <script src="scripts.js" type="text/javascript"></script>
+        <!-- Reference Style Sheet-->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-container">
+
+        <!--Character Name and Player Name fields-->
+
+        <div class="char-details">
+            <label class="heading-field" for="charName">
+                Character Name:
+            </label>
+            <input class="input-field" type="text" id="charName" name="charName"></input>
+        </div>
+        <div class="char-details">
+            <label class="heading-field" for="playName">
+                Player Name:
+            </label>
+            <input class="input-field" type="text" id="playName" name="playName"></input>
+        </div>
+
+        <!--End Character Name and Player Name Fields-->
+
+        <!--Attribute Grid and Fields-->
+
+        <div class="char-attributes-container">
+            <div>
+                <img src="Att_Left.svg" alt="Attribute Left Bar" class="decorBar">
+            </div>
+            <div class="attribute-heading">ATTRIBUTES</div>
+            <div>
+                <img src="Att_Left.svg" alt="Attribute Right Bar" class="decorBar-inverted">
+            </div>
+            <div class="stat-block-empty"></div>
+            <div class="stat-block">
+                <div class="heading-field">Power</div>
+            </div>
+            <div class="stat-block">
+                <div class="heading-field">Finesse</div>
+            </div>
+            <div class="stat-block">
+                <div class="heading-field">Resilience</div>
+            </div>
+            <div class="subheading-block">
+                <div class="heading-field-attributes">Physical</div>
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="str1">Strength</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox str hea" id="str1" onchange="checkboxFunctions(this, { value1: att1, value2: att2, value3: att3, value4: ath1, value5: ath2, value6: ath3})">
+                    <input type="checkbox" class="char-checkbox str hea" id="str2" onchange="checkboxFunctions(this, { value1: att1, value2: att2, value3: att3, value4: ath1, value5: ath2, value6: ath3})">
+                    <input type="checkbox" class="char-checkbox str hea" id="str3" onchange="checkboxFunctions(this, { value1: att1, value2: att2, value3: att3, value4: ath1, value5: ath2, value6: ath3})">
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="dex1">Dexterity</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox dex non" id="dex1" onchange="checkboxFunctions(this, { value1: att1, value2: att2, value3: att3, value4: def1, value5: def2, value6: def3, value7: sne1, value8: sne2, value9: sne3 })">
+                    <input type="checkbox" class="char-checkbox dex non" id="dex2" onchange="checkboxFunctions(this, { value1: att1, value2: att2, value3: att3, value4: def1, value5: def2, value6: def3, value7: sne1, value8: sne2, value9: sne3 })">
+                    <input type="checkbox" class="char-checkbox dex non" id="dex3" onchange="checkboxFunctions(this, { value1: att1, value2: att2, value3: att3, value4: def1, value5: def2, value6: def3, value7: sne1, value8: sne2, value9: sne3})">
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="end1">Endurance</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox end hea" id="end1" onchange="checkboxFunctions(this, { value1: for1, value2: for2, value3: for3, value4: ath1, value5: ath2, value6: ath3})">
+                    <input type="checkbox" class="char-checkbox end hea" id="end2" onchange="checkboxFunctions(this, { value1: for1, value2: for2, value3: for3, value4: ath1, value5: ath2, value6: ath3})">
+                    <input type="checkbox" class="char-checkbox end hea" id="end3" onchange="checkboxFunctions(this, { value1: for1, value2: for2, value3: for3, value4: ath1, value5: ath2, value6: ath3})">
+            </div>
+            <div class="subheading-block">
+                <div class="heading-field-attributes">Mental</div>
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="int1">Intellect</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox int ene" id="int1" onchange="checkboxFunctions(this, { value1: arc1, value2: arc2, value3: arc3, value4: inf1, value5: inf2, value6: inf3})">
+                    <input type="checkbox" class="char-checkbox int ene" id="int2" onchange="checkboxFunctions(this, { value1: arc1, value2: arc2, value3: arc3, value4: inf1, value5: inf2, value6: inf3})">
+                    <input type="checkbox" class="char-checkbox int ene" id="int3" onchange="checkboxFunctions(this, { value1: arc1, value2: arc2, value3: arc3, value4: inf1, value5: inf2, value6: inf3})">
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="wit1">Wits</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox wit ene" id="wit1" onchange="checkboxFunctions(this, { value1: def1, value2: def2, value3: def3, value4: not1, value5: not2, value6: not3})">
+                    <input type="checkbox" class="char-checkbox wit ene" id="wit2" onchange="checkboxFunctions(this, { value1: def1, value2: def2, value3: def3, value4: not1, value5: not2, value6: not3})">
+                    <input type="checkbox" class="char-checkbox wit ene" id="wit3" onchange="checkboxFunctions(this, { value1: def1, value2: def2, value3: def3, value4: not1, value5: not2, value6: not3})">
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="res1">Resolve</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox res hea" id="res1" onchange="checkboxFunctions(this, { value1: arc1, value2: arc2, value3: arc3, value4: for1, value5: for2, value6: for3})">
+                    <input type="checkbox" class="char-checkbox res hea" id="res2" onchange="checkboxFunctions(this, { value1: arc1, value2: arc2, value3: arc3, value4: for1, value5: for2, value6: for3})">
+                    <input type="checkbox" class="char-checkbox res hea" id="res3" onchange="checkboxFunctions(this, { value1: arc1, value2: arc2, value3: arc3, value4: for1, value5: for2, value6: for3})">
+            </div>
+            <div class="subheading-block">
+                <div class="heading-field-attributes">Social</div>
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="cha1">Charisma</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox cha ene" id="cha1" onchange="checkboxFunctions(this, { value1: inf1, value2: inf2, value3: inf3, value4: dec1, value5: dec2, value6: dec3})">
+                    <input type="checkbox" class="char-checkbox cha ene" id="cha2" onchange="checkboxFunctions(this, { value1: inf1, value2: inf2, value3: inf3, value4: dec1, value5: dec2, value6: dec3})">
+                    <input type="checkbox" class="char-checkbox cha ene" id="cha3" onchange="checkboxFunctions(this, { value1: inf1, value2: inf2, value3: inf3, value4: dec1, value5: dec2, value6: dec3})">
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="sub1">Subterfuge</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox sub non" id="sub1" onchange="checkboxFunctions(this, { value1: ins1, value2: ins2, value3: ins3, value4: dec1, value5: dec2, value6: dec3, value7: sne1, value8: sne2, value9: sne3 })">
+                    <input type="checkbox" class="char-checkbox sub non" id="sub2" onchange="checkboxFunctions(this, { value1: ins1, value2: ins2, value3: ins3, value4: dec1, value5: dec2, value6: dec3, value7: sne1, value8: sne2, value9: sne3 })">
+                    <input type="checkbox" class="char-checkbox sub non" id="sub3" onchange="checkboxFunctions(this, { value1: ins1, value2: ins2, value3: ins3, value4: dec1, value5: dec2, value6: dec3, value7: sne1, value8: sne2, value9: sne3 })">
+            </div>
+            <div class="stat-block">
+                <div>
+                    <label class="heading-field" for="cog1">Cognizance</label>
+                </div>
+                    <input type="checkbox" class="char-checkbox cog ene" id="cog1" onchange="checkboxFunctions(this, { value1: ins1, value2: ins2, value3: ins3, value4: not1, value5: not2, value6: not3})">
+                    <input type="checkbox" class="char-checkbox cog ene" id="cog2" onchange="checkboxFunctions(this, { value1: ins1, value2: ins2, value3: ins3, value4: not1, value5: not2, value6: not3})">
+                    <input type="checkbox" class="char-checkbox cog ene" id="cog3" onchange="checkboxFunctions(this, { value1: ins1, value2: ins2, value3: ins3, value4: not1, value5: not2, value6: not3})">
+            </div>
+        </div>
+
+        <!--End Attribute Grid and Fields-->
+
+        <div class="char-skills-vitality-container">
+            <div>
+                <div class ="vitality-skills-grid">
+                    <div class="decor-skills-bar">
+                        <img src="Vit_Skill_Left.svg" alt="Vit Left Bar" class="decorBar">
+                    </div>
+                    <div class="sub-heading">VITALITY</div>
+                    <div class="decor-skills-bar">
+                        <img src="Vit_Skill_Left.svg" alt="Vit Right Bar" class="decorBar-inverted">
+                    </div>
+                    <div class="vitality-grid">
+
+                        <div class="heading-field-vitality">Health</div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health1">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health2">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health3">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health4">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health5">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health6">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health7">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health8">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health9">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health10">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health11">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health12">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health13">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health14">
+                        </div>
+                        <div>
+                            <input class ="health-checkbox" type="checkbox" id="health15">
+                        </div>
+                        <div class="heading-field-vitality">Energy</div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy1">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy2">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy3">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy4">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy5">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy6">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy7">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy8">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy9">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy10">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy11">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy12">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy13">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy14">
+                        </div>
+                        <div>
+                            <input class ="energy-checkbox" type="checkbox" id="energy15">
+                        </div>
+                    </div>
+                    <div class="decor-skills-bar">
+                        <img src="Vit_Skill_Left.svg" alt="Vit Left Bar" class="decorBar">
+                    </div>
+                    <div class="sub-heading">SKILLS</div>
+                    <div class="decor-skills-bar">
+                        <img src="Vit_Skill_Left.svg" alt="Vit Left Bar" class="decorBar-inverted">
+                    </div>
+                    <div class="char-skills-container">
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="att1">Attack</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="att1" disabled>
+                                <input type="checkbox" class="char-skills" id="att2" disabled>
+                                <input type="checkbox" class="char-skills" id="att3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="def1">Defense</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="def1" disabled>
+                                <input type="checkbox" class="char-skills" id="def2" disabled>
+                                <input type="checkbox" class="char-skills" id="def3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="arc1">Arcana</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="arc1" disabled>
+                                <input type="checkbox" class="char-skills" id="arc2" disabled>
+                                <input type="checkbox" class="char-skills" id="arc3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="for1">Fortitude</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="for1" disabled>
+                                <input type="checkbox" class="char-skills" id="for2" disabled>
+                                <input type="checkbox" class="char-skills" id="for3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="inf1">Influence</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="inf1" disabled>
+                                <input type="checkbox" class="char-skills" id="inf2" disabled>
+                                <input type="checkbox" class="char-skills" id="inf3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="ins1">Insight</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="ins1" disabled>
+                                <input type="checkbox" class="char-skills" id="ins2" disabled>
+                                <input type="checkbox" class="char-skills" id="ins3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="dec1">Deception</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="dec1" disabled>
+                                <input type="checkbox" class="char-skills" id="dec2" disabled>
+                                <input type="checkbox" class="char-skills" id="dec3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="sne1">Sneak</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="sne1" disabled>
+                                <input type="checkbox" class="char-skills" id="sne2" disabled>
+                                <input type="checkbox" class="char-skills" id="sne3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="ath1">Athletics</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="ath1" disabled>
+                                <input type="checkbox" class="char-skills" id="ath2" disabled>
+                                <input type="checkbox" class="char-skills" id="ath3" disabled>
+                        </div>
+                        <div class="stat-block">
+                            <div>
+                                <label class="heading-field" for="not1">Notice</label>
+                            </div>
+                                <input type="checkbox" class="char-skills" id="not1" disabled>
+                                <input type="checkbox" class="char-skills" id="not2" disabled>
+                                <input type="checkbox" class="char-skills" id="not3" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="equipment-container" id = "parent-equipment-block">
+            <div class="decor-skills-bar">
+                <img src="Equip_Left.svg" alt="Equip Left Bar" class="decorBar">
+            </div>
+            <div class="sub-heading">EQUIPMENT</div>
+            <div class="decor-skills-bar">
+                <img src="Equip_Left.svg" alt="Equip Right Bar" class="decorBar-inverted">
+            </div>
+
+            <div class="equipment-container-block" id="equipment-container">
+                <div class ="divider-line-equip"></div>
+                <input class="input-field" type="text" id="equipTitle1" name="equipTitle1" placeholder="Equipment Title"></input>
+                <textarea class="input-field-double" type="text" id="equipDesc1" name="equipDesc1" placeholder="Equipment Description"></textarea>
+            </div>
+            <div class="equipment-container-button-container">
+                <button class="add-button" onclick="addEquipmentFormField()">Add Equipment</button>
+            </div>
+        </div>
+
+
+        <div class="weapon-container" id = "parent-weapon-block">
+            <div class="decor-skills-bar">
+                <img src="Weap_Left.svg" alt="Weap Left Bar" class="decorBar">
+            </div>
+            <div class="sub-heading">WEAPONS</div>
+            <div class="decor-skills-bar">
+                <img src="Weap_Left.svg" alt="Weap Right Bar" class="decorBar-inverted">
+            </div>
+
+            <div class="weapon-container-block" id="weapon-container">
+<div class ="divider-line-weapon"></div>
+<label class="weapon-heading-field" for="weapTitle1">Weapon</label>
+<label class="weapon-heading-field" for="weapon-type">Type</label>
+<label class="weapon-heading-field" for="weapon-range">Range</label>
+<label class="weapon-heading-field" for="damage-select">Dmg</label>
+<label class="weapon-heading-field" for="comp-select">Complication</label>
+<div>
+    <input class="input-field-fill" type="text" id="weapTitle1" name="weapTitle1" placeholder="Weapon Name">
+
+</input>
+</div>
+<div class="dropdown-select">
+    <select name="weapon-type" id="weapon-type">
+        <option>Attack</option>
+        <option>Arcana</option>
+    </select> 
+</div>
+<div class="dropdown-select">
+    <select name="weapon-range" id="weapon-range">
+        <option>Close</option>
+        <option>Medium</option>
+        <option>Long</option>
+    </select>
+</div>
+<div class="dropdown-select">
+    <select name="damage-select" id="damage-select">
+        <option>+1</option>
+        <option>+2</option>
+        <option>+3</option>
+        <option>+4</option>
+        <option>+5</option>
+        <option>+6</option>
+    </select>
+</div>
+<div class="dropdown-select">
+    <select name="comp-select" id="comp-select">
+        <option>Bleed</option>
+        <option>Burn</option>
+        <option>Stun</option>
+    </select>
+</div>
+            </div>
+            <div class="weapon-container-button-container">
+                <button class="add-button" onclick="addWeaponFormField()">Add Weapon</button>
+            </div>
+        </div>
+        <div class = "ability-container">
+            <div class = "decor-skills-bar">
+                <img src="Ability_Left.svg" alt="Ability Left Bar" class="decorBar">
+            </div>
+            <div class = "sub-heading">ABILITIES</div>
+            <div class = "decor-skills-bar">
+                <img src="Ability_Left.svg" alt="Ability Right Bar" class="decorBar-inverted">
+            </div>
+        </div>
+        <div class = "ability-container-001" id = "parent-ability-001">
+            <div class="ability-container-block" id="ability-001">
+                <div class ="divider-line-equip"></div>
+                <input class="input-field-ability-title" type="text" id="abilityTitle11" name="abilityTitle1" placeholder="Ability Title"></input>
+                <textarea class="input-field-flav" type="text" id="abilityFlav11" name="abilityFlav1" placeholder="Flavour Text"></textarea>
+                <textarea class="input-field-desc" type="text" id="abilityDesc11" name="abilityDesc1" placeholder="Ability Description"></textarea>
+                <div></div>
+            </div>
+            <div class="ability-container-button-container">
+                <button class="add-button" onclick="addAbilityFormField1()">Add Ability</button>
+            </div>
+        </div>
+        <div class = "ability-container-002" id = "parent-ability-002">
+            <div class="ability-container-block" id="ability-002">
+                <div class ="divider-line-equip"></div>
+                <input class="input-field-ability-title" type="text" id="abilityTitle21" name="abilityTitle1" placeholder="Ability Title"></input>
+                <textarea class="input-field-flav" type="text" id="abilityFlav21" name="abilityFlav1" placeholder="Flavour Text"></textarea>
+                <textarea class="input-field-desc" type="text" id="abilityDesc21" name="abilityDesc1" placeholder="Ability Description"></textarea>
+                <div></div>
+            </div>
+            <div class="ability-container-button-container">
+                <button class="add-button" onclick="addAbilityFormField2()">Add Ability</button>
+            </div>
+        </div>
+        <div class = "ability-container-003" id = "parent-ability-003">
+            <div class="ability-container-block" id="ability-003">
+                <div class ="divider-line-equip"></div>
+                <input class="input-field-ability-title" type="text" id="abilityTitle31" name="abilityTitle1" placeholder="Ability Title"></input>
+                <textarea class="input-field-flav" type="text" id="abilityFlav31" name="abilityFlav1" placeholder="Flavour Text"></textarea>
+                <textarea class="input-field-desc" type="text" id="abilityDesc31" name="abilityDesc1" placeholder="Ability Description"></textarea>
+                <div></div>
+            </div>
+            <div class="ability-container-button-container">
+                <button class="add-button" onclick="addAbilityFormField3()">Add Ability</button>
+            </div>
+        </div>
+        <div>11</div>
+        <div>12</div>
+        <div>13</div>
+        <div>14</div>
+        <div><span id="counter">0</span></div>
+    </div>
+</body>
+</html>

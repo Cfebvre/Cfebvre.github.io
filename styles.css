@@ -1,0 +1,674 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+body {
+    margin: 30px;
+    font-family: "Garamond";
+    font-size: 16px;
+}
+
+.grid-container {
+    background: #eeeeee00;
+    max-width: 850px;
+    min-width: 850px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: 30px 240px;
+    gap: 5px;
+    align-items: start;
+    
+}
+
+.grid-container > div {
+    background: #ccc;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+    
+}
+
+.grid-container > div:nth-child(1) {
+    grid-column: span 7;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.grid-container > div:nth-child(2) {
+    grid-column: span 8;
+    border-width: 0px;
+    border-radius: 6px;
+    
+}
+
+.grid-container > div:nth-child(5) {
+    grid-column: span 5;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.grid-container > div:nth-child(6) {
+    grid-column: span 10;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.grid-container > div:nth-child(7) {
+    grid-column: span 15;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.grid-container > div:nth-child(8) {
+    grid-column: span 5;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.grid-container > div:nth-child(9) {
+    grid-column: span 5;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.grid-container > div:nth-child(10) {
+    grid-column: span 5;
+    border-width: 0px;
+    border-radius: 6px;
+
+}
+
+.divider-line-weapon {
+ grid-column: span 5;
+ height: 2px;
+ background-color: #333 !important;
+
+}
+
+.divider-line-equip {
+    grid-column: span ;
+    height: 2px;
+    background-color: #333;
+   
+}
+
+.char-attributes-container {
+    grid-column: span 7;
+    border-width: 0px;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 20px 26px 1fr 1fr 1fr;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.char-attributes-container > div {
+    background-color: #eee;
+    min-width: 30px;
+    text-align: center;
+}
+
+
+.attribute-heading {
+    font-weight: 600;
+    grid-column: span 2;
+    text-align: center;
+    border-radius: 4px;
+
+}
+
+.vitality-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 20px 60px 20px 1fr;
+    gap: 5px;
+    border-width: 0px;
+    border-radius: 0px;
+    background-color: #ccc;
+    height: 100%;
+    
+
+}
+
+.vitality-skills-grid > div {
+    background-color: #eee;
+    min-width: 30px;
+
+}
+
+.decor-skills-bar {
+    background-color: #ccc !important;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.vitality-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    
+}
+
+.vitality-grid > div {
+
+border-radius: 4px;
+height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+.vitality-skills-grid > div:nth-child(4) {
+    grid-column: span 3;
+    background-color: #ccc;
+    text-align: center;
+
+}
+
+.vitality-skills-grid > div:nth-child(8) {
+    grid-column: span 3;
+    background-color: #ccc;
+    text-align: center;
+
+}
+
+.vitality-heading {
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.char-skills-vitality-container > div {
+    background-color: #eee;
+    min-width: 30px;
+    text-align: center;
+    height: 100%;
+    gap: 5px;
+}
+
+.grid-container > div:nth-child(4) {
+    grid-column: span 8;
+    border-width: 0px;
+    border-radius: 6px;
+    
+}
+
+.heading-field {
+    font-size: 15px;
+    font-weight: 600;
+    align-self: center;
+
+}
+
+.small-heading-field {
+    font-size: 12px;
+    font-weight: 600;
+    align-self: center;
+
+}
+
+.heading-field-vitality {
+    background-color: #eee;
+    font-size: 15px;
+    font-weight: 600;
+    align-self: center;
+    padding: 5px;
+    box-sizing: border-box;
+
+}
+
+.heading-field-attributes {
+    font-size: 15px;
+    font-weight: 600;
+    align-self: center;
+    padding: 4px;
+    box-sizing: border-box;
+
+}
+
+.char-details {
+    align-items:end;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border-radius: 4px;
+}
+
+.char-skills-vitality-container {
+    align-items:start;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    border-radius: 4px;
+    gap: 5px;
+}
+
+.stat-block {
+    border-radius: 4px;
+    height: 100%;
+
+}
+
+.stat-block-empty {
+    border-radius: 4px;
+    height: 100%;
+    background-color: #33333300 !important;
+
+}
+
+.subheading-block {
+    border-radius: 4px;
+    height: 23px;
+
+}
+
+
+.char-skills-container {
+    grid-column: span 8;
+    border-width: 0px;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.char-skills-container > div {
+    background-color: #eee;
+    min-width: 10px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: #777;
+    font-family: "Garamond";
+    font-size: 15px;
+    padding: 2px;
+    text-indent: 8px;
+
+}
+
+.input-field-fill {
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: #777;
+    font-family: "Garamond";
+    font-size: 15px;
+    padding: 2px;
+    text-indent: 8px;
+
+}
+
+.input-field-double {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: #777;
+    font-family: "Garamond";
+    font-size: 15px;
+    padding: 2px;
+    text-indent: 8px;
+    min-height: 49px;
+    max-height: 80px;
+    max-width: 270px;
+    min-width: 270px;
+
+}
+
+.char-checkbox {
+    width: 22px;
+    height: 22px;
+    margin-block-start: 8px;
+    margin-left: 0px;
+    margin-right: 0px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: white;
+
+}
+
+.health-checkbox {
+    width: 18px;
+    height: 100%;
+    margin: 1px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: white;
+
+}
+
+.health-checkbox-red {
+    width: 18px;
+    height: 100%;
+    margin: 1px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: red;
+
+}
+
+.energy-checkbox {
+    width: 18px;
+    height: 100%;
+    margin: 1px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: white;
+
+}
+
+.energy-checkbox-blue {
+    width: 18px;
+    height: 100%;
+    margin: 1px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: blue;
+
+}
+
+input[type="checkbox"].health-checkbox:checked {
+    background-color: red;
+}
+input[type="checkbox"].energy-checkbox:checked {
+    background-color: blue;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #333;
+}
+
+.char-skills {
+    width: 22px;
+    height: 22px;
+    margin-block-start: 8px;
+    margin-left: 0px;
+    margin-right: 0px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: #FFD61F;
+
+}
+
+.char-skills-orange {
+    width: 22px;
+    height: 22px;
+    margin-block-start: 8px;
+    margin-left: 0px;
+    margin-right: 0px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: #FF771F;
+
+}
+
+.char-skills-red {
+    width: 22px;
+    height: 22px;
+    margin-block-start: 8px;
+    margin-left: 0px;
+    margin-right: 0px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    background-color: #B11A11;
+
+}
+
+.decorBar {
+    display: flex !important;
+    width: 100%;
+    height: auto;
+    background-color:#ccc;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.decorBar-inverted {
+    width: 100%;
+    height: auto;
+    background-color:#ccc;
+    transform: scaleX(-1);
+}
+
+.equipment-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 5px;
+}
+
+.equipment-container > div {
+    background-color: #eee;
+    border-radius: 4px;
+    grid-template-columns: 1fr;
+
+}
+
+.equipment-container-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    background-color: #eee;
+    border-radius: 4px;
+    grid-column: span 3;
+    min-height: 70px;
+}
+
+.equipment-container-button-container {
+    background-color: #eee;
+    border-radius: 4px;
+    grid-column: span 3;
+}
+
+.add-button {
+    background-color: #4caf50;;
+    color: white;
+    border-radius: 4px;
+    width: 100%;
+    height: 20px;
+    border: none;
+    font-weight: 600;
+    font-size: 10pt;
+    cursor: pointer;
+}
+
+.sub-heading {
+    background-color: #eee;
+    font-size: 15px;
+    font-weight: 600;
+    min-height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.weapon-container {
+    background-color: #eee;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 5px;
+
+}
+
+.weapon-container > div {
+    border-radius: 4px;
+    grid-template-columns: 2fr 1fr .7fr .5fr 1fr;
+    grid-template-rows: .1fr 1fr 50px;
+    gap: 5px;
+
+}
+
+.weapon-container-header {
+    background-color: #eee;
+    border-radius: 4px;
+    gap: 5px;
+    min-height: 20px;
+    max-height: 20px;
+
+}
+
+.weapon-container-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    border-radius: 4px;
+    grid-column: span 3;
+    min-height: 70px;
+    align-items: start;
+}
+
+.weapon-container-block > div {
+    background-color: #eee;
+    border-radius: 4px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
+
+}
+
+.weapon-container-block > label {
+    background-color: #eee;
+    border-radius: 4px;
+    gap: 5px;
+
+}
+
+.weapon-container-button-container {
+    background-color: #eee;
+    border-radius: 4px;
+    grid-column: span 3;
+}
+
+.weapon-heading-field {
+    font-size: 15px;
+    font-weight: 600;
+    align-self: center;
+    min-height: 20px;
+    max-height: 20px;
+
+}
+
+.dropdown-select select {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-family: Garamond;
+    border: 0px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    appearance: none; /* Remove default arrow in some browsers */
+    background-color: #eee; /* Dropdown background color */
+  }
+
+  .dropdown-select {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-family: Garamond;
+    border: 0px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    appearance: none; /* Remove default arrow in some browsers */
+    background-color: #eee; /* Dropdown background color */
+  }
+
+  .ability-container {
+    background-color: #777;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 5px;
+
+}
+
+.ability-container-header {
+    background-color: #eee;
+    border-radius: 4px;
+    gap: 5px;
+    min-height: 20px;
+    max-height: 20px;
+
+}
+
+.ability-container-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    border-radius: 4px;
+    grid-column: span 3;
+    min-height: 70px;
+}
+
+.input-field-flav {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: #eee;
+    font-family: "Garamond";
+    font-style: italic;
+    font-size: 15px;
+    padding: 2px;
+    text-indent: 8px;
+    padding-top: 5px;
+    min-height: 30px;
+    max-height: 50px;
+    max-width: 270px;
+    min-width: 270px;
+
+}
+
+.input-field-desc {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: #eee;
+    font-family: "Garamond";
+    font-style: italic;
+    font-size: 15px;
+    padding: 2px;
+    text-indent: 8px;
+    min-height: 30px;
+    max-height: 100px;
+    max-width: 270px;
+    min-width: 270px;
+
+}
+
+.input-field-ability-title {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: #777;
+    font-family: "Garamond";
+    font-weight: 600;
+    font-size: 15px;
+    padding: 2px;
+    text-indent: 8px;
+    text-align: center;
+    text-transform: uppercase;
+
+}

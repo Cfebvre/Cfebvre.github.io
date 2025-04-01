@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  background: #f4f4f4;
+  color: #111;
+  padding: 40px;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 5px;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 8px;
+  background: #fff;
+  border: 2px solid #000;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.dot-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.dot.core {
+  background: #fff;
+}
+
+.dot.core.active {
+  background: #000;
+}
+
+.dot.skill {
+  background: yellow;
+}
+
+.dot.skill.orange {
+  background: orange;
+}
+
+.dot.skill.red {
+  background: red;
+}
+
+.dot.health,
+.dot.sanity {
+  width: 15px;
+  height: 15px;
+  border: 2px solid;
+  background: #fff;
+  cursor: pointer;
+}
+
+.dot.health {
+  border-color: red;
+}
+
+.dot.health.active {
+  background: red;
+}
+
+.dot.sanity {
+  width: 15px;
+  height: 15px;
+  border: 2px solid green;
+  background: #fff;
+  cursor: pointer;
+}
+
+.dot.sanity.half {
+  background: linear-gradient(to top, green 50%, #fff 50%);
+}
+
+.dot.sanity.full {
+  background: green;
+}
+
+.dot.training {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #000;
+  background: #fff;
+  cursor: pointer;
+}
+
+.dot.training.yellow {
+  background: yellow;
+}
+
+.dot.training.orange {
+  background: orange;
+}
+
+.dot.training.red {
+  background: red;
+}
+
+.dot.training.black {
+  background: black;
+}
+
+.training-grid {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.dot.bond {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #000;
+  background: #fff;
+  cursor: pointer;
+}
+
+.dot.bond.active {
+  background: black;
+}
+
+.bond-name {
+  width: calc(100% - 1rem);
+  display: inline-block;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  background: #fff;
+  border: 2px solid #000;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'10'%20height%3D'7'%20viewBox%3D'0%200%2010%207'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M0%200l5%207%205-7z'%20fill%3D'%23000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 10px 7px;
+}
+
+select:focus {
+  outline: none;
+  border-color: #333;
+}

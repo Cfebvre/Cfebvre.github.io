@@ -7,11 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <div class="container">
-    <div style="margin-bottom: 1rem;">
-      <button onclick="saveCharacter()">Save Character</button>
-      <input type="file" id="loadFile" accept=".json" onchange="loadCharacter(event)">
-    </div>
+<div class="container">
+  <div class="section button-row">
+    <button onclick="saveCharacter()">Save Character</button>
+    <input type="file" id="loadFile" accept=".json" onchange="loadCharacter(event)" hidden>
+<label for="loadFile" class="button file-button">Load Character</label>
+    <button onclick="resetCharacter()">Reset Character</button>
+
+  </div>
+
 
     <div class="container">
       <h1>Delta Green Character Sheet</h1>
@@ -72,6 +76,48 @@
         </div>
     
 <h2>Combat Actions</h2>
+<div class="section grid">
+  <div>
+    <label>Weapon</label>
+    <input type="text" class="combat-weapon">
+  </div>
+  <div>
+    <label>Skill</label>
+    <select class="combat-skill">
+      <option value="Melee">Melee</option>
+      <option value="Ranged">Ranged</option>
+    </select>
+  </div>
+  <div>
+    <label>Range</label>
+    <select class="combat-range">
+      <option value="Close">Close</option>
+      <option value="Medium">Medium</option>
+      <option value="Far">Far</option>
+      <option value="Very Far">Very Far</option>
+    </select>
+  </div>
+  <div>
+    <label>Type</label>
+    <select class="combat-type">
+      <option value="Bludgeoning">Bludgeoning</option>
+      <option value="Piercing">Piercing</option>
+      <option value="Slashing">Slashing</option>
+    </select>
+  </div>
+  <div>
+    <label>Damage</label>
+    <select class="combat-damage">
+      <option value="+1">+1</option>
+      <option value="+2">+2</option>
+      <option value="+3">+3</option>
+      <option value="+4">+4</option>
+      <option value="+5">+5</option>
+      <option value="+6">+6</option>
+    </select>
+  </div>
+</div>
+      
 <div class="section grid">
   <div>
     <label>Weapon</label>
@@ -184,6 +230,21 @@
   <div><label>Unarmed Combat</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
   <div><label>Unnatural</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
   <div><label>Language ()</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
+</div>
+
+<h2>Personal Details and Notes</h2>
+<div class="section">
+  <textarea id="personal-notes" rows="6" placeholder="Background, history, personality, etc."></textarea>
+</div>
+
+<h2>Wounds and Ailments</h2>
+<div class="section">
+  <textarea id="wounds" rows="4" placeholder="Injuries, trauma, conditions, etc."></textarea>
+</div>
+
+<h2>Equipment and Gear</h2>
+<div class="section">
+  <textarea id="equipment" rows="4" placeholder="Weapons, tools, supplies, etc."></textarea>
 </div>
       </div>
   </div>

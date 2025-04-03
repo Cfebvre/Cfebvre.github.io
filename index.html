@@ -18,14 +18,14 @@
 
 
     <div class="container">
-      <h1>Delta Green Character Sheet</h1>
+      <h1>&Delta; Agent Profile</h1>
     
         <div class="section grid">
           <div><label for="agent">Agent</label><input type="text" id="agent"></div>
           <div><label for="player">Player</label><input type="text" id="player"></div>
         </div>
     
-        <h2>Health & Sanity</h2>
+        <h2>&Delta; Health & Sanity</h2>
         <div class="section grid">
           <div>
             <label>Health</label>
@@ -42,8 +42,18 @@
             </div>
           </div>
         </div>
-    
-        <h2>Core Attributes</h2>
+ 
+ <div class="toggle-wrapper">
+  <label class="toggle-label">
+    <span id="core-label-off">Physical, Mental, Social</span>
+    <label class="switch">
+      <input type="checkbox" id="core-toggle">
+      <span class="slider round"></span>
+    </label>
+    <span id="core-label-on" style="display:none;">Power, Finesse, Resilience</span>
+  </label>
+</div>     
+        <h2>&Delta; Core Attributes</h2>
         <div class="section grid">
           <div><label>Strength</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
           <div><label>Focus</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
@@ -56,26 +66,35 @@
           <div><label>Awareness</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
         </div>
     
-        <h2>Skills</h2>
+        <h2>&Delta; Skills</h2>
         <div class="section grid">
-          <div><label>Composure</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Defense</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Fortitude</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Melee</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Ranged</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Occult</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Devices</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Might</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Notice</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Sneak</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Survival</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Deception</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Influence</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Insight</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
-          <div><label>Presence</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>
+  Composure
+  <button class="info-button" onclick="toggleInfo(this)">?</button>
+  <span class="info-popup">Wits + Charisma</span>
+</label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Defence<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Dexterity + Wits</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Fortitude<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Endurance + Resolve</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>
+  Melee
+  <button class="info-button" onclick="toggleInfo(this)">?</button>
+  <span class="info-popup">Strength + Dexterity</span>
+</label>
+<div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Ranged<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Dexterity + Focus</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Occult<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Focus + Resolve</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Devices<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Focus + Subterfuge</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Might<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Strength + Endurance</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Notice<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Wits + Awareness</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Sneak<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Dexterity + Subterfuge</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Survival<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Endurance + Wits</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Deception<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Charisma + Subterfuge</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Influence<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Charisma + Awareness</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Insight<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Subterfuge + Awareness</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
+          <div><label>Presence<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Strength + Charisma</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
         </div>
     
-<h2>Combat Actions</h2>
+<h2>&Delta; Combat Actions</h2>
 <div class="section grid">
   <div>
     <label>Weapon</label>
@@ -160,7 +179,7 @@
   </div>
 </div>
     
-        <h2>Bonds</h2>
+        <h2>&Delta; Bonds</h2>
 <div class="section grid">
   <div>
     <label>Bond 1 <input type="text" class="bond-name" placeholder="Name or Relationship"></label>
@@ -188,7 +207,7 @@
   </div>
 </div>
     
-<h2>Training and Specializations</h2>
+<h2>&Delta; Training and Specializations</h2>
 <div class="section grid training-grid">
   <div><label>Accounting</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
   <div><label>Anthropology</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
@@ -232,19 +251,19 @@
   <div><label>Language ()</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
 </div>
 
-<h2>Personal Details and Notes</h2>
+<h2>&Delta; Personal Details and Notes</h2>
 <div class="section">
-  <textarea id="personal-notes" rows="6" placeholder="Background, history, personality, etc."></textarea>
+  <textarea id="personal-notes" rows="10" placeholder="Background, history, personality, etc."></textarea>
 </div>
 
-<h2>Wounds and Ailments</h2>
+<h2>&Delta; Wounds and Ailments</h2>
 <div class="section">
-  <textarea id="wounds" rows="4" placeholder="Injuries, trauma, conditions, etc."></textarea>
+  <textarea id="wounds" rows="10" placeholder="Injuries, trauma, conditions, etc."></textarea>
 </div>
 
-<h2>Equipment and Gear</h2>
+<h2>&Delta; Equipment and Gear</h2>
 <div class="section">
-  <textarea id="equipment" rows="4" placeholder="Weapons, tools, supplies, etc."></textarea>
+  <textarea id="equipment" rows="10" placeholder="Weapons, tools, supplies, etc."></textarea>
 </div>
       </div>
   </div>

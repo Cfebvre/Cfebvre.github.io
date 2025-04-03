@@ -4,6 +4,48 @@ document.querySelectorAll('.dot.core').forEach(dot => {
   });
 });
 
+const coreToggle = document.getElementById('core-toggle');
+
+coreToggle.addEventListener('change', () => {
+const isOn = coreToggle.checked;
+
+// Toggle label visibility
+document.getElementById('core-label-on').style.display = isOn ? 'inline' : 'none';
+document.getElementById('core-label-off').style.display = isOn ? 'none' : 'inline';
+
+const groups = isOn
+  ? {
+      red: ['Strength', 'Focus', 'Charisma'],
+      green: ['Dexterity', 'Wits', 'Subterfuge'],
+      blue: ['Endurance', 'Resolve', 'Awareness']
+    }
+  : {
+      red: ['Strength', 'Dexterity', 'Endurance'],
+      green: ['Focus', 'Wits', 'Resolve'],
+      blue: ['Charisma', 'Subterfuge', 'Awareness']
+    };
+
+document.querySelectorAll('.section.grid').forEach(section => {
+  section.querySelectorAll('div').forEach(div => {
+    const label = div.querySelector('label');
+    const dots = div.querySelectorAll('.dot.core');
+
+    if (!label || dots.length === 0) return;
+
+    const text = label.textContent.trim();
+
+    dots.forEach(dot => {
+      dot.classList.remove('red', 'green', 'blue');
+      if (groups.red.includes(text)) dot.classList.add('red');
+      else if (groups.green.includes(text)) dot.classList.add('green');
+      else if (groups.blue.includes(text)) dot.classList.add('blue');
+    });
+  });
+});
+});
+
+
+
 document.querySelectorAll('.dot.skill').forEach(dot => {
   dot.addEventListener('click', () => {
     if (dot.classList.contains('red')) {
@@ -65,7 +107,11 @@ function saveCharacter() {
     agent: document.getElementById("agent").value,
     player: document.getElementById("player").value,
     dots: {}
+
   };
+  
+// Save core toggle state
+data.coreToggle = document.getElementById("core-toggle").checked;
 
   document.querySelectorAll('.dot').forEach((dot, i) => {
     data.dots[i] = {
@@ -125,6 +171,11 @@ function loadCharacter(event) {
     const data = JSON.parse(e.target.result);
     if (data.agent) document.getElementById("agent").value = data.agent;
     if (data.player) document.getElementById("player").value = data.player;
+
+    // Load core toggle state
+const coreToggleInput = document.getElementById("core-toggle");
+coreToggleInput.checked = data.coreToggle || false;
+coreToggleInput.dispatchEvent(new Event('change')); // Trigger visual and color updates
     
 if (Array.isArray(data.combat)) {
 const weapons = document.querySelectorAll('.combat-weapon');
@@ -188,5 +239,21 @@ document.querySelectorAll('.dot').forEach(dot => {
   ).join(' ');
   dot.removeAttribute('data-returning'); // For sanity dots
 });
+
+// Reset and reapply core toggle coloring
+document.getElementById('core-toggle').dispatchEvent(new Event('change'));  
+
 }
+
+// Force initial attribute color setup based on toggle state
+window.addEventListener('DOMContentLoaded', () => {
+document.getElementById('core-toggle').dispatchEvent(new Event('change'));
+});
+
+//Info Button
+function toggleInfo(button) {
+const popup = button.nextElementSibling;
+popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+}
+
 

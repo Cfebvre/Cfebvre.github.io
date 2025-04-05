@@ -9,7 +9,7 @@
 <body>
 <div class="container">
   <div class="section button-row">
-    <button onclick="saveCharacter()">Save Character</button>
+    <button onclick="openSaveModal()">Save Character</button>
     <input type="file" id="loadFile" accept=".json" onchange="loadCharacter(event)" hidden>
 <label for="loadFile" class="button file-button">Load Character</label>
     <button onclick="resetCharacter()">Reset Character</button>
@@ -18,6 +18,20 @@
 
 
     <div class="container">
+      
+<div class="darkmode-toggle">
+  <label class="switch">
+    <input type="checkbox" id="dark-toggle">
+    <span class="slider round"></span>
+  </label>
+  <span class="darkmode-label">Dark Mode</span>
+
+  <!-- Dice Roller Button -->
+  <button id="dice-roller-toggle" class="dice-button">Dice Roller</button>
+</div>
+
+
+
       <h1>&Delta; Agent Profile</h1>
     
         <div class="section grid">
@@ -25,17 +39,28 @@
           <div><label for="player">Player</label><input type="text" id="player"></div>
         </div>
     
-        <h2>&Delta; Health & Sanity</h2>
+      <details open>  
+      <summary><h2>Health & Sanity</h2></summary>
         <div class="section grid">
           <div>
-            <label>Health</label>
+            <label>
+  Health
+  <button class="info-button" onclick="toggleInfo(this)">?</button>
+  <span class="info-popup">4 + Strength + Endurance + Resolve</span>
+</label>
+
             <div class="dot-container">
               <div class="dot health"></div><div class="dot health"></div><div class="dot health"></div><div class="dot health"></div><div class="dot health"></div><div class="dot health"></div>
               <div class="dot health"></div><div class="dot health"></div><div class="dot health"></div><div class="dot health"></div><div class="dot health"></div><div class="dot health"></div>
             </div>
           </div>
           <div>
-            <label>Sanity</label>
+            <label>
+  Sanity
+  <button class="info-button" onclick="toggleInfo(this)">?</button>
+  <span class="info-popup">5 + Focus + Resolve + Awareness (Full Pips)</span>
+</label>
+
             <div class="dot-container">
               <div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div>
               <div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div><div class="dot sanity"></div>
@@ -52,8 +77,10 @@
     </label>
     <span id="core-label-on" style="display:none;">Power, Finesse, Resilience</span>
   </label>
-</div>     
-        <h2>&Delta; Core Attributes</h2>
+</div>
+</details>
+      <details open>  
+      <summary><h2>Core Attributes</h2></summary>
         <div class="section grid">
           <div><label>Strength</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
           <div><label>Focus</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
@@ -65,8 +92,10 @@
           <div><label>Resolve</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
           <div><label>Awareness</label><div class="dot-container"><div class="dot core"></div><div class="dot core"></div><div class="dot core"></div></div></div>
         </div>
+        </details>  
     
-        <h2>&Delta; Skills</h2>
+      <details open>  
+      <summary><h2>Skills</h2></summary>
         <div class="section grid">
           <div><label>
   Composure
@@ -93,8 +122,10 @@
           <div><label>Insight<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Subterfuge + Awareness</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
           <div><label>Presence<button class="info-button" onclick="toggleInfo(this)">?</button><span class="info-popup">Strength + Charisma</span></label><div class="dot-container"><div class="dot skill"></div><div class="dot skill"></div><div class="dot skill"></div></div></div>
         </div>
+        </details>
     
-<h2>&Delta; Combat Actions</h2>
+<details open>  
+      <summary><h2>Combat Actions</h2></summary>
 <div class="section grid">
   <div>
     <label>Weapon</label>
@@ -178,8 +209,10 @@
     </select>
   </div>
 </div>
+  </details>
     
-        <h2>&Delta; Bonds</h2>
+      <details open>  
+      <summary><h2>Bonds</h2></summary>
 <div class="section grid">
   <div>
     <label>Bond 1 <input type="text" class="bond-name" placeholder="Name or Relationship"></label>
@@ -206,8 +239,10 @@
     </div>
   </div>
 </div>
-    
-<h2>&Delta; Training and Specializations</h2>
+        </details>
+
+      <details open>  
+      <summary><h2>Training and Specializations</h2></summary>
 <div class="section grid training-grid">
   <div><label>Accounting</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
   <div><label>Anthropology</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
@@ -250,23 +285,58 @@
   <div><label>Unnatural</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
   <div><label>Language ()</label><div class="dot-container"><div class="dot training"></div><div class="dot training"></div></div></div>
 </div>
+        </details>
 
-<h2>&Delta; Personal Details and Notes</h2>
+            <details open>  
+      <summary><h2>Personal Details and Notes</h2></summary>
 <div class="section">
   <textarea id="personal-notes" rows="10" placeholder="Background, history, personality, etc."></textarea>
 </div>
+              </details>
 
-<h2>&Delta; Wounds and Ailments</h2>
+            <details open>  
+      <summary><h2>Wounds and Ailments</h2></summary>
 <div class="section">
   <textarea id="wounds" rows="10" placeholder="Injuries, trauma, conditions, etc."></textarea>
 </div>
+              </details>
 
-<h2>&Delta; Equipment and Gear</h2>
+            <details open>  
+      <summary><h2>Equipment and Gear</h2></summary>
 <div class="section">
   <textarea id="equipment" rows="10" placeholder="Weapons, tools, supplies, etc."></textarea>
 </div>
+              </details>
       </div>
   </div>
+  <div id="save-modal" class="modal">
+  <div class="modal-content">
+    <h3>Save Character Sheet</h3>
+    <label for="filename-input">File Name:</label>
+    <input type="text" id="filename-input" placeholder="e.g. Agent_Smith">
+    <div class="modal-buttons">
+      <button onclick="confirmSave()">Download</button>
+      <button onclick="closeSaveModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+  
+  <div id="dice-modal" class="modal">
+  <div class="modal-content">
+    <h3>Dice Roller</h3>
+    <p>Select Dice Pool</p>
+    <div class="dice-pool">
+      <span class="dot skill active"></span>
+      <span class="dot skill"></span>
+      <span class="dot skill"></span>
+    </div>
+    <div class="modal-buttons">
+      <button onclick="rollDice()">Roll Dice</button>
+      <button onclick="closeDiceModal()">Close</button>
+    </div>
+  </div>
+</div>
+  
   <script src="script.js"></script>
 </body>
 </html>

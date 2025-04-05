@@ -102,7 +102,7 @@ dot.addEventListener('click', () => {
 });
 
 
-function saveCharacter() {
+function saveCharacter(filename = "character") {
   const data = {
     agent: document.getElementById("agent").value,
     player: document.getElementById("player").value,
@@ -158,7 +158,7 @@ data.combat.push({
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = "character.json";
+  link.download = filename + ".json";
   link.click();
 }
 
@@ -255,5 +255,73 @@ function toggleInfo(button) {
 const popup = button.nextElementSibling;
 popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
 }
+
+function openSaveModal() {
+document.getElementById("save-modal").style.display = "block";
+document.getElementById("filename-input").value = ""; // reset
+}
+
+function closeSaveModal() {
+document.getElementById("save-modal").style.display = "none";
+}
+
+function confirmSave() {
+const filename = document.getElementById("filename-input").value.trim() || "character";
+closeSaveModal();
+saveCharacter(filename);
+}
+
+const darkToggle = document.getElementById("dark-toggle");
+
+// Load saved preference
+if (localStorage.getItem("darkMode") === "true") {
+document.body.classList.add("dark");
+darkToggle.checked = true;
+}
+
+darkToggle.addEventListener("change", () => {
+document.body.classList.toggle("dark", darkToggle.checked);
+localStorage.setItem("darkMode", darkToggle.checked);
+});
+
+// Dice Roller Open/Close
+document.getElementById('dice-roller-toggle').addEventListener('click', () => {
+document.getElementById('dice-modal').style.display = 'block';
+});
+
+function closeDiceModal() {
+document.getElementById('dice-modal').style.display = 'none';
+}
+
+// Cycle dot colors (like skill dots)
+document.querySelectorAll('#dice-modal .dot').forEach(dot => {
+dot.classList.add('yellow'); // default
+dot.addEventListener('click', () => {
+  if (dot.classList.contains('red')) {
+    dot.classList.remove('red');
+    dot.classList.add('yellow');
+  } else if (dot.classList.contains('orange')) {
+    dot.classList.remove('orange');
+    dot.classList.add('red');
+  } else {
+    dot.classList.remove('yellow');
+    dot.classList.add('orange');
+  }
+});
+});
+
+// Placeholder dice roll function
+function rollDice() {
+const pool = Array.from(document.querySelectorAll('#dice-modal .dot')).map(dot => {
+  if (dot.classList.contains('red')) return 'Red';
+  if (dot.classList.contains('orange')) return 'Orange';
+  if (dot.classList.contains('yellow')) return 'Yellow';
+  return 'None';
+});
+alert(`Dice Pool: ${pool.join(', ')}`);
+}
+
+
+
 
 

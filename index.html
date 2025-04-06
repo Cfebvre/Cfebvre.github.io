@@ -13,6 +13,8 @@
     <input type="file" id="loadFile" accept=".json" onchange="loadCharacter(event)" hidden>
 <label for="loadFile" class="button file-button">Load Character</label>
     <button onclick="resetCharacter()">Reset Character</button>
+    <button id="lock-toggle">🔓 Unlock</button>
+
 
   </div>
 
@@ -325,11 +327,14 @@
   <div class="modal-content">
     <h3>Dice Roller</h3>
     <p>Select Dice Pool</p>
-    <div class="dice-pool">
-      <span class="dot skill active"></span>
-      <span class="dot skill"></span>
-      <span class="dot skill"></span>
-    </div>
+<div class="dice-pool">
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div>
+    
+    <div id="dice-results" class="dice-results" style="display: none;"></div>
+    
     <div class="modal-buttons">
       <button onclick="rollDice()">Roll Dice</button>
       <button onclick="closeDiceModal()">Close</button>

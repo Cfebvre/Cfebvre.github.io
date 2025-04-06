@@ -309,6 +309,36 @@
   <textarea id="equipment" rows="10" placeholder="Weapons, tools, supplies, etc."></textarea>
 </div>
               </details>
+      
+                  <details open>  
+      <summary><h2>Mission Notes</h2></summary>
+      <div class="mission-note-form">
+  <input type="text" id="mission-title" placeholder="Mission Title" />
+  <textarea id="mission-body" placeholder="Details of the mission..."></textarea>
+  <input type="text" id="mission-tags" placeholder="Tags (comma-separated)" />
+  <button onclick="addMissionNote()">Add Note</button>
+</div>
+
+<!-- Filters -->
+<div class="mission-filters">
+  <label for="tag-filter">Filter by Tag:</label>
+  <select id="tag-filter" onchange="renderMissionNotes()">
+    <option value="">All</option>
+  </select>
+
+  <label for="sort-order">Sort:</label>
+  <select id="sort-order" onchange="renderMissionNotes()">
+    <option value="desc">Newest First</option>
+    <option value="asc">Oldest First</option>
+  </select>
+</div>
+
+<div id="mission-notes-list"></div>
+                    
+                    </details>
+
+
+      
       </div>
   </div>
   <div id="save-modal" class="modal">

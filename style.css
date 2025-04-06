@@ -577,7 +577,7 @@ summary h2 {
   transition: background-color 0.2s ease;
 }
 
-#dice-modal .dot.yellow { background: gold; }
+#dice-modal .dot.yellow { background: yellow; }
 #dice-modal .dot.orange { background: orange; }
 #dice-modal .dot.red { background: red; }
 
@@ -595,6 +595,79 @@ body.dark .dice-button:hover {
 body.dark #dice-modal .dot {
   border-color: #888;
 }
+
+.dice-result {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.dice-color-square {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.dice-color-square.yellow {
+  background: gold;
+  border: 1px solid #aaa;
+}
+
+.dice-color-square.orange {
+  background: orange;
+  border: 1px solid #aaa;
+}
+
+.dice-color-square.red {
+  background: red;
+  border: 1px solid #aaa;
+}
+
+.dice-total {
+  font-weight: bold;
+  margin-top: 1rem;
+  border-top: 1px solid #aaa;
+  padding-top: 0.5rem;
+}
+
+.dice-result {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#lock-toggle {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+#lock-toggle.locked {
+  background: #444;
+  color: #aaa;
+}
+
+
 
 
 

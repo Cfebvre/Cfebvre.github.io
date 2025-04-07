@@ -652,14 +652,15 @@ body.dark #dice-modal .dot {
 }
 
 #lock-toggle {
+  font-size: 0.85rem;
   font-family: 'Roboto Mono', monospace;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 6px 0;
   cursor: pointer;
-  margin-left: 1rem;
+  text-align: left;
+  width: 100%;
 }
 
 #lock-toggle.locked {
@@ -773,4 +774,79 @@ body.dark .note-controls button {
   background: #222;
   color: #eee;
   border-color: #888;
+}
+
+.hamburger-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.hamburger-button {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-menu {
+  position: absolute;
+  top: 3rem;
+  right: 1rem;
+  background: #fff;
+  border: 2px solid #000;
+  padding: 1rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+  font-family: 'Roboto Mono', monospace;
+  min-width: 180px;
+}
+
+.hamburger-menu button,
+.hamburger-menu a,
+.hamburger-menu span {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 6px 0;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.85rem;
+  font-family: 'Roboto Mono', monospace;
+  width: 100%;
+  text-decoration: none;
+}
+
+
+.hamburger-menu .toggle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburger-menu input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+body.dark .hamburger-menu {
+  background: #222;
+  border-color: #888;
+}
+
+body.dark .hamburger-menu button,
+body.dark .hamburger-menu a,
+body.dark .hamburger-menu span {
+  background: #222;
+  color: #eee;
+}
+
+.hamburger-menu label span {
+  font-weight: normal;
+}
+
+.hamburger-menu,
+.hamburger-menu * {
+  font-weight: normal;
 }

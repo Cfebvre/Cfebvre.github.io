@@ -7,32 +7,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<a href="index.html" class="nav-button">← Back to Home</a>
 <div class="container">
-  <div class="section button-row">
-    <button onclick="openSaveModal()">Save Character</button>
-    <input type="file" id="loadFile" accept=".json" onchange="loadCharacter(event)" hidden>
-<label for="loadFile" class="button file-button">Load Character</label>
-    <button onclick="resetCharacter()">Reset Character</button>
-    <button id="lock-toggle">🔓 Unlock</button>
-
-
-  </div>
-
-
-    <div class="container">
-      
-<div class="darkmode-toggle">
-  <label class="switch">
-    <input type="checkbox" id="dark-toggle">
-    <span class="slider round"></span>
-  </label>
-  <span class="darkmode-label">Dark Mode</span>
-
-  <!-- Dice Roller Button -->
-  <button id="dice-roller-toggle" class="dice-button">Dice Roller</button>
+  
+  <!-- Hamburger Toggle Button -->
+<div class="hamburger-container">
+  <button id="hamburger-toggle" class="hamburger-button">☰</button>
 </div>
 
+<!-- Slide-out Menu -->
+<div id="hamburger-menu" class="hamburger-menu">
+  <a href="index.html">BACK TO HOME</a>
+  <button onclick="openSaveModal()">Save Character</button>
+  <label class="menu-item">
+    <input type="file" id="load-file" accept=".json" style="display: none" onchange="loadCharacter(event)" />
+    <span onclick="document.getElementById('load-file').click()">Load Character</span>
+  </label>
+  <button onclick="resetCharacter()">Reset Character</button>
+
+  <label class="menu-item toggle-item">
+    <span>Dark Mode</span>
+    <input type="checkbox" id="dark-toggle-menu" />
+  </label>
+
+  <button id="lock-toggle">Unlocked</button>
+  <button onclick="openDiceModal()">Dice Roller</button>
+</div>
 
 
       <h1>&Delta; Agent Profile</h1>

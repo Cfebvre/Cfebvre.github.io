@@ -569,8 +569,8 @@ summary h2 {
 }
 
 #dice-modal .dot {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border: 2px solid #000;
   cursor: pointer;
   background: #fff;
@@ -782,7 +782,14 @@ body.dark .note-controls button {
   margin-bottom: 0.5rem;
 }
 
+.hamburger-wrapper {
+  position: relative;
+}
+
+
 .hamburger-button {
+  position: relative; /* Important: this enables z-index to work */
+  z-index: 1001; /* Higher than #menu-overlay (which is at 999) */
   font-size: 1.5rem;
   background: none;
   border: none;
@@ -791,8 +798,8 @@ body.dark .note-controls button {
 
 .hamburger-menu {
   position: absolute;
-  top: 3rem;
-  right: 1rem;
+  top: 100%; /* directly below the hamburger button */
+  right: 0;
   background: #fff;
   border: 2px solid #000;
   padding: 1rem;
@@ -802,8 +809,29 @@ body.dark .note-controls button {
   z-index: 1000;
   font-family: 'Roboto Mono', monospace;
   min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+#hamburger-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background-color: #fff; /* solid white in light mode */
+  border: 2px solid #000; /* ✅ thin black border */
+  padding: 1rem;
+  z-index: 1000;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+}
+
+
+
+body.dark #hamburger-menu {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid #666;
+}
 .hamburger-menu button,
 .hamburger-menu a,
 .hamburger-menu span {
@@ -819,6 +847,28 @@ body.dark .note-controls button {
   text-decoration: none;
 }
 
+#hamburger-menu button,
+#hamburger-menu label,
+#hamburger-menu a {
+  margin-bottom: 0.5rem;
+  width: 100%;
+  text-align: left;
+  font-family: 'Roboto Mono', monospace;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 0.9rem;
+  padding: 6px 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#hamburger-menu a:hover,
+#hamburger-menu button:hover,
+#hamburger-menu label:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 
 .hamburger-menu .toggle-item {
   display: flex;
@@ -830,15 +880,10 @@ body.dark .note-controls button {
   transform: scale(1.2);
 }
 
-body.dark .hamburger-menu {
-  background: #222;
-  border-color: #888;
-}
-
 body.dark .hamburger-menu button,
 body.dark .hamburger-menu a,
 body.dark .hamburger-menu span {
-  background: #222;
+  background: #000;
   color: #eee;
 }
 
@@ -849,4 +894,256 @@ body.dark .hamburger-menu span {
 .hamburger-menu,
 .hamburger-menu * {
   font-weight: normal;
+}
+
+.menu-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+#close-menu {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+}
+
+.top-header {
+  position: relative;
+  z-index: 10;
+}
+
+.menu-item {
+  cursor: pointer;
+}
+
+#menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.menu-open #menu-overlay {
+  display: block;
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#hamburger-menu.show {
+  animation: slideFadeIn 0.3s ease-out;
+}
+
+.nav-button {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1rem;
+  background: none;
+  color: #eee;
+  border: 1px solid #aaa; /* ✅ light grey border */
+  padding: 1rem 2rem;      /* ✅ taller */
+  text-decoration: none;
+  width: 100%;
+  max-width: 300px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #eee;
+  color: #000;
+}
+
+
+
+body.dark {
+  background: #111;
+  color: #eee;
+}
+
+body.dark .container {
+  border: 1px solid #333;
+  padding: 2rem;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.container p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.homepage-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.triangle-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 2rem;
+  animation: triangle-spin 2s ease-out forwards;
+}
+
+.triangle-piece {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 86.6px solid transparent; /* triangle height: 50 * sqrt(3) */
+  opacity: 0;
+  transform: scale(0);
+}
+
+.piece-top {
+  top: 0;
+  left: 0;
+  border-bottom-color: #0f0;
+  animation: piece-reveal 0.5s ease-out 0.2s forwards;
+}
+
+.piece-left {
+  top: 0;
+  left: 0;
+  transform: rotate(-120deg);
+  transform-origin: center;
+  border-bottom-color: #0f0;
+  animation: piece-reveal 0.5s ease-out 0.5s forwards;
+}
+
+.piece-right {
+  top: 0;
+  left: 0;
+  transform: rotate(120deg);
+  transform-origin: center;
+  border-bottom-color: #0f0;
+  animation: piece-reveal 0.5s ease-out 0.8s forwards;
+}
+
+@keyframes piece-reveal {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes triangle-spin {
+  0% {
+    transform: rotate(0deg) scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flicker-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px #0f0) drop-shadow(0 0 8px #0f0);
+  }
+  5% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 1px #0f0);
+  }
+  10% {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 6px #0f0);
+  }
+  15% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 2px #0f0);
+  }
+  20% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px #0f0);
+  }
+}
+
+@keyframes dim-glow {
+  from {
+    filter: drop-shadow(0 0 6px #0f0) drop-shadow(0 0 12px #0f0);
+    opacity: 1;
+  }
+  to {
+    filter: drop-shadow(0 0 1px #0f0); /* dimmer glow */
+    opacity: 0.25; /* 50% dimmer than before */
+  }
+}
+
+
+
+
+.flicker .triangle-piece {
+  animation:
+    piece-reveal 0.5s ease-out forwards,
+    flicker-glow 0.6s ease-in-out 1s 3,
+    dim-glow 0.8s ease-in-out 2.8s forwards;
+}
+
+
+.triangle-piece {
+  filter: drop-shadow(0 0 1px #0f0);
+  opacity: 0.25;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.terminal-text {
+  font-family: 'Roboto Mono', monospace;
+  color: #0f0;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #0f0;
+  animation: caret 0.7s steps(1) infinite;
+}
+
+@keyframes caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #0f0; }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

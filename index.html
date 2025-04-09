@@ -1,20 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Delta Green Tools</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Delta Green Character Tools</h1>
-    <p>Welcome, Agent. Choose a tool below.</p>
-
-    <div class="button-group">
-      <a href="character-sheet.html" class="nav-button">📝 Character Sheet</a>
-      <!-- You can add more buttons here -->
-    </div>
-  </div>
-</body>
-</html>
+<body class="dark">
+  <div class="homepage-wrapper">
+   <div class="triangle-wrapper flicker">
+     <div class="triangle-piece piece-top"></div>
+     <div class="triangle-piece piece-left"></div>
+     <div class="triangle-piece piece-right"></div>
+   </div>
+ 
+   <div id="terminal-sequence" class="hidden">
+     <div id="auth-text" class="terminal-text">Operator Authenticated... Initializing</div>
+ 
+     <h1 id="welcome-title" class="terminal-text hidden">Welcome to the Program</h1>
+     <p id="welcome-subtitle" class="terminal-text hidden">Agent, choose a tool below.</p>
+ 
+     <div class="button-group hidden" id="menu-buttons">
+       <a href="character-sheet.html" class="nav-button">Agent Profile</a>
+       <a href="#" class="nav-button">Persons of Interest</a>
+       <a href="#" class="nav-button">Operations Manual</a>
+       <a href="#" class="nav-button">Field Ops</a>
+       <a href="#" class="nav-button">Engagement Logistics</a>
+     </div>
+   </div>
+ </div>
+ 
+ </body>
+ 
+ <script>
+ document.addEventListener("DOMContentLoaded", () => {
+   const terminalBlock = document.getElementById("terminal-sequence");
+   const authText = document.getElementById("auth-text");
+   const title = document.getElementById("welcome-title");
+   const subtitle = document.getElementById("welcome-subtitle");
+   const buttonGroup = document.getElementById("menu-buttons");
+   const buttons = buttonGroup.querySelectorAll(".nav-button");
+ 
+   function typeText(element, text, delay = 0, speed = 40, callback) {
+     setTimeout(() => {
+       element.textContent = "";
+       element.classList.remove("hidden");
+       let i = 0;
+       const interval = setInterval(() => {
+         element.textContent += text[i];
+         i++;
+         if (i >= text.length) {
+           clearInterval(interval);
+           element.classList.remove("terminal-text");
+           if (callback) callback();
+         }
+       }, speed);
+     }, delay);
+   }
+ 
+   // ⏳ Wait for triangle animation to finish (~3.6s)
+   setTimeout(() => {
+     terminalBlock.classList.remove("hidden");
+ 
+     typeText(authText, "Operator Authenticated... Initializing", 0, 40, () => {
+       typeText(title, "Welcome to the Program", 300, 40, () => {
+         typeText(subtitle, "Agent, choose a tool below.", 300, 40, () => {
+           buttonGroup.classList.remove("hidden");
+           buttons.forEach((btn, index) => {
+             setTimeout(() => {
+               btn.classList.add("fade-in");
+             }, index * 150);
+           });
+         });
+       });
+     });
+   }, 3600); // triangle completes dimming around 3.6s
+ });
+ </script>
+ 

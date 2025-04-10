@@ -231,3 +231,41 @@ function openDiceModal() {
 function closeDiceModal() {
   document.getElementById("dice-modal").style.display = "none";
 }
+
+function rollDice() {
+  const diceDots = document.querySelectorAll('#dice-modal .dot');
+  const diceTables = {
+    yellow: [0, 0, 0, 1, 1, 2],
+    orange: [0, 0, 1, 1, 2, 2],
+    red: [0, 1, 1, 2, 2, 2]
+  };
+
+  const resultsBox = document.getElementById('dice-results');
+  resultsBox.innerHTML = ''; // Clear previous results
+
+  let total = 0;
+
+  diceDots.forEach((dot, index) => {
+    let color = 'yellow';
+    if (dot.classList.contains('red')) color = 'red';
+    else if (dot.classList.contains('orange')) color = 'orange';
+
+    const roll = diceTables[color][Math.floor(Math.random() * 6)];
+    total += roll;
+
+    const result = document.createElement('div');
+    result.classList.add('dice-result', color);
+    result.innerHTML = `<span class="dice-color-square ${color}"></span> <span class="dice-value">${roll}</span>`;
+
+    result.style.animationDelay = `${index * 0.2}s`; // Optional animation
+    resultsBox.appendChild(result);
+  });
+
+  const totalDiv = document.createElement('div');
+  totalDiv.classList.add('dice-total');
+  totalDiv.innerText = `Total: ${total}`;
+  resultsBox.appendChild(totalDiv);
+
+  resultsBox.style.display = 'block';
+}
+

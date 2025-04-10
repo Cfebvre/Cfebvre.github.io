@@ -273,6 +273,58 @@ function rollDice() {
   resultsBox.style.display = 'block';
 }
 
+//Gather Character Data
+
+function gatherCharacterData() {
+  const data = {
+    agent: document.getElementById("agent")?.value || "",
+    player: document.getElementById("player")?.value || "",
+    coreToggle: document.getElementById("core-toggle")?.checked || false,
+    dots: {},
+    bonds: [],
+    combat: [],
+    personalNotes: document.getElementById("personal-notes")?.value || "",
+    wounds: document.getElementById("wounds")?.value || "",
+    equipment: document.getElementById("equipment")?.value || ""
+  };
+
+  // Save dots
+  document.querySelectorAll(".dot").forEach((dot, i) => {
+    data.dots[i] = {
+      classes: [...dot.classList]
+    };
+  });
+
+  // Bond names
+  document.querySelectorAll(".bond-name").forEach(input => {
+    data.bonds.push(input.value || "");
+  });
+
+  // Combat fields
+  const weapons = document.querySelectorAll(".combat-weapon");
+  const skills = document.querySelectorAll(".combat-skill");
+  const ranges = document.querySelectorAll(".combat-range");
+  const types = document.querySelectorAll(".combat-type");
+  const damages = document.querySelectorAll(".combat-damage");
+
+  for (let i = 0; i < weapons.length; i++) {
+    data.combat.push({
+      weapon: weapons[i]?.value || "",
+      skill: skills[i]?.value || "",
+      range: ranges[i]?.value || "",
+      type: types[i]?.value || "",
+      damage: damages[i]?.value || ""
+    });
+  }
+
+  // Mission notes (if applicable)
+  if (typeof missionNotes !== "undefined") {
+    data.missionNotes = missionNotes;
+  }
+
+  return data;
+}
+
 //Open-Close-Confirm Save Modal
 
 function openSaveModal() {

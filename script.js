@@ -34,11 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
  // Hamburger menu toggle
 if (hamburgerButton && hamburgerMenu) {
   hamburgerButton.addEventListener("click", () => {
+    console.log("Hamburger button clicked!");
     hamburgerMenu.classList.toggle("show");
     document.body.classList.toggle("menu-open");
   });
 
-  // Close menu when clicking any menu item
+  // Close menu when clicking any link or button inside
   document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
     item.addEventListener('click', () => {
       hamburgerMenu.classList.remove("show");

@@ -15,12 +15,8 @@ const firebaseConfig = {
   
   document.addEventListener("DOMContentLoaded", () => {
 
-        console.log("✅ DOM fully loaded");
+  console.log("✅ DOM fully loaded");
 
-  console.log("darkModeButton:", darkModeButton);
-  console.log("lockToggle:", lockToggle);
-  console.log("hamburgerButton:", hamburgerButton);
-      
     // Dark Mode Toggle
     const darkModeButton = document.getElementById("dark-mode-button");
     const isDark = localStorage.getItem("darkMode") === "true";
@@ -32,6 +28,7 @@ const firebaseConfig = {
         document.body.classList.toggle("dark", !currentlyDark);
         localStorage.setItem("darkMode", !currentlyDark);
         darkModeButton.innerText = currentlyDark ? "Dark Mode" : "Light Mode";
+        console.log("darkModeButton:", darkModeButton);
       });
     }
   
@@ -45,6 +42,7 @@ const firebaseConfig = {
         hamburgerMenu.style.display = isOpen ? "none" : "flex";
         hamburgerMenu.classList.toggle("show", !isOpen);
         document.body.classList.toggle("menu-open", !isOpen);
+        console.log("hamburgerButton:", hamburgerButton);
       });
     }
   
@@ -69,6 +67,7 @@ const firebaseConfig = {
       lockToggle.addEventListener('click', () => {
         const isLocked = lockToggle.classList.contains('locked');
         setSheetLocked(!isLocked);
+        console.log("lockToggle:", lockToggle);
       });
     }
   

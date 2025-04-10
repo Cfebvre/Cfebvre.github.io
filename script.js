@@ -383,3 +383,74 @@ function loadCharacter(event) {
   reader.readAsText(file);
 }
 
+//Load Character From Data
+
+function loadCharacterFromData(data) {
+  if (!data) return;
+
+  // Agent & Player
+  document.getElementById("agent").value = data.agent || "";
+  document.getElementById("player").value = data.player || "";
+
+  // Core Toggle
+  const coreToggleInput = document.getElementById("core-toggle");
+  if (coreToggleInput) {
+    coreToggleInput.checked = !!data.coreToggle;
+    coreToggleInput.dispatchEvent(new Event("change"));
+  }
+
+  // Dots
+  document.querySelectorAll(".dot").forEach((dot, i) => {
+    dot.className = "dot";
+    data.dots?.[i]?.classes?.forEach(cls => {
+      if (cls !== "dot") dot.classList.add(cls);
+    });
+  });
+
+  // Text fields (excluding special class ones)
+  document.querySelectorAll('input[type="text"]').forEach(input => {
+    const key = input.id || input.previousElementSibling?.innerText.toLowerCase();
+    if (key && !input.classList.contains("combat-weapon") && !input.classList.contains("bond-name")) {
+      if (data[key] !== undefined) input.value = data[key];
+    }
+  });
+
+  // Bonds
+  if (Array.isArray(data.bonds)) {
+    document.querySelectorAll(".bond-name").forEach((input, i) => {
+      input.value = data.bonds[i] || "";
+    });
+  }
+
+  // Combat fields
+  const weapons = document.querySelectorAll(".combat-weapon");
+  const skills = document.querySelectorAll(".combat-skill");
+  const ranges = document.querySelectorAll(".combat-range");
+  const types = document.querySelectorAll(".combat-type");
+  const damages = document.querySelectorAll(".combat-damage");
+
+  if (Array.isArray(data.combat)) {
+    data.combat.forEach((entry, i) => {
+      if (weapons[i]) weapons[i].value = entry.weapon || "";
+      if (skills[i]) skills[i].value = entry.skill || "Melee";
+      if (ranges[i]) ranges[i].value = entry.range || "Close";
+      if (types[i]) types[i].value = entry.type || "Bludgeoning";
+      if (damages[i]) damages[i].value = entry.damage || "+1";
+    });
+  }
+
+  // Notes
+  document.getElementById("personal-notes").value = data.personalNotes || "";
+  document.getElementById("wounds").value = data.wounds || "";
+  document.getElementById("equipment").value = data.equipment || "";
+
+  // Mission Notes (if present)
+  if (Array.isArray(data.missionNotes)) {
+    missionNotes = data.missionNotes;
+    renderMissionNotes?.(); // Only call if function exists
+    updateTagFilterOptions?.();
+  }
+
+  // Lock sheet after loading
+  setSheetLocked(true);
+}

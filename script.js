@@ -361,3 +361,25 @@ function saveCharacter(filename = "character") {
   link.download = `${filename}.json`;
   link.click();
 }
+
+
+//Load Character Locally
+
+function loadCharacter(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      loadCharacterFromData(data); // assumes this is already defined
+    } catch (err) {
+      console.error("Error reading character file:", err);
+      alert("❌ Invalid character file.");
+    }
+  };
+
+  reader.readAsText(file);
+}
+

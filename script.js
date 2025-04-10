@@ -613,3 +613,147 @@ if (darkModeButton) {
   });
 }
 });
+
+//Save to Firebase
+
+async function saveToFirebase(characterName, data) {
+try {
+  await db.collection("characters").doc(characterName).set(data);
+  alert(`✅ Character "${characterName}" saved to Firebase.`);
+} catch (err) {
+  console.error("Error saving character:", err);
+  alert("❌ Failed to save character.");
+}
+}
+
+//Load from Firebase
+
+async function loadFromFirebase(characterName) {
+try {
+  const doc = await db.collection("characters").doc(characterName).get();
+  if (doc.exists) {
+    const data = doc.data();
+    loadCharacterFromData(data); // You’ll use your existing load logic here
+  } else {
+    alert(`❌ Character "${characterName}" not found.`);
+  }
+} catch (err) {
+  console.error("Error loading character:", err);
+  alert("❌ Failed to load character.");
+}
+}
+
+//Gather Character Data
+
+function gatherCharacterData() {
+// use the same logic from saveCharacter() that builds the `data` object
+const data = {
+  agent: document.getElementById("agent").value,
+  player: document.getElementById("player").value,
+  dots: {},
+  bonds: [],
+  combat: [],
+  personalNotes: document.getElementById("personal-notes").value,
+  wounds: document.getElementById("wounds").value,
+  equipment: document.getElementById("equipment").value,
+  missionNotes
+};
+
+// dots
+document.querySelectorAll('.dot').forEach((dot, i) => {
+  data.dots[i] = {
+    classes: [...dot.classList]
+  };
+});
+
+// bonds
+document.querySelectorAll('.bond-name').forEach(input => {
+  data.bonds.push(input.value);
+});
+
+// combat
+const weapons = document.querySelectorAll('.combat-weapon');
+const skills = document.querySelectorAll('.combat-skill');
+const ranges = document.querySelectorAll('.combat-range');
+const types = document.querySelectorAll('.combat-type');
+const damages = document.querySelectorAll('.combat-damage');
+for (let i = 0; i < weapons.length; i++) {
+  data.combat.push({
+    weapon: weapons[i].value,
+    skill: skills[i].value,
+    range: ranges[i].value,
+    type: types[i].value,
+    damage: damages[i].value
+  });
+}
+
+return data;
+}
+
+//Load Character Data
+
+function loadCharacterFromData(data) {
+if (!data) return;
+
+if (data.agent) document.getElementById("agent").value = data.agent;
+if (data.player) document.getElementById("player").value = data.player;
+
+// Load core toggle state
+const coreToggleInput = document.getElementById("core-toggle");
+if (coreToggleInput) {
+  coreToggleInput.checked = data.coreToggle || false;
+  coreToggleInput.dispatchEvent(new Event('change'));
+}
+
+// Load dots
+document.querySelectorAll('.dot').forEach((dot, i) => {
+  dot.className = "dot";
+  data.dots[i]?.classes?.forEach(cls => {
+    if (cls !== "dot") dot.classList.add(cls);
+  });
+});
+
+// Load text inputs (excluding bond/combat fields handled separately)
+document.querySelectorAll('input[type="text"]').forEach(input => {
+  if (input.classList.contains('combat-weapon') || input.classList.contains('bond-name')) return;
+  const key = input.id || input.previousElementSibling?.innerText.toLowerCase();
+  if (key && data[key] !== undefined) input.value = data[key];
+});
+
+// Load bond names
+if (Array.isArray(data.bonds)) {
+  document.querySelectorAll('.bond-name').forEach((input, index) => {
+    input.value = data.bonds[index] || "";
+  });
+}
+
+// Load combat
+if (Array.isArray(data.combat)) {
+  const weapons = document.querySelectorAll('.combat-weapon');
+  const skills = document.querySelectorAll('.combat-skill');
+  const ranges = document.querySelectorAll('.combat-range');
+  const types = document.querySelectorAll('.combat-type');
+  const damages = document.querySelectorAll('.combat-damage');
+
+  data.combat.forEach((entry, i) => {
+    if (weapons[i]) weapons[i].value = entry.weapon || "";
+    if (skills[i]) skills[i].value = entry.skill || "Melee";
+    if (ranges[i]) ranges[i].value = entry.range || "Close";
+    if (types[i]) types[i].value = entry.type || "Bludgeoning";
+    if (damages[i]) damages[i].value = entry.damage || "+1";
+  });
+}
+
+// Load additional text areas
+if (data.personalNotes) document.getElementById("personal-notes").value = data.personalNotes;
+if (data.wounds) document.getElementById("wounds").value = data.wounds;
+if (data.equipment) document.getElementById("equipment").value = data.equipment;
+
+// Load mission notes
+missionNotes = Array.isArray(data.missionNotes) ? data.missionNotes : [];
+renderMissionNotes();
+updateTagFilterOptions();
+
+// Lock sheet after loading
+setSheetLocked(true);
+}

@@ -146,6 +146,24 @@ if (hamburgerButton && hamburgerMenu) {
       }
     });
   });
+
+  // Dice roller dot color cycling
+  document.querySelectorAll('#dice-modal .dot').forEach(dot => {
+    dot.classList.add('yellow'); // Ensure yellow by default
+    dot.addEventListener('click', () => {
+      if (dot.classList.contains('yellow')) {
+        dot.classList.remove('yellow');
+        dot.classList.add('orange');
+      } else if (dot.classList.contains('orange')) {
+        dot.classList.remove('orange');
+        dot.classList.add('red');
+      } else if (dot.classList.contains('red')) {
+        dot.classList.remove('red');
+        dot.classList.add('yellow');
+      }
+    });
+  });
+
 });
 
 function loadCharacter(event) {

@@ -4,6 +4,15 @@
   .dot-container {
     gap: 4px;
   }
+  
+  @media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light dark;
+    /* Prevents auto-inversion of images, backgrounds, etc */
+    background-color: inherit;
+  }
+}
+
 
   label {
     font-size: 0.75rem;
@@ -1147,3 +1156,22 @@ body.dark .container {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

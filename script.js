@@ -70,6 +70,20 @@ const firebaseConfig = {
     if (coreToggle) {
       coreToggle.dispatchEvent(new Event("change"));
     }
+
+    //Debug
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM fully loaded");
+      
+        const darkModeButton = document.getElementById("dark-mode-button");
+        console.log("darkModeButton:", darkModeButton);
+      
+        const lockToggle = document.getElementById("lock-toggle");
+        console.log("lockToggle:", lockToggle);
+      });
+      
+
+
   });
   
   // Save to Firebase

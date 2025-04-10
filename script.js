@@ -31,23 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Hamburger menu toggle
-  if (hamburgerButton && hamburgerMenu) {
-    hamburgerButton.addEventListener("click", () => {
-      const isOpen = hamburgerMenu.style.display === "flex";
-      hamburgerMenu.style.display = isOpen ? "none" : "flex";
-      hamburgerMenu.classList.toggle("show", !isOpen);
-      document.body.classList.toggle("menu-open", !isOpen);
-      console.log("hamburgerButton:", hamburgerButton);
-    });
+ // Hamburger menu toggle
+if (hamburgerButton && hamburgerMenu) {
+  hamburgerButton.addEventListener("click", () => {
+    hamburgerMenu.classList.toggle("show");
+    document.body.classList.toggle("menu-open");
+  });
 
-    document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
-      item.addEventListener('click', () => {
-        hamburgerMenu.style.display = "none";
-        document.body.classList.remove("menu-open");
-      });
+  // Close menu when clicking any menu item
+  document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
+    item.addEventListener('click', () => {
+      hamburgerMenu.classList.remove("show");
+      document.body.classList.remove("menu-open");
     });
-  }
+  });
+}
+
 
   // File input
   if (loadInput) {

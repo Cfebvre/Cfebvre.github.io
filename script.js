@@ -161,6 +161,20 @@ function loadCharacterFromData(data) {
   setSheetLocked(true);
 }
 
+function loadCharacter(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = JSON.parse(e.target.result);
+    loadCharacterFromData(data);
+  };
+
+  reader.readAsText(file);
+}
+
+
 
 // Placeholder for your existing gatherCharacterData function
 function gatherCharacterData() {

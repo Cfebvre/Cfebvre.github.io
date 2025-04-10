@@ -1,16 +1,4 @@
-// Firebase Setup (assumes compat SDKs are loaded in HTML)
-const firebaseConfig = {
-  apiKey: "AIzaSyArii21GqpsShFeHtMHzgRT--73h1D3hQ",
-  authDomain: "deltagreenapp.firebaseapp.com",
-  projectId: "deltagreenapp",
-  storageBucket: "deltagreenapp.appspot.com",
-  messagingSenderId: "304292452847",
-  appId: "1:304292452847:web:bce1fcb501470fe3c5be1a"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
+//DOM Logic
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM fully loaded");
 

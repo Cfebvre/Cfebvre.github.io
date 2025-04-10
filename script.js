@@ -17,10 +17,6 @@ const firebaseConfig = {
 
         console.log("✅ DOM fully loaded");
 
-  const darkModeButton = document.getElementById("dark-mode-button");
-  const lockToggle = document.getElementById("lock-toggle");
-  const hamburgerButton = document.getElementById("hamburger-toggle");
-
   console.log("darkModeButton:", darkModeButton);
   console.log("lockToggle:", lockToggle);
   console.log("hamburgerButton:", hamburgerButton);

@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-<!-- Firebase App (compatibility version) -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <!-- Firebase App (core SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
 
-<!-- Firebase Firestore (compatibility version) -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<!-- Firebase Firestore -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
 
 <script>
   const firebaseConfig = {
@@ -34,33 +34,32 @@
 <body>
   
   
-<div class="container">
+  <div class="container">
+
+    <!-- HEADER BLOCK AT THE TOP OF THE PAGE -->
+    <header class="top-header">
+      <div class="hamburger-wrapper" style="position: relative;">
+        <div id="menu-overlay"></div>
   
-  <!-- HEADER BLOCK AT THE TOP OF THE PAGE -->
-<header class="top-header">
-  <div class="hamburger-wrapper">
-    <div id="menu-overlay"></div>
-    <!-- ☰ Hamburger toggle button -->
-    <button id="hamburger-toggle" class="hamburger-button">☰</button>
-
-    <!-- Slide-out hamburger menu -->
-    <div id="hamburger-menu" class="hamburger-menu">
-
-      <!-- Menu items -->
-      <a href="index.html">HOME</a>
-      <button onclick="openSaveModal()">Save Character</button>
-  <label for="load-file" class="menu-item">Load Character</label>
-<input type="file" id="load-file" accept=".json" style="display: none" />
-      <button onclick="resetCharacter()">Reset Character</button>
-      <button id="dark-mode-button" class="menu-item">Dark Mode</button>
-      <button id="lock-toggle">Unlocked</button>
-      <button onclick="openDiceModal()">Dice Roller</button>
-      <button onclick="saveToFirebase(prompt('Enter character name'), gatherCharacterData())">Save to Firebase</button>
-<button onclick="loadFromFirebase(prompt('Enter character name'))">Load from Firebase</button>
-
-    </div>
-  </div>
-</header>
+        <!-- ☰ Hamburger toggle button -->
+        <button id="hamburger-toggle" class="hamburger-button">☰</button>
+  
+        <!-- Slide-out hamburger menu -->
+        <div id="hamburger-menu" class="hamburger-menu">
+          <a href="index.html">HOME</a>
+          <button onclick="openSaveModal()">Save Character</button>
+          <label for="load-file" class="menu-item">Load Character</label>
+          <input type="file" id="load-file" accept=".json" style="display: none" />
+          <button onclick="resetCharacter()">Reset Character</button>
+          <button id="dark-mode-button" class="menu-item">Dark Mode</button>
+          <button id="lock-toggle">Unlocked</button>
+          <button onclick="openDiceModal()">Dice Roller</button>
+          <button onclick="saveToFirebase(prompt('Enter character name'), gatherCharacterData())">Save to Firebase</button>
+          <button onclick="loadFromFirebase(prompt('Enter character name'))">Load from Firebase</button>
+        </div>
+      </div>
+    </header>
+  
 
 
       <h1>&Delta; Agent Profile</h1>

@@ -72,15 +72,14 @@ const firebaseConfig = {
     }
 
     //Debug
-    document.addEventListener("DOMContentLoaded", () => {
-        console.log("DOM fully loaded");
-      
-        const darkModeButton = document.getElementById("dark-mode-button");
-        console.log("darkModeButton:", darkModeButton);
-      
-        const lockToggle = document.getElementById("lock-toggle");
-        console.log("lockToggle:", lockToggle);
-      });
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded");
+  const darkModeButton = document.getElementById("dark-mode-button");
+  console.log("darkModeButton:", darkModeButton);
+  const lockToggle = document.getElementById("lock-toggle");
+  console.log("lockToggle:", lockToggle);
+});
+
       
 
 

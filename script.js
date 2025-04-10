@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hamburgerMenu.style.display = isOpen ? "none" : "flex";
       hamburgerMenu.classList.toggle("show", !isOpen);
       document.body.classList.toggle("menu-open", !isOpen);
+      console.log("hamburgerButton:", hamburgerButton);
     });
 
     document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {

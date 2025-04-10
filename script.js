@@ -220,6 +220,8 @@ function setSheetLocked(locked) {
   }
 }
 
+//Open-Close Dice Modal 
+
 function openDiceModal() {
   document.getElementById("dice-modal").style.display = "block";
   document.querySelectorAll("#dice-modal .dot").forEach(dot => {
@@ -231,6 +233,8 @@ function openDiceModal() {
 function closeDiceModal() {
   document.getElementById("dice-modal").style.display = "none";
 }
+
+//Dice Roller Logic
 
 function rollDice() {
   const diceDots = document.querySelectorAll('#dice-modal .dot');
@@ -269,3 +273,39 @@ function rollDice() {
   resultsBox.style.display = 'block';
 }
 
+//Open-Close-Confirm Save Modal
+
+function openSaveModal() {
+  const modal = document.getElementById("save-modal");
+  const filenameInput = document.getElementById("filename-input");
+
+  if (modal && filenameInput) {
+    filenameInput.value = "";
+    modal.style.display = "block";
+  }
+}
+
+function closeSaveModal() {
+  const modal = document.getElementById("save-modal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+
+function confirmSave() {
+  const filenameInput = document.getElementById("filename-input");
+  const filename = filenameInput?.value.trim() || "character";
+  closeSaveModal();
+  saveCharacter(filename);
+}
+
+//Save Character Locally
+
+function saveCharacter(filename = "character") {
+  const data = gatherCharacterData(); // Assuming this already exists
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${filename}.json`;
+  link.click();
+}

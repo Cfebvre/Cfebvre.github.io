@@ -1,11 +1,28 @@
-// DOM Logic
+// Firebase Setup (assumes compat SDKs are loaded in HTML)
+const firebaseConfig = {
+  apiKey: "AIzaSyArii21GqpsShFeHtMHzgRT--73h1D3hQ",
+  authDomain: "deltagreenapp.firebaseapp.com",
+  projectId: "deltagreenapp",
+  storageBucket: "deltagreenapp.appspot.com",
+  messagingSenderId: "304292452847",
+  appId: "1:304292452847:web:bce1fcb501470fe3c5be1a"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ DOM fully loaded");
 
-console.log("✅ DOM fully loaded");
-
-  // Dark Mode Toggle
+  // Elements
   const darkModeButton = document.getElementById("dark-mode-button");
+  const lockToggle = document.getElementById("lock-toggle");
+  const hamburgerButton = document.getElementById("hamburger-toggle");
+  const hamburgerMenu = document.getElementById("hamburger-menu");
+  const loadInput = document.getElementById("load-file");
+  const coreToggle = document.getElementById("core-toggle");
+
+  // Dark mode toggle
   const isDark = localStorage.getItem("darkMode") === "true";
   document.body.classList.toggle("dark", isDark);
   if (darkModeButton) {
@@ -15,58 +32,143 @@ console.log("✅ DOM fully loaded");
       document.body.classList.toggle("dark", !currentlyDark);
       localStorage.setItem("darkMode", !currentlyDark);
       darkModeButton.innerText = currentlyDark ? "Dark Mode" : "Light Mode";
-      console.log("darkModeButton:", darkModeButton);
     });
   }
 
-  // Hamburger Menu Toggle
-  const hamburgerButton = document.getElementById("hamburger-toggle");
-  const hamburgerMenu = document.getElementById("hamburger-menu");
+  // Lock toggle
+  if (lockToggle) {
+    lockToggle.addEventListener("click", () => {
+      const isLocked = lockToggle.classList.contains("locked");
+      setSheetLocked(!isLocked);
+    });
+  }
 
+  // Hamburger menu toggle
   if (hamburgerButton && hamburgerMenu) {
     hamburgerButton.addEventListener("click", () => {
       const isOpen = hamburgerMenu.style.display === "flex";
       hamburgerMenu.style.display = isOpen ? "none" : "flex";
       hamburgerMenu.classList.toggle("show", !isOpen);
       document.body.classList.toggle("menu-open", !isOpen);
-      console.log("hamburgerButton:", hamburgerButton);
+    });
+
+    document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
+      item.addEventListener('click', () => {
+        hamburgerMenu.style.display = "none";
+        document.body.classList.remove("menu-open");
+      });
     });
   }
 
-  document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
-    item.addEventListener('click', () => {
-      if (hamburgerMenu) {
-        hamburgerMenu.style.display = "none";
-        document.body.classList.remove("menu-open");
-      }
-    });
-  });
-
-  // Load file input
-  const loadInput = document.getElementById("load-file");
+  // File input
   if (loadInput) {
     loadInput.addEventListener("change", loadCharacter);
   }
 
-  // Lock toggle
-  const lockToggle = document.getElementById('lock-toggle');
-  if (lockToggle) {
-    lockToggle.addEventListener('click', () => {
-      const isLocked = lockToggle.classList.contains('locked');
-      setSheetLocked(!isLocked);
-      console.log("lockToggle:", lockToggle);
-    });
-  }
-
-  // Trigger initial core coloring
-  const coreToggle = document.getElementById("core-toggle");
+  // Core Toggle Coloring
   if (coreToggle) {
+    coreToggle.addEventListener("change", () => {
+      const isOn = coreToggle.checked;
+      document.getElementById("core-label-on").style.display = isOn ? "inline" : "none";
+      document.getElementById("core-label-off").style.display = isOn ? "none" : "inline";
+      const groups = isOn
+        ? { red: ["Strength", "Focus", "Charisma"], green: ["Dexterity", "Wits", "Subterfuge"], blue: ["Endurance", "Resolve", "Awareness"] }
+        : { red: ["Strength", "Dexterity", "Endurance"], green: ["Focus", "Wits", "Resolve"], blue: ["Charisma", "Subterfuge", "Awareness"] };
+
+      document.querySelectorAll(".section.grid").forEach(section => {
+        section.querySelectorAll("div").forEach(div => {
+          const label = div.querySelector("label");
+          const dots = div.querySelectorAll(".dot.core");
+          if (!label || dots.length === 0) return;
+          const text = label.textContent.trim();
+          dots.forEach(dot => {
+            dot.classList.remove("red", "green", "blue");
+            if (groups.red.includes(text)) dot.classList.add("red");
+            else if (groups.green.includes(text)) dot.classList.add("green");
+            else if (groups.blue.includes(text)) dot.classList.add("blue");
+          });
+        });
+      });
+    });
     coreToggle.dispatchEvent(new Event("change"));
   }
 
+  // Dot click behaviors
+  document.querySelectorAll(".dot.core").forEach(dot => {
+    dot.addEventListener("click", () => {
+      dot.classList.toggle("active");
+    });
+  });
+
+  document.querySelectorAll(".dot.skill").forEach(dot => {
+    dot.addEventListener("click", () => {
+      if (dot.classList.contains("red")) {
+        dot.classList.remove("red", "orange");
+      } else if (dot.classList.contains("orange")) {
+        dot.classList.remove("orange");
+        dot.classList.add("red");
+      } else {
+        dot.classList.add("orange");
+      }
+    });
+  });
+
+  document.querySelectorAll(".dot.health, .dot.bond").forEach(dot => {
+    dot.addEventListener("click", () => {
+      dot.classList.toggle("active");
+    });
+  });
+
+  document.querySelectorAll(".dot.sanity").forEach(dot => {
+    dot.addEventListener("click", () => {
+      if (dot.classList.contains("full")) {
+        dot.classList.remove("full");
+      } else if (dot.classList.contains("half")) {
+        dot.classList.remove("half");
+        dot.classList.add("full");
+      } else {
+        dot.classList.add("half");
+      }
+    });
+  });
+
+  document.querySelectorAll(".dot.training").forEach(dot => {
+    dot.addEventListener("click", () => {
+      if (dot.classList.contains("black")) {
+        dot.classList.remove("black");
+      } else if (dot.classList.contains("orange")) {
+        dot.classList.remove("orange");
+        dot.classList.add("black");
+      } else if (dot.classList.contains("yellow")) {
+        dot.classList.remove("yellow");
+        dot.classList.add("orange");
+      } else {
+        dot.classList.add("yellow");
+      }
+    });
+  });
+
+  document.querySelectorAll(".info-button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const popup = btn.nextElementSibling;
+      if (popup) {
+        popup.style.display = popup.style.display === "block" ? "none" : "block";
+      }
+    });
+  });
 });
 
-// Save to Firebase
+function loadCharacter(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = JSON.parse(e.target.result);
+    loadCharacterFromData(data);
+  };
+  reader.readAsText(file);
+}
+
 function saveToFirebase(characterName, data) {
   if (!characterName) return;
   db.collection("characters").doc(characterName).set(data)
@@ -77,7 +179,6 @@ function saveToFirebase(characterName, data) {
     });
 }
 
-// Load from Firebase
 async function loadFromFirebase(characterName) {
   try {
     const doc = await db.collection("characters").doc(characterName).get();
@@ -92,161 +193,33 @@ async function loadFromFirebase(characterName) {
   }
 }
 
-// Placeholder for your existing loadCharacterFromData function
-function loadCharacterFromData(data) {
-  if (!data) return;
-
-  // Agent & Player Info
-  if (data.agent) document.getElementById("agent").value = data.agent;
-  if (data.player) document.getElementById("player").value = data.player;
-
-  // Core Toggle State
-  const coreToggleInput = document.getElementById("core-toggle");
-  if (coreToggleInput) {
-    coreToggleInput.checked = !!data.coreToggle;
-    coreToggleInput.dispatchEvent(new Event("change"));
-  }
-
-  // Dot Classes
-  document.querySelectorAll(".dot").forEach((dot, i) => {
-    dot.className = "dot"; // Reset classes
-    data.dots?.[i]?.classes?.forEach(cls => {
-      if (cls !== "dot") dot.classList.add(cls);
-    });
-  });
-
-  // Generic Text Inputs
-  document.querySelectorAll('input[type="text"]').forEach((input) => {
-    const key = input.id || input.previousElementSibling?.innerText?.toLowerCase();
-    if (key && data[key] !== undefined && !input.classList.contains("bond-name") && !input.classList.contains("combat-weapon")) {
-      input.value = data[key];
-    }
-  });
-
-  // Bonds
-  if (Array.isArray(data.bonds)) {
-    document.querySelectorAll(".bond-name").forEach((input, i) => {
-      input.value = data.bonds[i] || "";
-    });
-  }
-
-  // Combat Actions
-  if (Array.isArray(data.combat)) {
-    const weapons = document.querySelectorAll(".combat-weapon");
-    const skills = document.querySelectorAll(".combat-skill");
-    const ranges = document.querySelectorAll(".combat-range");
-    const types = document.querySelectorAll(".combat-type");
-    const damages = document.querySelectorAll(".combat-damage");
-
-    data.combat.forEach((entry, i) => {
-      if (weapons[i]) weapons[i].value = entry.weapon || "";
-      if (skills[i]) skills[i].value = entry.skill || "Melee";
-      if (ranges[i]) ranges[i].value = entry.range || "Close";
-      if (types[i]) types[i].value = entry.type || "Bludgeoning";
-      if (damages[i]) damages[i].value = entry.damage || "+1";
-    });
-  }
-
-  // Extra Fields
-  if (data.personalNotes) document.getElementById("personal-notes").value = data.personalNotes;
-  if (data.wounds) document.getElementById("wounds").value = data.wounds;
-  if (data.equipment) document.getElementById("equipment").value = data.equipment;
-
-  // Mission Notes
-  missionNotes = Array.isArray(data.missionNotes) ? data.missionNotes : [];
-  renderMissionNotes();
-  updateTagFilterOptions();
-
-  // Lock the sheet after load
-  setSheetLocked(true);
-}
-
-function loadCharacter(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const data = JSON.parse(e.target.result);
-    loadCharacterFromData(data);
-  };
-
-  reader.readAsText(file);
-}
-
-
-
-// Placeholder for your existing gatherCharacterData function
-function gatherCharacterData() {
-  const data = {
-    agent: document.getElementById("agent").value,
-    player: document.getElementById("player").value,
-    coreToggle: document.getElementById("core-toggle").checked,
-    dots: {},
-    bonds: [],
-    combat: [],
-    personalNotes: document.getElementById("personal-notes").value,
-    wounds: document.getElementById("wounds").value,
-    equipment: document.getElementById("equipment").value,
-    missionNotes
-  };
-
-  // Save dot states
-  document.querySelectorAll(".dot").forEach((dot, i) => {
-    data.dots[i] = {
-      classes: [...dot.classList]
-    };
-  });
-
-  // Save bond names
-  document.querySelectorAll(".bond-name").forEach((input) => {
-    data.bonds.push(input.value);
-  });
-
-  // Save combat actions
-  const weapons = document.querySelectorAll(".combat-weapon");
-  const skills = document.querySelectorAll(".combat-skill");
-  const ranges = document.querySelectorAll(".combat-range");
-  const types = document.querySelectorAll(".combat-type");
-  const damages = document.querySelectorAll(".combat-damage");
-
-  for (let i = 0; i < weapons.length; i++) {
-    data.combat.push({
-      weapon: weapons[i]?.value || "",
-      skill: skills[i]?.value || "",
-      range: ranges[i]?.value || "",
-      type: types[i]?.value || "",
-      damage: damages[i]?.value || ""
-    });
-  }
-
-  return data;
-}
-
-
-// Placeholder for sheet lock logic
 function setSheetLocked(locked) {
   const allInputs = document.querySelectorAll("input, select, textarea");
   const allDots = document.querySelectorAll(".dot");
   const lockToggle = document.getElementById("lock-toggle");
-
-  // Disable/enable form fields
   allInputs.forEach((el) => {
     if (el.type !== "file") el.disabled = locked;
   });
-
-  // Disable/enable dots (but NOT dice roller dots)
   allDots.forEach((dot) => {
     const insideDiceModal = dot.closest("#dice-modal");
     if (!insideDiceModal) {
       dot.style.pointerEvents = locked ? "none" : "auto";
     }
   });
-
-  // Update lock button text and style
   if (lockToggle) {
     lockToggle.classList.toggle("locked", locked);
     lockToggle.innerText = locked ? "🔒 Locked" : "🔓 Unlocked";
   }
 }
 
+function openDiceModal() {
+  document.getElementById("dice-modal").style.display = "block";
+  document.querySelectorAll("#dice-modal .dot").forEach(dot => {
+    dot.classList.remove("orange", "red");
+    dot.classList.add("yellow");
+  });
+}
+
+function closeDiceModal() {
+  document.getElementById("dice-modal").style.display = "none";
+}

@@ -10,6 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadInput = document.getElementById("load-file");
   const coreToggle = document.getElementById("core-toggle");
 
+  // Firebase Authentication
+const auth = firebase.auth();
+
+// Auth state listener
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    console.log(`✅ Signed in as ${user.displayName}`);
+    // Optionally update the UI here
+  } else {
+    console.log("🚫 User is signed out.");
+    // Optionally redirect or hide sensitive features here
+  }
+});
+
   // Dark mode toggle
   const isDark = localStorage.getItem("darkMode") === "true";
   document.body.classList.toggle("dark", isDark);
@@ -48,6 +62,29 @@ if (hamburgerButton && hamburgerMenu) {
     });
   });
 }
+
+// Login button
+document.getElementById("login")?.addEventListener("click", () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then((result) => {
+      console.log(`🔐 Login successful: ${result.user.displayName}`);
+    })
+    .catch((error) => {
+      console.error("❌ Login error:", error);
+    });
+});
+
+// Logout button
+document.getElementById("logout")?.addEventListener("click", () => {
+  auth.signOut()
+    .then(() => {
+      console.log("🚪 Logged out successfully.");
+    })
+    .catch((error) => {
+      console.error("❌ Logout error:", error);
+    });
+});
 
 
   // File input
@@ -194,6 +231,7 @@ function saveToFirebase(characterName, data) {
     });
 }
 
+//Load Characters from Firebase
 
 async function loadFromFirebase(characterName) {
   try {

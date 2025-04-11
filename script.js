@@ -177,18 +177,38 @@ function loadCharacter(event) {
   reader.readAsText(file);
 }
 
+//Saving Character to Firebase
+// IMPORTS (if using module system)
+// import { collection, doc, setDoc } from "firebase/firestore"; 
+
 function saveToFirebase(characterName, data) {
   if (!characterName) return;
 
   console.log("📤 Saving character to Firebase:", characterName, data);
 
-  db.collection("characters").doc(characterName).set(data)
-    .then(() => alert("✅ Character saved to cloud!"))
-    .catch(err => {
-      console.error("❌ Firebase save error:", err);
-      alert("❌ Failed to save character.");
-    });
+  const charactersRef = window.db && window.db instanceof Object
+    ? window.db
+    : null;
+
+  if (!charactersRef) {
+    console.error("❌ Firestore instance not available.");
+    return;
+  }
+
+  // Modular Firestore syntax
+  import("https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js").then(firestore => {
+    const { doc, setDoc, collection } = firestore;
+    const docRef = doc(collection(window.db, "characters"), characterName);
+
+    setDoc(docRef, data)
+      .then(() => alert("✅ Character saved to Firebase!"))
+      .catch(err => {
+        console.error("❌ Failed to save:", err);
+        alert("❌ Firebase save failed.");
+      });
+  });
 }
+
 
 async function loadFromFirebase(characterName) {
   try {

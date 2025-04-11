@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Delta Green Tools</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase SDKs -->
+<!-- Firebase App (the core SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyArii21GqpsShFeHtMHzgRT--73h1D3hQ",
+    authDomain: "deltagreenapp.firebaseapp.com",
+    projectId: "deltagreenapp",
+    storageBucket: "deltagreenapp.appspot.com",
+    messagingSenderId: "304292452847",
+    appId: "1:304292452847:web:bce1fcb501470fe3c5be1a"
+  };
+
+  // Initialize Firebase and Firestore
+  firebase.initializeApp(firebaseConfig);
+  window.db = firebase.firestore();
+// Initialize Firebase Authentication and get a reference to the service
+    const auth = firebase.auth();
+
+</script>
+
+  
+
+  <!-- THEN load your main JS -->
+  <script src="script.js"></script>
+
+
 </head>
 
 
@@ -24,6 +58,9 @@
      <p id="welcome-subtitle" class="terminal-text hidden">Agent, choose a tool below.</p>
  
      <div class="button-group hidden" id="menu-buttons">
+      <button id="login">Log In with Google</button>
+<button id="logout">Log Out</button>
+
        <a href="character-sheet.html" class="nav-button">Agent Profile</a>
        <a href="#" class="nav-button">Persons of Interest</a>
        <a href="#" class="nav-button">Operations Manual</a>

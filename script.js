@@ -179,10 +179,13 @@ function loadCharacter(event) {
 
 function saveToFirebase(characterName, data) {
   if (!characterName) return;
+
+  console.log("📤 Saving character to Firebase:", characterName, data);
+
   db.collection("characters").doc(characterName).set(data)
     .then(() => alert("✅ Character saved to cloud!"))
     .catch(err => {
-      console.error("Save error:", err);
+      console.error("❌ Firebase save error:", err);
       alert("❌ Failed to save character.");
     });
 }

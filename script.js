@@ -576,3 +576,12 @@ function updateTagFilterOptions() {
 
   tagFilter.value = current;
 }
+
+//Toggle Tooltip Info
+
+function toggleInfo(button) {
+  const popup = button.nextElementSibling;
+  if (popup) {
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+}

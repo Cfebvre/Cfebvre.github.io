@@ -454,3 +454,33 @@ function loadCharacterFromData(data) {
   // Lock sheet after loading
   setSheetLocked(true);
 }
+
+function resetCharacter() {
+  // Clear all text inputs and bond names
+  document.querySelectorAll('input[type="text"]').forEach(input => input.value = "");
+  document.querySelectorAll('textarea').forEach(area => area.value = "");
+
+  // Reset dropdowns
+  document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+  // Clear all dot states
+  document.querySelectorAll('.dot').forEach(dot => {
+    dot.className = 'dot ' + [...dot.classList].filter(cls =>
+      ['core', 'skill', 'health', 'sanity', 'training', 'bond'].includes(cls)
+    ).join(' ');
+    dot.removeAttribute('data-returning'); // For sanity dots
+  });
+
+  // Reset and reapply core toggle coloring
+  document.getElementById('core-toggle')?.dispatchEvent(new Event('change'));
+
+  // Clear mission notes (if applicable)
+  if (typeof missionNotes !== "undefined") {
+    missionNotes = [];
+    renderMissionNotes?.();
+    updateTagFilterOptions?.();
+  }
+
+  // Unlock sheet
+  setSheetLocked(false);
+}

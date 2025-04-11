@@ -580,9 +580,11 @@ function updateTagFilterOptions() {
 //Toggle Tooltip Info
 
 function toggleInfo(button) {
+  // Try to find popup as a sibling of the label
   const label = button.closest("label");
-  const popup = label?.querySelector(".info-popup");
+  const parent = label?.parentElement;
 
+  const popup = parent?.querySelector(".info-popup");
   if (popup) {
     popup.style.display = popup.style.display === "block" ? "none" : "block";
   }

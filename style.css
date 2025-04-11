@@ -808,7 +808,8 @@ body.dark .note-controls button {
 .hamburger-menu {
   position: absolute;
   top: 100%; /* directly below the hamburger button */
-  right: 0;
+  left: 0;
+  margin-top: 0.5rem;
   background: #fff;
   border: 2px solid #000;
   padding: 1rem;
@@ -920,14 +921,18 @@ body.dark .hamburger-menu span {
 }
 
 #menu-overlay {
-  display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 999;
+  display: none;
 }
 
-.menu-open #menu-overlay {
+body.menu-open #menu-overlay {
   display: block;
 }
 

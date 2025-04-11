@@ -455,6 +455,8 @@ function loadCharacterFromData(data) {
   setSheetLocked(true);
 }
 
+// Reset CHaracter
+
 function resetCharacter() {
   // Clear all text inputs and bond names
   document.querySelectorAll('input[type="text"]').forEach(input => input.value = "");
@@ -483,4 +485,94 @@ function resetCharacter() {
 
   // Unlock sheet
   setSheetLocked(false);
+}
+
+// Mission notes
+
+function addMissionNote() {
+  const title = document.getElementById('mission-title').value.trim();
+  const body = document.getElementById('mission-body').value.trim();
+  const tagsRaw = document.getElementById('mission-tags').value.trim();
+
+  if (!title && !body) return;
+
+  const tags = tagsRaw ? tagsRaw.split(',').map(tag => tag.trim()).filter(Boolean) : [];
+
+  const note = {
+    title,
+    body,
+    date: new Date().toLocaleDateString(),
+    tags
+  };
+
+  if (typeof missionNotes === "undefined") {
+    missionNotes = [];
+  }
+
+  missionNotes.push(note);
+  renderMissionNotes?.();
+  updateTagFilterOptions?.();
+
+  // Clear form
+  document.getElementById('mission-title').value = '';
+  document.getElementById('mission-body').value = '';
+  document.getElementById('mission-tags').value = '';
+}
+
+// Sort and Filter Mission Notes
+
+function renderMissionNotes() {
+  const container = document.getElementById('mission-notes-list');
+  const tagFilter = document.getElementById('tag-filter')?.value || '';
+  const sortOrder = document.getElementById('sort-order')?.value || 'desc';
+
+  container.innerHTML = '';
+
+  let filtered = missionNotes.filter(note => {
+    if (!tagFilter) return true;
+    return note.tags?.includes(tagFilter);
+  });
+
+  filtered.sort((a, b) => {
+    const d1 = new Date(a.date);
+    const d2 = new Date(b.date);
+    return sortOrder === 'desc' ? d2 - d1 : d1 - d2;
+  });
+
+  filtered.forEach(note => {
+    const div = document.createElement('div');
+    div.className = 'mission-note-entry';
+    div.innerHTML = `
+      <h4>${note.title || '(Untitled Mission)'}</h4>
+      <div class="date">${note.date}</div>
+      <div>${note.body.replace(/\n/g, '<br>')}</div>
+      ${note.tags?.length ? `<div><strong>Tags:</strong> ${note.tags.join(', ')}</div>` : ''}
+      <div class="note-controls">
+        <button onclick="editMissionNote(${missionNotes.indexOf(note)})">Edit</button>
+        <button onclick="deleteMissionNote(${missionNotes.indexOf(note)})">Delete</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function updateTagFilterOptions() {
+  const tagFilter = document.getElementById('tag-filter');
+  if (!tagFilter) return;
+
+  const tagsSet = new Set();
+  missionNotes.forEach(note => {
+    note.tags?.forEach(tag => tagsSet.add(tag));
+  });
+
+  const current = tagFilter.value;
+  tagFilter.innerHTML = '<option value="">All</option>';
+  [...tagsSet].sort().forEach(tag => {
+    const opt = document.createElement('option');
+    opt.value = tag;
+    opt.innerText = tag;
+    tagFilter.appendChild(opt);
+  });
+
+  tagFilter.value = current;
 }

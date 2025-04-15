@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delta Green - Character Sheet</title>
+  <link rel="stylesheet" href="style-update.css" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyArii21GqpsShFeHtMHzgRT--73h1D3hQ",
+      authDomain: "deltagreenapp.firebaseapp.com",
+      projectId: "deltagreenapp",
+      storageBucket: "deltagreenapp.appspot.com",
+      messagingSenderId: "304292452847",
+      appId: "1:304292452847:web:bce1fcb501470fe3c5be1a"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+  <script defer src="script-update.js"></script>
+</head>
+<body>
+  <!-- Shared Header -->
+  <header class="main-header">
+    <div class="logo">
+      <span class="triangle">&#9651;</span>
+      <span class="logo-text">DELTA GREEN</span>
+    </div>
+    <div class="auth-buttons">
+      <button id="login" class="header-button">Sign In</button>
+      <button id="logout" class="header-button" style="display: none;">Sign Out</button>
+      <div class="hamburger-menu" id="hamburger-toggle">
+        &#9776;
+        <div class="hamburger-dropdown" id="hamburger-menu">
+          <a href="index.html">Home</a>
+          <a href="#" onclick="openSaveModal()">Save Character</a>
+          <label for="load-file">Load Character</label>
+          <input type="file" id="load-file" accept=".json" style="display: none" />
+          <a href="#" onclick="resetCharacter()">Reset Character</a>
+          <a href="#" id="dark-mode-button">Dark Mode</a>
+          <a href="#" id="lock-toggle">Unlocked</a>
+          <a href="#" onclick="openDiceModal()">Dice Roller</a>
+          <a href="#" onclick="saveToFirebase(prompt('Enter character name'), gatherCharacterData())">Save to Firebase</a>
+          <a href="#" onclick="loadFromFirebase(prompt('Enter character name'))">Load from Firebase</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Character Sheet Content -->
+  <main class="main-container">
+  <section>
+    <div class="section">
+      <h2 class="section-heading">Agent Profile</h2>
+      <div class="field-row">
+        <div class="field-pair">
+          <label for="agent">Agent Name</label>
+          <input type="text" id="agent" placeholder="Enter agent codename" />
+        </div>
+        <div class="field-pair">
+          <label for="player">Player Name</label>
+          <input type="text" id="player" placeholder="Enter your name" />
+        </div>
+      </div>
+    </div>
+  </section>
+    
+    <section>
+  <details open class="section">
+    <summary class="section-heading">Core Attributes</summary>
+    <div class="grid-three-column">
+      <div class="attribute-block">
+        <label>Strength</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Dexterity</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Endurance</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Focus</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Wits</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Resolve</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Charisma</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Subterfuge</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+      <div class="attribute-block">
+        <label>Awareness</label>
+        <div class="dot-container">
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+          <div class="dot core"></div>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+    
+<section>
+  <details open class="section">
+    <summary class="section-heading">Health and Sanity</summary>
+    <div class="grid-two-column">
+      <div class="attribute-block label-with-tooltip">
+        <label>
+          Health
+          <button class="info-button" onclick="toggleInfo(this)">?</button>
+        </label>
+        <span class="info-popup">4 + Strength + Endurance + Resolve</span>
+        <div class="dot-container">
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+          <div class="dot health"></div>
+        </div>
+      </div>
+
+      <div class="attribute-block label-with-tooltip">
+        <label>
+          Sanity
+          <button class="info-button" onclick="toggleInfo(this)">?</button>
+        </label>
+        <span class="info-popup">5 + Focus + Resolve + Awareness (Full Pips)</span>
+        <div class="dot-container">
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+          <div class="dot sanity"></div>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+    
+<section>
+  <details open class="section">
+    <summary class="section-heading">Skills</summary>
+    <div class="grid-three-column">
+      <!-- Composure -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Composure
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Wits + Charisma</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Defence -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Defence
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Dexterity + Wits</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Fortitude -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Fortitude
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Endurance + Resolve</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Melee -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Melee
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Strength + Dexterity</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Ranged -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Ranged
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Dexterity + Focus</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Occult -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Occult
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Focus + Resolve</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Devices -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Devices
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Focus + Subterfuge</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Might -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Might
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Strength + Endurance</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Notice -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Notice
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Wits + Awareness</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Sneak -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Sneak
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Dexterity + Subterfuge</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Survival -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Survival
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Endurance + Wits</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Deception -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Deception
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Charisma + Subterfuge</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Influence -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Influence
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Charisma + Awareness</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Insight -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Insight
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Subterfuge + Awareness</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+<!-- Presence -->
+<div class="attribute-block label-with-tooltip">
+  <label>
+    Presence
+    <button class="info-button" onclick="toggleInfo(this)">?</button>
+  </label>
+  <span class="info-popup">Strength + Charisma</span>
+  <div class="dot-container">
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+    <div class="dot skill"></div>
+  </div>
+</div>
+
+    </div>
+  </details>
+</section>
+
+<section>
+  <details open class="section">
+    <summary class="section-heading">Combat Actions</summary>
+    <div class="combat-grid">
+      <!-- Row 1 -->
+      <div class="combat-row">
+        <input type="text" class="combat-weapon" placeholder="Weapon Name" />
+        <select class="combat-skill">
+          <option>Melee</option>
+          <option>Ranged</option>
+        </select>
+        <select class="combat-range">
+          <option>Close</option>
+          <option>Medium</option>
+          <option>Far</option>
+          <option>Very Far</option>
+        </select>
+        <select class="combat-type">
+          <option>Bludgeoning</option>
+          <option>Piercing</option>
+          <option>Slashing</option>
+        </select>
+        <select class="combat-damage">
+          <option>+1</option>
+          <option>+2</option>
+          <option>+3</option>
+          <option>+4</option>
+          <option>+5</option>
+          <option>+6</option>
+        </select>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="combat-row">
+        <input type="text" class="combat-weapon" placeholder="Weapon Name" />
+        <select class="combat-skill">
+          <option>Melee</option>
+          <option>Ranged</option>
+        </select>
+        <select class="combat-range">
+          <option>Close</option>
+          <option>Medium</option>
+          <option>Far</option>
+          <option>Very Far</option>
+        </select>
+        <select class="combat-type">
+          <option>Bludgeoning</option>
+          <option>Piercing</option>
+          <option>Slashing</option>
+        </select>
+        <select class="combat-damage">
+          <option>+1</option>
+          <option>+2</option>
+          <option>+3</option>
+          <option>+4</option>
+          <option>+5</option>
+          <option>+6</option>
+        </select>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="combat-row">
+        <input type="text" class="combat-weapon" placeholder="Weapon Name" />
+        <select class="combat-skill">
+          <option>Melee</option>
+          <option>Ranged</option>
+        </select>
+        <select class="combat-range">
+          <option>Close</option>
+          <option>Medium</option>
+          <option>Far</option>
+          <option>Very Far</option>
+        </select>
+        <select class="combat-type">
+          <option>Bludgeoning</option>
+          <option>Piercing</option>
+          <option>Slashing</option>
+        </select>
+        <select class="combat-damage">
+          <option>+1</option>
+          <option>+2</option>
+          <option>+3</option>
+          <option>+4</option>
+          <option>+5</option>
+          <option>+6</option>
+        </select>
+      </div>
+    </div>
+  </details>
+</section>
+
+<section>
+  <details open class="section">
+    <summary class="section-heading">Training & Specializations</summary>
+    <div class="training-grid">
+      <div class="training-block">
+        <label>Firearms</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Close Combat</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>First Aid</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Stealth</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Tracking</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Driving</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Languages</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Explosives</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Surveillance</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Investigation</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Disguise</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+      <div class="training-block">
+        <label>Psychology</label>
+        <div class="dot-container">
+          <div class="dot training"></div>
+          <div class="dot training"></div>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+    
+<section>
+  <details open class="section">
+    <summary class="section-heading">Bonds</summary>
+    <div class="bond-grid">
+      <div class="bond-block">
+        <label>Bond 1</label>
+        <input type="text" class="bond-name" placeholder="Relationship (e.g. Partner, Sibling)" />
+        <div class="dot-container">
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+        </div>
+      </div>
+
+      <div class="bond-block">
+        <label>Bond 2</label>
+        <input type="text" class="bond-name" placeholder="Relationship (e.g. Colleague, Mentor)" />
+        <div class="dot-container">
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+        </div>
+      </div>
+
+      <div class="bond-block">
+        <label>Bond 3</label>
+        <input type="text" class="bond-name" placeholder="Relationship (e.g. DG Contact)" />
+        <div class="dot-container">
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+          <div class="dot bond"></div>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- Personal Details and Notes -->
+<section>
+  <details open class="section">
+    <summary class="section-heading">Personal Details and Notes</summary>
+    <textarea id="personal-notes" rows="6" placeholder="Enter background, habits, secrets, or mission-specific notes..."></textarea>
+  </details>
+</section>
+
+<!-- Wounds and Ailments -->
+<section>
+  <details open class="section">
+    <summary class="section-heading">Wounds and Ailments</summary>
+    <textarea id="wounds" rows="4" placeholder="Track injuries, traumas, and ongoing effects..."></textarea>
+  </details>
+</section>
+
+<!-- Equipment and Gear -->
+<section>
+  <details open class="section">
+    <summary class="section-heading">Equipment and Gear</summary>
+    <textarea id="equipment" rows="5" placeholder="List weapons, gadgets, documents, or other field gear..."></textarea>
+  </details>
+</section>   
+    
+</main>
+
+</body>
+</html>

@@ -1,0 +1,479 @@
+/* -------------------
+   GLOBAL STYLES
+------------------- */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: 'Roboto Mono', monospace;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+a {
+  color: #0f0;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  font-size: 0.8rem;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0;
+}
+
+button:hover,
+.nav-button:hover {
+  background-color: #0f0;
+  color: #000;
+  border-radius: 6px;
+}
+
+.section {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #111;
+  box-sizing: border-box;
+}
+
+
+.field-pair {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-pair label {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 0.25rem;
+}
+
+.field-pair input[type="text"] {
+  padding: 0.5rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.field-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.section-heading {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0f0;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+section h2 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #0f0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.25rem;
+}
+
+
+/* -------------------
+   SHARED HEADER STYLES (Used Across Pages)
+------------------- */
+
+header,
+.main-header {
+  width: 100%;
+  background-color: #111;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: bold;
+  color: #0f0;
+}
+
+.logo::before {
+  content: "";
+  color: #0f0;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+  align-items: center;
+  padding-right: 2rem;
+}
+
+.hamburger-menu {
+  position: relative;
+}
+
+.hamburger-toggle {
+  background: none;
+  color: #0f0;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.hamburger-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #111;
+  border: 1px solid #333;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  min-width: 180px;
+  flex-direction: column;
+}
+
+.hamburger-dropdown a {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  font-size: 0.85rem;
+}
+
+.hamburger-dropdown a:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+.hamburger-menu.open .hamburger-dropdown {
+  display: flex;
+}
+
+/* -------------------
+   HOMEPAGE STYLES
+------------------- */
+
+.homepage-main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homepage-panel {
+  background: #111;
+  border: 1px solid #333;
+  padding: 2rem;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.homepage-panel h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.homepage-panel p {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.nav-button {
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 0.75rem 1rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.terminal-wrapper {
+  background: #000;
+  color: #0f0;
+  font-family: 'Roboto Mono', monospace;
+  display: block;
+  white-space: pre;
+  font-size: 0.9rem;
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 1.5rem;
+  border-radius: 4px;
+  height: 400px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.terminal-output {
+  display: block;
+  text-align: left;
+  white-space: pre-wrap;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.terminal-output div {
+  display: block;
+  width: 100%;
+}
+
+.terminal-cursor::after {
+  content: '_';
+  animation: blink 1s steps(1) infinite;
+  color: #0f0;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* -------------------
+   CHARACTER SHEET STYLES
+------------------- */
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid #aaa;
+  margin: 2px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.dot.health.active,
+.dot.bond.active {
+  background: #fff;
+}
+
+.dot.sanity.full {
+  background: #fff;
+}
+
+.dot.sanity.half {
+  background: #555;
+}
+
+.dot.skill.orange {
+  background: orange;
+}
+
+.dot.skill.red {
+  background: red;
+}
+
+.dot.training.yellow {
+  background: yellow;
+}
+
+.dot.training.orange {
+  background: orange;
+}
+
+.dot.training.black {
+  background: black;
+}
+
+.dot.core.red {
+  background: #d00;
+}
+
+.dot.core.green {
+  background: #0f0;
+}
+
+.dot.core.blue {
+  background: #08f;
+}
+
+.info-popup {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #000;
+  padding: 2px 6px;
+  font-size: 0.65rem;
+  font-family: 'Roboto Mono', monospace;
+  white-space: nowrap;
+  z-index: 10;
+  margin-top: 4px;
+  margin-left: 6px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+.label-with-tooltip {
+  position: relative;
+}
+
+.info-button {
+  font-family: inherit;
+  font-size: 0.6rem;
+  margin-left: 4px;
+  border: none;
+  background: #d1d1d1;
+  color: #fff;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.grid-three-column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.attribute-block label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+.dot-container {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.grid-two-column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.combat-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.combat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.combat-row input,
+.combat-row select {
+  flex: 1 1 140px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  min-width: 120px;
+}
+
+.training-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.training-block label {
+  display: block;
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 0.25rem;
+}
+
+.bond-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.bond-block label {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.bond-block input[type="text"] {
+  padding: 0.4rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  width: 100%;
+  max-width: 100%;
+  background: #111;
+  color: #fff;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  resize: vertical;
+  line-height: 1.4;
+}

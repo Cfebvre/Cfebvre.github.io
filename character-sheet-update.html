@@ -30,17 +30,11 @@
 <body>
   <!-- Shared Header -->
   <header class="main-header">
-    <div class="logo">
-      <span class="triangle">&#9651;</span>
-      <span class="logo-text">DELTA GREEN</span>
-    </div>
+    <div class="logo">&#9651;</div>
     <div class="auth-buttons">
-      <button id="login" class="header-button">Sign In</button>
-      <button id="logout" class="header-button" style="display: none;">Sign Out</button>
-      <div class="hamburger-menu" id="hamburger-toggle">
-        &#9776;
-        <div class="hamburger-dropdown" id="hamburger-menu">
-          <a href="index.html">Home</a>
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <button class="hamburger-toggle" onclick="document.getElementById('hamburgerMenu').classList.toggle('open')">☰</button>
+        <div class="hamburger-dropdown">
           <a href="#" onclick="openSaveModal()">Save Character</a>
           <label for="load-file">Load Character</label>
           <input type="file" id="load-file" accept=".json" style="display: none" />
@@ -52,6 +46,8 @@
           <a href="#" onclick="loadFromFirebase(prompt('Enter character name'))">Load from Firebase</a>
         </div>
       </div>
+      <button id="login-button" class="header-button">Sign In</button>
+      <button id="logout-button" class="header-button" style="display: none;">Sign Out</button>
     </div>
   </header>
 

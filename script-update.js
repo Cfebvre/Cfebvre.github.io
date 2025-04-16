@@ -203,6 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     //Homepage Terminal Text Function
   
+    const terminal = document.getElementById("terminal-text");
+  if (terminal) {
     const terminalLines = [
       "[DG-001] Secure uplink established…",
       "[PROTOCOL-SIGMA] Verifying agent credentials...",
@@ -215,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "[LOG] Suspicious artifact found in ███████ farmhouse",
       "[NOTICE] You were never here."
     ];
-  
+
     const gibberishSet = [
       "[xAF934] $%#*(@)987sfads...:::;",
       "> BINARY DUMP @ 0x00FFEC: ██ ░▒▓ █ █ █",
@@ -228,11 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "//echo:echo:echo:██-██-██",
       "char[] VOIDSTREAM = {'d','e','l','t','a'};"
     ];
-  
-    const terminal = document.getElementById("terminal-text");
+
     let currentIndex = 0;
     let phase = "intro";
-  
+
     // Setup 10 empty lines first
     const lines = [];
     for (let i = 0; i < terminalLines.length; i++) {
@@ -240,12 +241,12 @@ document.addEventListener("DOMContentLoaded", () => {
       terminal.appendChild(line);
       lines.push(line);
     }
-  
+
     function typeLine(lineEl, text, callback) {
       let i = 0;
       lineEl.textContent = '';
       lineEl.classList.add('terminal-cursor');
-  
+
       const interval = setInterval(() => {
         lineEl.textContent += text[i];
         i++;
@@ -256,28 +257,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, 25); // Typing speed
     }
-  
+
     function cycleTerminal() {
       const lineEl = lines[currentIndex];
       const nextText =
         phase === "intro"
           ? gibberishSet[Math.floor(Math.random() * gibberishSet.length)]
           : terminalLines[currentIndex];
-  
+
       typeLine(lineEl, nextText, () => {
         currentIndex++;
-  
+
         if (currentIndex >= terminalLines.length) {
           currentIndex = 0;
           phase = phase === "intro" ? "restore" : "intro";
         }
-  
+
         setTimeout(cycleTerminal, 400);
       });
-  
+
       terminal.scrollTop = terminal.scrollHeight;
     }
-  
+
     // Initial pass with original lines typed in
     function startIntroLines(index = 0) {
       if (index >= terminalLines.length) {
@@ -285,13 +286,14 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(cycleTerminal, 1000);
         return;
       }
-  
+
       typeLine(lines[index], terminalLines[index], () => {
         setTimeout(() => startIntroLines(index + 1), 300);
       });
     }
-  
-    startIntroLines();  
+
+    startIntroLines();
+  }
     
   
   });

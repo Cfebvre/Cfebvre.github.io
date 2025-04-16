@@ -373,10 +373,18 @@ header,
 
 .grid-three-column {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Force 3 columns on larger screens */
   gap: 1.5rem;
   margin-top: 1rem;
 }
+
+/* Responsive override for smaller screens */
+@media (max-width: 600px) {
+  .grid-three-column {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
+
 
 .attribute-block label {
   display: block;
@@ -426,9 +434,16 @@ header,
 
 .training-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr); /* Force 3 columns on larger screens */
+  gap: 1.5rem;
   margin-top: 1rem;
+}
+
+/* Responsive override for smaller screens */
+@media (max-width: 600px) {
+  .training-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
 }
 
 .training-block label {

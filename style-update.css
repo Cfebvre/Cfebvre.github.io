@@ -492,3 +492,42 @@ textarea {
   resize: vertical;
   line-height: 1.4;
 }
+
+/* Dice Modal Overlay Styles */
+#dice-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#dice-modal .modal-content {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 2rem;
+  border-radius: 6px;
+  width: 300px;
+  text-align: center;
+}
+
+.dice-pool {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+#dice-modal .dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}

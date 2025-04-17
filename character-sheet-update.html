@@ -688,7 +688,30 @@
     <summary class="section-heading">Equipment and Gear</summary>
     <textarea id="equipment" rows="5" placeholder="List weapons, gadgets, documents, or other field gear..."></textarea>
   </details>
-</section>   
+</section>
+
+    <!-- Dice Modal -->
+    
+<div id="dice-modal" class="modal">
+    <div class="modal-content">
+      <h3>Dice Roller</h3>
+      <p>Select Dice Pool</p>
+      <div class="dice-pool">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <div id="dice-results" class="dice-results" style="display: none;"></div>
+
+      <div class="modal-buttons">
+        <button onclick="rollDice()">Roll Dice</button>
+        <button onclick="closeDiceModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+    <!-- Dice Modal -->
     
 </main>
 

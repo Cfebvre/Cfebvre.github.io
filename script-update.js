@@ -92,40 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
       loadInput.addEventListener("change", loadCharacter);
     }
   
-    // Core Toggle Coloring
-    if (coreToggle) {
-      coreToggle.addEventListener("change", () => {
-        const isOn = coreToggle.checked;
-        document.getElementById("core-label-on").style.display = isOn ? "inline" : "none";
-        document.getElementById("core-label-off").style.display = isOn ? "none" : "inline";
-        const groups = isOn
-          ? { red: ["Strength", "Focus", "Charisma"], green: ["Dexterity", "Wits", "Subterfuge"], blue: ["Endurance", "Resolve", "Awareness"] }
-          : { red: ["Strength", "Dexterity", "Endurance"], green: ["Focus", "Wits", "Resolve"], blue: ["Charisma", "Subterfuge", "Awareness"] };
-  
-        document.querySelectorAll(".section.grid").forEach(section => {
-          section.querySelectorAll("div").forEach(div => {
-            const label = div.querySelector("label");
-            const dots = div.querySelectorAll(".dot.core");
-            if (!label || dots.length === 0) return;
-            const text = label.textContent.trim();
-            dots.forEach(dot => {
-              dot.classList.remove("red", "green", "blue");
-              if (groups.red.includes(text)) dot.classList.add("red");
-              else if (groups.green.includes(text)) dot.classList.add("green");
-              else if (groups.blue.includes(text)) dot.classList.add("blue");
-            });
-          });
-        });
-      });
-      coreToggle.dispatchEvent(new Event("change"));
-    }
-  
-    // Dot click behaviors
+    // Core Attribute Dot Behavior (simple toggle fill)
     document.querySelectorAll(".dot.core").forEach(dot => {
-      dot.addEventListener("click", () => {
-        dot.classList.toggle("active");
+    dot.addEventListener("click", () => {
+    dot.classList.toggle("active");
       });
-    });
+      });
   
     document.querySelectorAll(".dot.skill").forEach(dot => {
       dot.addEventListener("click", () => {
@@ -364,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //Open-Close Dice Modal 
   
   function openDiceModal() {
-    document.getElementById("dice-modal").style.display = "block";
+    document.getElementById("dice-modal").style.display = "flex";
     document.querySelectorAll("#dice-modal .dot").forEach(dot => {
       dot.classList.remove("orange", "red");
       dot.classList.add("yellow");
@@ -394,24 +366,36 @@ document.addEventListener("DOMContentLoaded", () => {
       let color = 'yellow';
       if (dot.classList.contains('red')) color = 'red';
       else if (dot.classList.contains('orange')) color = 'orange';
-  
+    
       const roll = diceTables[color][Math.floor(Math.random() * 6)];
       total += roll;
-  
+    
       const result = document.createElement('div');
-      result.classList.add('dice-result', color);
-      result.innerHTML = `<span class="dice-color-square ${color}"></span> <span class="dice-value">${roll}</span>`;
-  
-      result.style.animationDelay = `${index * 0.2}s`; // Optional animation
+      result.classList.add('dice-result');
+    
+      // Delay each result's appearance
+      result.style.animationDelay = `${index * 0.2}s`;
+    
+      result.innerHTML = `
+        <span class="dice-color-dot ${color}"></span>
+        <span class="dice-value">${roll}</span>
+      `;
+    
       resultsBox.appendChild(result);
     });
+
+//Delay Results
+
+    setTimeout(() => {
+      const totalDiv = document.createElement('div');
+      totalDiv.classList.add('dice-total');
+      totalDiv.innerText = `Total: ${total}`;
+      resultsBox.appendChild(totalDiv);
+    }, diceDots.length * 200); // Match the delay from above
   
-    const totalDiv = document.createElement('div');
-    totalDiv.classList.add('dice-total');
-    totalDiv.innerText = `Total: ${total}`;
-    resultsBox.appendChild(totalDiv);
+
   
-    resultsBox.style.display = 'block';
+    resultsBox.style.display = 'flex';
   }
   
   //Gather Character Data
@@ -532,13 +516,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Agent & Player
     document.getElementById("agent").value = data.agent || "";
     document.getElementById("player").value = data.player || "";
-  
-    // Core Toggle
-    const coreToggleInput = document.getElementById("core-toggle");
-    if (coreToggleInput) {
-      coreToggleInput.checked = !!data.coreToggle;
-      coreToggleInput.dispatchEvent(new Event("change"));
-    }
   
     // Dots
     document.querySelectorAll(".dot").forEach((dot, i) => {

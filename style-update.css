@@ -277,12 +277,17 @@ header,
 ------------------- */
 
 .dot {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
   border: 1px solid #aaa;
   margin: 2px;
   display: inline-block;
   border-radius: 3px;
+  cursor: pointer;
+}
+
+.dot.skill {
+background: gold
 }
 
 .dot.health.active,
@@ -299,11 +304,11 @@ header,
 }
 
 .dot.skill.orange {
-  background: orange;
+  background: rgb(255, 100, 29);
 }
 
 .dot.skill.red {
-  background: red;
+  background: rgb(139, 0, 0);
 }
 
 .dot.training.yellow {
@@ -318,25 +323,30 @@ header,
   background: black;
 }
 
-.dot.core.red {
-  background: #d00;
+.dot.core.active {
+  background: #fff;
 }
 
-.dot.core.green {
-  background: #0f0;
+.dot.yellow {
+  background-color: yellow;
 }
 
-.dot.core.blue {
-  background: #08f;
+.dot.orange {
+  background-color: orange;
 }
+
+.dot.red {
+  background-color: red;
+}
+
 
 .info-popup {
   display: none;
   position: absolute;
-  background: #fff;
+  background: #000;
   border: 1px solid #000;
   padding: 2px 6px;
-  font-size: 0.65rem;
+  font-size: .8rem;
   font-family: 'Roboto Mono', monospace;
   white-space: nowrap;
   z-index: 10;
@@ -354,7 +364,7 @@ header,
   font-size: 0.6rem;
   margin-left: 4px;
   border: none;
-  background: #d1d1d1;
+  background: #999999;
   color: #fff;
   border-radius: 50%;
   width: 1rem;
@@ -500,16 +510,18 @@ textarea {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.85);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 2000;
+  display: flex; /* This is the key to centering it */
 }
+
 
 #dice-modal .modal-content {
   background-color: #111;
-  color: #0f0;
+  color: #aaa;
   border: 1px solid #0f0;
   padding: 2rem;
   border-radius: 6px;
@@ -527,7 +539,62 @@ textarea {
 #dice-modal .dot {
   width: 1.2rem;
   height: 1.2rem;
-  border-radius: 50%;
+  border-radius: 4px;
   border: 1px solid #ccc;
   cursor: pointer;
 }
+
+@keyframes fadeInDice {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.dice-result {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+  font-family: 'Roboto Mono', monospace;
+  padding-bottom: 12px;
+  opacity: 0;
+  animation: fadeInDice 0.3s ease-out forwards;
+}
+
+.dice-color-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px; /* Rounded square */
+  margin-right: 6px;
+  display: inline-block;
+  border: 1px solid #000;
+}
+
+.dice-color-dot.yellow {
+  background-color: yellow;
+}
+
+.dice-color-dot.orange {
+  background-color: orange;
+}
+
+.dice-color-dot.red {
+  background-color: red;
+}
+
+#dice-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+  text-align: left;
+}
+
+.dice-total {
+  width: 100%;
+  text-align: center;
+  margin-top: 4px;
+  font-weight: bold;
+  color: #aaa;
+  padding-bottom: 12px;
+}
+

@@ -36,11 +36,6 @@
         <button class="hamburger-toggle" onclick="document.getElementById('hamburgerMenu').classList.toggle('open')">☰</button>
         <div class="hamburger-dropdown">
           <a href="index.html">Home</a>
-          <a href="#" onclick="openSaveModal()">Save Character</a>
-          <label for="load-file">Load Character</label>
-          <input type="file" id="load-file" accept=".json" style="display: none" />
-          <a href="#" onclick="resetCharacter()">Reset Character</a>
-          <a href="#" id="dark-mode-button">Dark Mode</a>
           <a href="#" id="lock-toggle">Unlocked</a>
           <a href="#" onclick="openDiceModal()">Dice Roller</a>
           <a href="#" onclick="saveToFirebase(prompt('Enter character name'), gatherCharacterData())">Save to Firebase</a>
@@ -55,8 +50,8 @@
   <!-- Character Sheet Content -->
   <main class="main-container">
   <section>
-    <div class="section">
-      <h2 class="section-heading">Agent Profile</h2>
+    <details open class="section">
+      <summary class="section-heading">Agent Codename</summary>
       <div class="field-row">
         <div class="field-pair">
           <label for="agent">Agent Name</label>
@@ -67,7 +62,7 @@
           <input type="text" id="player" placeholder="Enter your name" />
         </div>
       </div>
-    </div>
+    </details>
   </section>
     
     <section>
@@ -670,7 +665,7 @@
 <section>
   <details open class="section">
     <summary class="section-heading">Personal Details and Notes</summary>
-    <textarea id="personal-notes" rows="6" placeholder="Enter background, habits, secrets, or mission-specific notes..."></textarea>
+    <textarea id="personal-notes" rows="8" placeholder="Enter background, habits, secrets, or mission-specific notes..."></textarea>
   </details>
 </section>
 
@@ -678,7 +673,7 @@
 <section>
   <details open class="section">
     <summary class="section-heading">Wounds and Ailments</summary>
-    <textarea id="wounds" rows="4" placeholder="Track injuries, traumas, and ongoing effects..."></textarea>
+    <textarea id="wounds" rows="8" placeholder="Track injuries, traumas, and ongoing effects..."></textarea>
   </details>
 </section>
 
@@ -686,7 +681,7 @@
 <section>
   <details open class="section">
     <summary class="section-heading">Equipment and Gear</summary>
-    <textarea id="equipment" rows="5" placeholder="List weapons, gadgets, documents, or other field gear..."></textarea>
+    <textarea id="equipment" rows="8" placeholder="List weapons, gadgets, documents, or other field gear..."></textarea>
   </details>
 </section>
 

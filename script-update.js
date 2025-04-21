@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const lockToggle = document.getElementById("lock-toggle");
     const hamburgerButton = document.getElementById("hamburger-toggle");
     const hamburgerMenu = document.getElementById("hamburger-menu");
-    const loadInput = document.getElementById("load-file");
     const coreToggle = document.getElementById("core-toggle");
   
     // Firebase Authentication
@@ -72,12 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("❌ Logout error:", error);
       });
   });
-  
-  
-    // File input
-    if (loadInput) {
-      loadInput.addEventListener("change", loadCharacter);
-    }
   
     // Core Attribute Dot Behavior (simple toggle fill)
     document.querySelectorAll(".dot.core").forEach(dot => {
@@ -256,17 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
   
   });
-  
-  function loadCharacter(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const data = JSON.parse(e.target.result);
-      loadCharacterFromData(data);
-    };
-    reader.readAsText(file);
-  }
   
   //Saving Character to Firebase
   // IMPORTS (if using module system)
@@ -458,38 +440,6 @@ document.addEventListener("DOMContentLoaded", () => {
     saveCharacter(filename);
   }
   
-  //Save Character Locally
-  
-  function saveCharacter(filename = "character") {
-    const data = gatherCharacterData(); // Assuming this already exists
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${filename}.json`;
-    link.click();
-  }
-  
-  
-  //Load Character Locally
-  
-  function loadCharacter(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-  
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      try {
-        const data = JSON.parse(e.target.result);
-        loadCharacterFromData(data); // assumes this is already defined
-      } catch (err) {
-        console.error("Error reading character file:", err);
-        alert("❌ Invalid character file.");
-      }
-    };
-  
-    reader.readAsText(file);
-  }
-  
   //Load Character From Data
   
   function loadCharacterFromData(data) {
@@ -546,28 +496,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Lock sheet after loading
     setSheetLocked(true);
-  }
-  
-  // Reset CHaracter
-  
-  function resetCharacter() {
-    // Clear all text inputs and bond names
-    document.querySelectorAll('input[type="text"]').forEach(input => input.value = "");
-    document.querySelectorAll('textarea').forEach(area => area.value = "");
-  
-    // Reset dropdowns
-    document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-  
-    // Clear all dot states
-    document.querySelectorAll('.dot').forEach(dot => {
-      dot.className = 'dot ' + [...dot.classList].filter(cls =>
-        ['core', 'skill', 'health', 'sanity', 'training', 'bond'].includes(cls)
-      ).join(' ');
-      dot.removeAttribute('data-returning'); // For sanity dots
-    });
-  
-    // Unlock sheet
-    setSheetLocked(false);
   }
   
   //Toggle Tooltip Info

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hamburgerButton = document.getElementById("hamburger-toggle");
     const hamburgerMenu = document.getElementById("hamburger-menu");
     const loginButton = document.getElementById("login");
+    console.log("🧪 loginButton found?", loginButton);
   
     // Firebase Authentication
   const auth = firebase.auth();
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (loginButton) {
         loginButton.textContent = "Sign In";
         loginButton.onclick = () => {
+          console.log("🔁 Login button clicked"); // ← Add this
           const provider = new firebase.auth.GoogleAuthProvider();
           auth.signInWithPopup(provider).catch((error) => {
             console.error("❌ Sign in error:", error);

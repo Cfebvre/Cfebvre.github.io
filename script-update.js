@@ -19,9 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Optionally update the UI here
     } else {
       console.log("🚫 User is signed out.");
-      // Optionally redirect or hide sensitive features here
+      window.location.href = "index.html"; // 🔁 Redirect to login
     }
   });
+  
   
     // Lock toggle
     if (lockToggle) {
@@ -50,8 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   // Login button
-  document.getElementById("login-button")?.addEventListener("click", () => {
-      console.log("Origin:", window.location.origin);
+  document.getElementById("login")?.addEventListener("click", () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then((result) => {
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   // Logout button
-  document.getElementById("logout-button")?.addEventListener("click", () => {
+  document.getElementById("logout")?.addEventListener("click", () => {
     auth.signOut()
       .then(() => {
         console.log("🚪 Logged out successfully.");

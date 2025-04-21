@@ -67,29 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
-  // Login button
-  document.getElementById("login")?.addEventListener("click", () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log(`🔐 Login successful: ${result.user.displayName}`);
-      })
-      .catch((error) => {
-        console.error("❌ Login error:", error);
-      });
-  });
-  
-  // Logout button
-  document.getElementById("logout")?.addEventListener("click", () => {
-    auth.signOut()
-      .then(() => {
-        console.log("🚪 Logged out successfully.");
-      })
-      .catch((error) => {
-        console.error("❌ Logout error:", error);
-      });
-  });
-  
     // Core Attribute Dot Behavior (simple toggle fill)
     document.querySelectorAll(".dot.core").forEach(dot => {
     dot.addEventListener("click", () => {

@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Login button
   document.getElementById("login-button")?.addEventListener("click", () => {
+      console.log("Origin:", window.location.origin);
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then((result) => {

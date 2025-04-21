@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   // Login button
-  document.getElementById("login")?.addEventListener("click", () => {
+  document.getElementById("login-button")?.addEventListener("click", () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then((result) => {
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   // Logout button
-  document.getElementById("logout")?.addEventListener("click", () => {
+  document.getElementById("logout-button")?.addEventListener("click", () => {
     auth.signOut()
       .then(() => {
         console.log("🚪 Logged out successfully.");

@@ -3,11 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ DOM fully loaded");
   
     // Elements
-    const darkModeButton = document.getElementById("dark-mode-button");
     const lockToggle = document.getElementById("lock-toggle");
     const hamburgerButton = document.getElementById("hamburger-toggle");
     const hamburgerMenu = document.getElementById("hamburger-menu");
-    const coreToggle = document.getElementById("core-toggle");
+    const loginButton = document.getElementById("login");
   
     // Firebase Authentication
   const auth = firebase.auth();
@@ -16,10 +15,28 @@ document.addEventListener("DOMContentLoaded", () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
       console.log(`✅ Signed in as ${user.displayName}`);
-      // Optionally update the UI here
+      if (loginButton) {
+        loginButton.textContent = "Sign Out";
+        loginButton.onclick = () => {
+          auth.signOut().then(() => {
+            console.log("🚪 Signed out successfully");
+            window.location.href = "index.html"; // 🔁 Redirect after logout
+          }).catch((error) => {
+            console.error("❌ Sign out error:", error);
+          });
+        };
+      }
     } else {
       console.log("🚫 User is signed out.");
-      window.location.href = "index.html"; // 🔁 Redirect to login
+      if (loginButton) {
+        loginButton.textContent = "Sign In";
+        loginButton.onclick = () => {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          auth.signInWithPopup(provider).catch((error) => {
+            console.error("❌ Sign in error:", error);
+          });
+        };
+      }
     }
   });
   

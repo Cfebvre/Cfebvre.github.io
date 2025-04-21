@@ -14,31 +14,27 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Auth state listener
   auth.onAuthStateChanged((user) => {
-    if (user) {
-      console.log(`✅ Signed in as ${user.displayName}`);
-      if (loginButton) {
+    if (loginButton) {
+      if (user) {
+        console.log(`✅ Signed in as ${user.displayName}`);
         loginButton.textContent = "Sign Out";
         loginButton.onclick = () => {
           auth.signOut().then(() => {
-            console.log("🚪 Signed out successfully");
-            window.location.href = "index.html"; // 🔁 Redirect after logout
-          }).catch((error) => {
-            console.error("❌ Sign out error:", error);
+            console.log("🚪 Signed out");
+            window.location.href = "index.html";
           });
+        };
+      } else {
+        console.log("🚫 User is signed out");
+        loginButton.textContent = "Sign In";
+        loginButton.onclick = () => {
+          console.log("🔁 Sign in clicked");
+          const provider = new firebase.auth.GoogleAuthProvider();
+          auth.signInWithPopup(provider).catch(console.error);
         };
       }
     } else {
-      console.log("🚫 User is signed out.");
-      if (loginButton) {
-        loginButton.textContent = "Sign In";
-        loginButton.onclick = () => {
-          console.log("🔁 Login button clicked"); // ← Add this
-          const provider = new firebase.auth.GoogleAuthProvider();
-          auth.signInWithPopup(provider).catch((error) => {
-            console.error("❌ Sign in error:", error);
-          });
-        };
-      }
+      console.warn("⚠️ loginButton not found in DOM");
     }
   });
   

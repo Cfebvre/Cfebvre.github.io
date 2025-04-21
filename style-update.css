@@ -300,7 +300,7 @@ background: gold
 }
 
 .dot.sanity.half {
-  background: #555;
+  background: linear-gradient(to top, #fff 50%, #000 50%);
 }
 
 .dot.skill.orange {
@@ -319,8 +319,8 @@ background: gold
   background: orange;
 }
 
-.dot.training.black {
-  background: black;
+.dot.training.white {
+  background: white;
 }
 
 .dot.core.active {

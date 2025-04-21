@@ -24,19 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-    // Dark mode toggle
-    const isDark = localStorage.getItem("darkMode") === "true";
-    document.body.classList.toggle("dark", isDark);
-    if (darkModeButton) {
-      darkModeButton.innerText = isDark ? "Light Mode" : "Dark Mode";
-      darkModeButton.addEventListener("click", () => {
-        const currentlyDark = document.body.classList.contains("dark");
-        document.body.classList.toggle("dark", !currentlyDark);
-        localStorage.setItem("darkMode", !currentlyDark);
-        darkModeButton.innerText = currentlyDark ? "Dark Mode" : "Light Mode";
-      });
-    }
-  
     // Lock toggle
     if (lockToggle) {
       lockToggle.addEventListener("click", () => {
@@ -133,11 +120,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
     document.querySelectorAll(".dot.training").forEach(dot => {
       dot.addEventListener("click", () => {
-        if (dot.classList.contains("black")) {
-          dot.classList.remove("black");
+        if (dot.classList.contains("white")) {
+          dot.classList.remove("white");
         } else if (dot.classList.contains("orange")) {
           dot.classList.remove("orange");
-          dot.classList.add("black");
+          dot.classList.add("white");
         } else if (dot.classList.contains("yellow")) {
           dot.classList.remove("yellow");
           dot.classList.add("orange");
@@ -442,11 +429,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   
-    // Mission notes (if applicable)
-    if (typeof missionNotes !== "undefined") {
-      data.missionNotes = missionNotes;
-    }
-  
     return data;
   }
   
@@ -562,13 +544,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("wounds").value = data.wounds || "";
     document.getElementById("equipment").value = data.equipment || "";
   
-    // Mission Notes (if present)
-    if (Array.isArray(data.missionNotes)) {
-      missionNotes = data.missionNotes;
-      renderMissionNotes?.(); // Only call if function exists
-      updateTagFilterOptions?.();
-    }
-  
     // Lock sheet after loading
     setSheetLocked(true);
   }
@@ -591,108 +566,8 @@ document.addEventListener("DOMContentLoaded", () => {
       dot.removeAttribute('data-returning'); // For sanity dots
     });
   
-    // Reset and reapply core toggle coloring
-    document.getElementById('core-toggle')?.dispatchEvent(new Event('change'));
-  
-    // Clear mission notes (if applicable)
-    if (typeof missionNotes !== "undefined") {
-      missionNotes = [];
-      renderMissionNotes?.();
-      updateTagFilterOptions?.();
-    }
-  
     // Unlock sheet
     setSheetLocked(false);
-  }
-  
-  // Mission notes
-  
-  function addMissionNote() {
-    const title = document.getElementById('mission-title').value.trim();
-    const body = document.getElementById('mission-body').value.trim();
-    const tagsRaw = document.getElementById('mission-tags').value.trim();
-  
-    if (!title && !body) return;
-  
-    const tags = tagsRaw ? tagsRaw.split(',').map(tag => tag.trim()).filter(Boolean) : [];
-  
-    const note = {
-      title,
-      body,
-      date: new Date().toLocaleDateString(),
-      tags
-    };
-  
-    if (typeof missionNotes === "undefined") {
-      missionNotes = [];
-    }
-  
-    missionNotes.push(note);
-    renderMissionNotes?.();
-    updateTagFilterOptions?.();
-  
-    // Clear form
-    document.getElementById('mission-title').value = '';
-    document.getElementById('mission-body').value = '';
-    document.getElementById('mission-tags').value = '';
-  }
-  
-  // Sort and Filter Mission Notes
-  
-  function renderMissionNotes() {
-    const container = document.getElementById('mission-notes-list');
-    const tagFilter = document.getElementById('tag-filter')?.value || '';
-    const sortOrder = document.getElementById('sort-order')?.value || 'desc';
-  
-    container.innerHTML = '';
-  
-    let filtered = missionNotes.filter(note => {
-      if (!tagFilter) return true;
-      return note.tags?.includes(tagFilter);
-    });
-  
-    filtered.sort((a, b) => {
-      const d1 = new Date(a.date);
-      const d2 = new Date(b.date);
-      return sortOrder === 'desc' ? d2 - d1 : d1 - d2;
-    });
-  
-    filtered.forEach(note => {
-      const div = document.createElement('div');
-      div.className = 'mission-note-entry';
-      div.innerHTML = `
-        <h4>${note.title || '(Untitled Mission)'}</h4>
-        <div class="date">${note.date}</div>
-        <div>${note.body.replace(/\n/g, '<br>')}</div>
-        ${note.tags?.length ? `<div><strong>Tags:</strong> ${note.tags.join(', ')}</div>` : ''}
-        <div class="note-controls">
-          <button onclick="editMissionNote(${missionNotes.indexOf(note)})">Edit</button>
-          <button onclick="deleteMissionNote(${missionNotes.indexOf(note)})">Delete</button>
-        </div>
-      `;
-      container.appendChild(div);
-    });
-  }
-  
-  function updateTagFilterOptions() {
-    const tagFilter = document.getElementById('tag-filter');
-    if (!tagFilter) return;
-  
-    const tagsSet = new Set();
-    missionNotes.forEach(note => {
-      note.tags?.forEach(tag => tagsSet.add(tag));
-    });
-  
-    const current = tagFilter.value;
-    tagFilter.innerHTML = '<option value="">All</option>';
-    [...tagsSet].sort().forEach(tag => {
-      const opt = document.createElement('option');
-      opt.value = tag;
-      opt.innerText = tag;
-      tagFilter.appendChild(opt);
-    });
-  
-    tagFilter.value = current;
   }
   
   //Toggle Tooltip Info

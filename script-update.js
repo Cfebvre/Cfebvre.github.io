@@ -5,9 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Elements
     const lockToggle = document.getElementById("lock-toggle");
     const hamburgerButton = document.getElementById("hamburger-toggle");
-    const hamburgerMenu = document.getElementById("hamburger-menu");
+    const hamburgerMenu = document.getElementById("hamburgerMenu");
     const loginButton = document.getElementById("login");
+    const dropdown = document.querySelector(".hamburger-dropdown");
     console.log("🧪 loginButton found?", loginButton);
+    console.log("🧪 hamburgerMenu:", hamburgerMenu);
+  console.log("🧪 dropdown:", dropdown);
   
     // Firebase Authentication
   const auth = firebase.auth();
@@ -48,22 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
    // Hamburger menu toggle
-  if (hamburgerButton && hamburgerMenu) {
+   
+
+   if (hamburgerButton && hamburgerMenu) {
     hamburgerButton.addEventListener("click", () => {
-      console.log("Hamburger button clicked!");
+      console.log("✅ Hamburger toggled");
       hamburgerMenu.classList.toggle("show");
       document.body.classList.toggle("menu-open");
-      console.log("Toggled class:", hamburgerMenu.classList);
-    });
-  
-    // Close menu when clicking any link or button inside
-    document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
-      item.addEventListener('click', () => {
-        hamburgerMenu.classList.remove("show");
-        document.body.classList.remove("menu-open");
-      });
     });
   }
+
+  if (dropdown) {
+    dropdown.addEventListener("click", (e) => {
+      console.log("📦 Dropdown clicked", e.target);
+      if (e.target.closest("a, button")) {
+        console.log("🔻 Closing hamburger via dropdown");
+        hamburgerMenu.classList.remove("show");
+        document.body.classList.remove("menu-open");
+      }
+    });
+  }
+  
   
     // Core Attribute Dot Behavior (simple toggle fill)
     document.querySelectorAll(".dot.core").forEach(dot => {

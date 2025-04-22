@@ -106,6 +106,9 @@ section h2 {
 
 header,
 .main-header {
+  position: fixed;        /* 🧷 Stick to top */
+  top: 0;
+  left: 0;
   width: 100%;
   background-color: #111;
   color: #fff;
@@ -114,6 +117,7 @@ header,
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #333;
+  z-index: 9999;          /* Stay above other elements */
 }
 
 .logo {

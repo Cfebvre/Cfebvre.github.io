@@ -33,11 +33,11 @@
     <div class="logo">&#9651;</div>
     <div class="auth-buttons">
       <div class="hamburger-menu" id="hamburgerMenu">
-        <button class="hamburger-toggle" onclick="document.getElementById('hamburgerMenu').classList.toggle('open')">☰</button>
+        <button class="hamburger-toggle" id="hamburger-toggle">☰</button>
         <div class="hamburger-dropdown">
           <a href="index.html">Home</a>
           <a href="#" id="lock-toggle">Unlocked</a>
-          <a href="#" onclick="openDiceModal()">Dice Roller</a>
+          <a href="#" onclick="event.preventDefault(); openDiceModal()">Dice Roller</a>
           <a href="#" onclick="saveToFirebase(prompt('Enter character name'), gatherCharacterData())">Save to Firebase</a>
           <a href="#" onclick="loadFromFirebase(prompt('Enter character name'))">Load from Firebase</a>
         </div>

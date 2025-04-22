@@ -180,7 +180,7 @@ header,
   color: #000;
 }
 
-.hamburger-menu.open .hamburger-dropdown {
+.hamburger-menu.show .hamburger-dropdown {
   display: flex;
 }
 

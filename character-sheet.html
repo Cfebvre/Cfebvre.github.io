@@ -26,6 +26,17 @@
     const db = firebase.firestore();
   </script>
   <script defer src="script.js"></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const agentName = localStorage.getItem("loadAgentName");
+      if (agentName) {
+        console.log(`📥 Loading agent from Firebase: ${agentName}`);
+        loadFromFirebase(agentName);
+        localStorage.removeItem("loadAgentName");
+      }
+    });
+  </script>
+
 </head>
 <body>
   <!-- Shared Header -->

@@ -1,637 +1,517 @@
 //DOM Logic
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM fully loaded");
-
-  // Elements
-  const darkModeButton = document.getElementById("dark-mode-button");
-  const lockToggle = document.getElementById("lock-toggle");
-  const hamburgerButton = document.getElementById("hamburger-toggle");
-  const hamburgerMenu = document.getElementById("hamburger-menu");
-  const loadInput = document.getElementById("load-file");
-  const coreToggle = document.getElementById("core-toggle");
-
-  // Firebase Authentication
-const auth = firebase.auth();
-
-// Auth state listener
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    console.log(`✅ Signed in as ${user.displayName}`);
-    // Optionally update the UI here
-  } else {
-    console.log("🚫 User is signed out.");
-    // Optionally redirect or hide sensitive features here
-  }
-});
-
-  // Dark mode toggle
-  const isDark = localStorage.getItem("darkMode") === "true";
-  document.body.classList.toggle("dark", isDark);
-  if (darkModeButton) {
-    darkModeButton.innerText = isDark ? "Light Mode" : "Dark Mode";
-    darkModeButton.addEventListener("click", () => {
-      const currentlyDark = document.body.classList.contains("dark");
-      document.body.classList.toggle("dark", !currentlyDark);
-      localStorage.setItem("darkMode", !currentlyDark);
-      darkModeButton.innerText = currentlyDark ? "Dark Mode" : "Light Mode";
-    });
-  }
-
-  // Lock toggle
-  if (lockToggle) {
-    lockToggle.addEventListener("click", () => {
-      const isLocked = lockToggle.classList.contains("locked");
-      setSheetLocked(!isLocked);
-    });
-  }
-
- // Hamburger menu toggle
-if (hamburgerButton && hamburgerMenu) {
-  hamburgerButton.addEventListener("click", () => {
-    console.log("Hamburger button clicked!");
-    hamburgerMenu.classList.toggle("show");
-    document.body.classList.toggle("menu-open");
-    console.log("Toggled class:", hamburgerMenu.classList);
-  });
-
-  // Close menu when clicking any link or button inside
-  document.querySelectorAll('#hamburger-menu button, #hamburger-menu a').forEach(item => {
-    item.addEventListener('click', () => {
-      hamburgerMenu.classList.remove("show");
-      document.body.classList.remove("menu-open");
-    });
-  });
-}
-
-// Login button
-document.getElementById("login")?.addEventListener("click", () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
-    .then((result) => {
-      console.log(`🔐 Login successful: ${result.user.displayName}`);
-    })
-    .catch((error) => {
-      console.error("❌ Login error:", error);
-    });
-});
-
-// Logout button
-document.getElementById("logout")?.addEventListener("click", () => {
-  auth.signOut()
-    .then(() => {
-      console.log("🚪 Logged out successfully.");
-    })
-    .catch((error) => {
-      console.error("❌ Logout error:", error);
-    });
-});
-
-
-  // File input
-  if (loadInput) {
-    loadInput.addEventListener("change", loadCharacter);
-  }
-
-  // Core Toggle Coloring
-  if (coreToggle) {
-    coreToggle.addEventListener("change", () => {
-      const isOn = coreToggle.checked;
-      document.getElementById("core-label-on").style.display = isOn ? "inline" : "none";
-      document.getElementById("core-label-off").style.display = isOn ? "none" : "inline";
-      const groups = isOn
-        ? { red: ["Strength", "Focus", "Charisma"], green: ["Dexterity", "Wits", "Subterfuge"], blue: ["Endurance", "Resolve", "Awareness"] }
-        : { red: ["Strength", "Dexterity", "Endurance"], green: ["Focus", "Wits", "Resolve"], blue: ["Charisma", "Subterfuge", "Awareness"] };
-
-      document.querySelectorAll(".section.grid").forEach(section => {
-        section.querySelectorAll("div").forEach(div => {
-          const label = div.querySelector("label");
-          const dots = div.querySelectorAll(".dot.core");
-          if (!label || dots.length === 0) return;
-          const text = label.textContent.trim();
-          dots.forEach(dot => {
-            dot.classList.remove("red", "green", "blue");
-            if (groups.red.includes(text)) dot.classList.add("red");
-            else if (groups.green.includes(text)) dot.classList.add("green");
-            else if (groups.blue.includes(text)) dot.classList.add("blue");
+    console.log("✅ DOM fully loaded");
+  
+    // Elements
+    const lockToggle = document.getElementById("lock-toggle");
+    const hamburgerButton = document.getElementById("hamburger-toggle");
+    const hamburgerMenu = document.getElementById("hamburgerMenu");
+    const loginButton = document.getElementById("login");
+    const dropdown = document.querySelector(".hamburger-dropdown");
+    console.log("🧪 loginButton found?", loginButton);
+    console.log("🧪 hamburgerMenu:", hamburgerMenu);
+  console.log("🧪 dropdown:", dropdown);
+  
+    // Firebase Authentication
+  const auth = firebase.auth();
+  
+  // Auth state listener
+  auth.onAuthStateChanged((user) => {
+    if (loginButton) {
+      if (user) {
+        console.log(`✅ Signed in as ${user.displayName}`);
+        loginButton.textContent = "Sign Out";
+        loginButton.onclick = () => {
+          auth.signOut().then(() => {
+            console.log("🚪 Signed out");
+            window.location.href = "index.html";
           });
-        });
+        };
+      } else {
+        console.log("🚫 User is signed out");
+        loginButton.textContent = "Sign In";
+        loginButton.onclick = () => {
+          console.log("🔁 Sign in clicked");
+          const provider = new firebase.auth.GoogleAuthProvider();
+          auth.signInWithPopup(provider).catch(console.error);
+        };
+      }
+    } else {
+      console.warn("⚠️ loginButton not found in DOM");
+    }
+  });
+  
+  
+    // Lock toggle
+    if (lockToggle) {
+      lockToggle.addEventListener("click", () => {
+        const isLocked = lockToggle.classList.contains("locked");
+        setSheetLocked(!isLocked);
+      });
+    }
+  
+   // Hamburger menu toggle
+   
+
+   if (hamburgerButton && hamburgerMenu) {
+    const toggleMenu = () => {
+      console.log("✅ Hamburger toggled");
+      hamburgerMenu.classList.toggle("show");
+      document.body.classList.toggle("menu-open");
+    };
+  
+    // Handle both click and touchstart for mobile compatibility
+    hamburgerButton.addEventListener("click", toggleMenu);
+    hamburgerButton.addEventListener("touchstart", toggleMenu); // ✅ Mobile fix
+  }
+
+  if (dropdown) {
+    dropdown.addEventListener("click", (e) => {
+      console.log("📦 Dropdown clicked", e.target);
+      if (e.target.closest("a, button")) {
+        console.log("🔻 Closing hamburger via dropdown");
+        hamburgerMenu.classList.remove("show");
+        document.body.classList.remove("menu-open");
+      }
+    });
+  }
+  
+  
+    // Core Attribute Dot Behavior (simple toggle fill)
+    document.querySelectorAll(".dot.core").forEach(dot => {
+    dot.addEventListener("click", () => {
+    dot.classList.toggle("active");
+      });
+      });
+  
+    document.querySelectorAll(".dot.skill").forEach(dot => {
+      dot.addEventListener("click", () => {
+        if (dot.classList.contains("red")) {
+          dot.classList.remove("red", "orange");
+        } else if (dot.classList.contains("orange")) {
+          dot.classList.remove("orange");
+          dot.classList.add("red");
+        } else {
+          dot.classList.add("orange");
+        }
       });
     });
-    coreToggle.dispatchEvent(new Event("change"));
-  }
-
-  // Dot click behaviors
-  document.querySelectorAll(".dot.core").forEach(dot => {
-    dot.addEventListener("click", () => {
-      dot.classList.toggle("active");
+  
+    document.querySelectorAll(".dot.health, .dot.bond").forEach(dot => {
+      dot.addEventListener("click", () => {
+        dot.classList.toggle("active");
+      });
     });
-  });
-
-  document.querySelectorAll(".dot.skill").forEach(dot => {
-    dot.addEventListener("click", () => {
-      if (dot.classList.contains("red")) {
-        dot.classList.remove("red", "orange");
-      } else if (dot.classList.contains("orange")) {
-        dot.classList.remove("orange");
-        dot.classList.add("red");
-      } else {
-        dot.classList.add("orange");
-      }
+  
+    document.querySelectorAll(".dot.sanity").forEach(dot => {
+      dot.addEventListener("click", () => {
+        if (dot.classList.contains("full")) {
+          dot.classList.remove("full");
+        } else if (dot.classList.contains("half")) {
+          dot.classList.remove("half");
+          dot.classList.add("full");
+        } else {
+          dot.classList.add("half");
+        }
+      });
     });
-  });
-
-  document.querySelectorAll(".dot.health, .dot.bond").forEach(dot => {
-    dot.addEventListener("click", () => {
-      dot.classList.toggle("active");
+  
+    document.querySelectorAll(".dot.training").forEach(dot => {
+      dot.addEventListener("click", () => {
+        if (dot.classList.contains("white")) {
+          dot.classList.remove("white");
+        } else if (dot.classList.contains("orange")) {
+          dot.classList.remove("orange");
+          dot.classList.add("white");
+        } else if (dot.classList.contains("yellow")) {
+          dot.classList.remove("yellow");
+          dot.classList.add("orange");
+        } else {
+          dot.classList.add("yellow");
+        }
+      });
     });
-  });
-
-  document.querySelectorAll(".dot.sanity").forEach(dot => {
-    dot.addEventListener("click", () => {
-      if (dot.classList.contains("full")) {
-        dot.classList.remove("full");
-      } else if (dot.classList.contains("half")) {
-        dot.classList.remove("half");
-        dot.classList.add("full");
-      } else {
-        dot.classList.add("half");
-      }
+  
+    document.querySelectorAll(".info-button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const popup = btn.nextElementSibling;
+        if (popup) {
+          popup.style.display = popup.style.display === "block" ? "none" : "block";
+        }
+      });
     });
-  });
-
-  document.querySelectorAll(".dot.training").forEach(dot => {
-    dot.addEventListener("click", () => {
-      if (dot.classList.contains("black")) {
-        dot.classList.remove("black");
-      } else if (dot.classList.contains("orange")) {
-        dot.classList.remove("orange");
-        dot.classList.add("black");
-      } else if (dot.classList.contains("yellow")) {
-        dot.classList.remove("yellow");
-        dot.classList.add("orange");
-      } else {
-        dot.classList.add("yellow");
-      }
+  
+    // Dice roller dot color cycling
+    document.querySelectorAll('#dice-modal .dot').forEach(dot => {
+      dot.classList.add('yellow'); // Ensure yellow by default
+      dot.addEventListener('click', () => {
+        if (dot.classList.contains('yellow')) {
+          dot.classList.remove('yellow');
+          dot.classList.add('orange');
+        } else if (dot.classList.contains('orange')) {
+          dot.classList.remove('orange');
+          dot.classList.add('red');
+        } else if (dot.classList.contains('red')) {
+          dot.classList.remove('red');
+          dot.classList.add('yellow');
+        }
+      });
     });
-  });
+  
+    //Homepage Terminal Text Function
+  
+    const terminal = document.getElementById("terminal-text");
+  if (terminal) {
+    const terminalLines = [
+      "[DG-001] Secure uplink established…",
+      "[PROTOCOL-SIGMA] Verifying agent credentials...",
+      "Access Level: ███████████ confirmed",
+      "Pulling blacksite telemetry…",
+      "INTERNAL MEMO // REDACTED // THE PROGRAM IS LISTENING",
+      "Agent trace: UNKNOWN ORIGIN // Routing through Oslo // Spoofing complete",
+      "DG GREEN FLAGGED: CIRCLE OF THE VEIL // Initiating burn sequence",
+      "[ENCRYPTION] Packet injection: ████████.███",
+      "[LOG] Suspicious artifact found in ███████ farmhouse",
+      "[NOTICE] You were never here."
+    ];
 
-  document.querySelectorAll(".info-button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const popup = btn.nextElementSibling;
-      if (popup) {
-        popup.style.display = popup.style.display === "block" ? "none" : "block";
-      }
-    });
-  });
+    const gibberishSet = [
+      "[xAF934] $%#*(@)987sfads...:::;",
+      "> BINARY DUMP @ 0x00FFEC: ██ ░▒▓ █ █ █",
+      ":::transcode(redirect) INJECT_$YZ##002",
+      "!~Δ0110 ERROR: INTERFERENCE ON CHANNEL SIGMA",
+      "[SYS_TRACER] C0RruPT//hex-seed::1992{…}",
+      "### UPLINK LOST / NO ECHO RESPONSE",
+      "(ↁ_ↁ) > route:nosleep.protocol.breach()",
+      "-->[██]stack overflow. reroute through {mirror}",
+      "//echo:echo:echo:██-██-██",
+      "char[] VOIDSTREAM = {'d','e','l','t','a'};"
+    ];
 
-  // Dice roller dot color cycling
-  document.querySelectorAll('#dice-modal .dot').forEach(dot => {
-    dot.classList.add('yellow'); // Ensure yellow by default
-    dot.addEventListener('click', () => {
-      if (dot.classList.contains('yellow')) {
-        dot.classList.remove('yellow');
-        dot.classList.add('orange');
-      } else if (dot.classList.contains('orange')) {
-        dot.classList.remove('orange');
-        dot.classList.add('red');
-      } else if (dot.classList.contains('red')) {
-        dot.classList.remove('red');
-        dot.classList.add('yellow');
-      }
-    });
-  });
+    let currentIndex = 0;
+    let phase = "intro";
 
-});
-
-function loadCharacter(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const data = JSON.parse(e.target.result);
-    loadCharacterFromData(data);
-  };
-  reader.readAsText(file);
-}
-
-//Saving Character to Firebase
-// IMPORTS (if using module system)
-// import { collection, doc, setDoc } from "firebase/firestore"; 
-
-function saveToFirebase(characterName, data) {
-  if (!characterName) return;
-
-  console.log("📤 Saving character to Firebase:", characterName, data);
-
-  db.collection("characters").doc(characterName).set(data)
-    .then(() => alert("✅ Character saved to cloud!"))
-    .catch(err => {
-      console.error("❌ Failed to save character:", err);
-      alert("❌ Failed to save character.");
-    });
-}
-
-//Load Characters from Firebase
-
-async function loadFromFirebase(characterName) {
-  try {
-    const doc = await db.collection("characters").doc(characterName).get();
-    if (doc.exists) {
-      loadCharacterFromData(doc.data());
-    } else {
-      alert("❌ Character not found.");
+    // Setup 10 empty lines first
+    const lines = [];
+    for (let i = 0; i < terminalLines.length; i++) {
+      const line = document.createElement("div");
+      terminal.appendChild(line);
+      lines.push(line);
     }
-  } catch (err) {
-    console.error("Load error:", err);
-    alert("Error loading character.");
-  }
-}
 
-function setSheetLocked(locked) {
-  const allInputs = document.querySelectorAll("input, select, textarea");
-  const allDots = document.querySelectorAll(".dot");
-  const lockToggle = document.getElementById("lock-toggle");
-  allInputs.forEach((el) => {
-    if (el.type !== "file") el.disabled = locked;
-  });
-  allDots.forEach((dot) => {
-    const insideDiceModal = dot.closest("#dice-modal");
-    if (!insideDiceModal) {
-      dot.style.pointerEvents = locked ? "none" : "auto";
+    function typeLine(lineEl, text, callback) {
+      let i = 0;
+      lineEl.textContent = '';
+      lineEl.classList.add('terminal-cursor');
+
+      const interval = setInterval(() => {
+        lineEl.textContent += text[i];
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          lineEl.classList.remove('terminal-cursor');
+          callback();
+        }
+      }, 25); // Typing speed
     }
-  });
-  if (lockToggle) {
-    lockToggle.classList.toggle("locked", locked);
-    lockToggle.innerText = locked ? "🔒 Locked" : "🔓 Unlocked";
+
+    function cycleTerminal() {
+      const lineEl = lines[currentIndex];
+      const nextText =
+        phase === "intro"
+          ? gibberishSet[Math.floor(Math.random() * gibberishSet.length)]
+          : terminalLines[currentIndex];
+
+      typeLine(lineEl, nextText, () => {
+        currentIndex++;
+
+        if (currentIndex >= terminalLines.length) {
+          currentIndex = 0;
+          phase = phase === "intro" ? "restore" : "intro";
+        }
+
+        setTimeout(cycleTerminal, 400);
+      });
+
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Initial pass with original lines typed in
+    function startIntroLines(index = 0) {
+      if (index >= terminalLines.length) {
+        currentIndex = 0;
+        setTimeout(cycleTerminal, 1000);
+        return;
+      }
+
+      typeLine(lines[index], terminalLines[index], () => {
+        setTimeout(() => startIntroLines(index + 1), 300);
+      });
+    }
+
+    startIntroLines();
   }
-}
-
-//Open-Close Dice Modal 
-
-function openDiceModal() {
-  document.getElementById("dice-modal").style.display = "block";
-  document.querySelectorAll("#dice-modal .dot").forEach(dot => {
-    dot.classList.remove("orange", "red");
-    dot.classList.add("yellow");
+    
+  
   });
-}
-
-function closeDiceModal() {
-  document.getElementById("dice-modal").style.display = "none";
-}
-
-//Dice Roller Logic
-
-function rollDice() {
-  const diceDots = document.querySelectorAll('#dice-modal .dot');
-  const diceTables = {
-    yellow: [0, 0, 0, 1, 1, 2],
-    orange: [0, 0, 1, 1, 2, 2],
-    red: [0, 1, 1, 2, 2, 2]
-  };
-
-  const resultsBox = document.getElementById('dice-results');
-  resultsBox.innerHTML = ''; // Clear previous results
-
-  let total = 0;
-
-  diceDots.forEach((dot, index) => {
-    let color = 'yellow';
-    if (dot.classList.contains('red')) color = 'red';
-    else if (dot.classList.contains('orange')) color = 'orange';
-
-    const roll = diceTables[color][Math.floor(Math.random() * 6)];
-    total += roll;
-
-    const result = document.createElement('div');
-    result.classList.add('dice-result', color);
-    result.innerHTML = `<span class="dice-color-square ${color}"></span> <span class="dice-value">${roll}</span>`;
-
-    result.style.animationDelay = `${index * 0.2}s`; // Optional animation
-    resultsBox.appendChild(result);
-  });
-
-  const totalDiv = document.createElement('div');
-  totalDiv.classList.add('dice-total');
-  totalDiv.innerText = `Total: ${total}`;
-  resultsBox.appendChild(totalDiv);
-
-  resultsBox.style.display = 'block';
-}
-
-//Gather Character Data
-
-function gatherCharacterData() {
-  const data = {
-    agent: document.getElementById("agent")?.value || "",
-    player: document.getElementById("player")?.value || "",
-    coreToggle: document.getElementById("core-toggle")?.checked || false,
-    dots: {},
-    bonds: [],
-    combat: [],
-    personalNotes: document.getElementById("personal-notes")?.value || "",
-    wounds: document.getElementById("wounds")?.value || "",
-    equipment: document.getElementById("equipment")?.value || ""
-  };
-
-  // Save dots
-  document.querySelectorAll(".dot").forEach((dot, i) => {
-    data.dots[i] = {
-      classes: [...dot.classList]
-    };
-  });
-
-  // Bond names
-  document.querySelectorAll(".bond-name").forEach(input => {
-    data.bonds.push(input.value || "");
-  });
-
-  // Combat fields
-  const weapons = document.querySelectorAll(".combat-weapon");
-  const skills = document.querySelectorAll(".combat-skill");
-  const ranges = document.querySelectorAll(".combat-range");
-  const types = document.querySelectorAll(".combat-type");
-  const damages = document.querySelectorAll(".combat-damage");
-
-  for (let i = 0; i < weapons.length; i++) {
-    data.combat.push({
-      weapon: weapons[i]?.value || "",
-      skill: skills[i]?.value || "",
-      range: ranges[i]?.value || "",
-      type: types[i]?.value || "",
-      damage: damages[i]?.value || ""
-    });
+  
+  //Saving Character to Firebase
+  // IMPORTS (if using module system)
+  // import { collection, doc, setDoc } from "firebase/firestore"; 
+  
+  function saveToFirebase(characterName, data) {
+    if (!characterName) return;
+  
+    console.log("📤 Saving character to Firebase:", characterName, data);
+  
+    db.collection("characters").doc(characterName).set(data)
+      .then(() => alert("✅ Character saved to cloud!"))
+      .catch(err => {
+        console.error("❌ Failed to save character:", err);
+        alert("❌ Failed to save character.");
+      });
   }
-
-  // Mission notes (if applicable)
-  if (typeof missionNotes !== "undefined") {
-    data.missionNotes = missionNotes;
-  }
-
-  return data;
-}
-
-//Open-Close-Confirm Save Modal
-
-function openSaveModal() {
-  const modal = document.getElementById("save-modal");
-  const filenameInput = document.getElementById("filename-input");
-
-  if (modal && filenameInput) {
-    filenameInput.value = "";
-    modal.style.display = "block";
-  }
-}
-
-function closeSaveModal() {
-  const modal = document.getElementById("save-modal");
-  if (modal) {
-    modal.style.display = "none";
-  }
-}
-
-function confirmSave() {
-  const filenameInput = document.getElementById("filename-input");
-  const filename = filenameInput?.value.trim() || "character";
-  closeSaveModal();
-  saveCharacter(filename);
-}
-
-//Save Character Locally
-
-function saveCharacter(filename = "character") {
-  const data = gatherCharacterData(); // Assuming this already exists
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `${filename}.json`;
-  link.click();
-}
-
-
-//Load Character Locally
-
-function loadCharacter(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
+  
+  //Load Characters from Firebase
+  
+  async function loadFromFirebase(characterName) {
     try {
-      const data = JSON.parse(e.target.result);
-      loadCharacterFromData(data); // assumes this is already defined
+      const doc = await db.collection("characters").doc(characterName).get();
+      if (doc.exists) {
+        loadCharacterFromData(doc.data());
+      } else {
+        alert("❌ Character not found.");
+      }
     } catch (err) {
-      console.error("Error reading character file:", err);
-      alert("❌ Invalid character file.");
+      console.error("Load error:", err);
+      alert("Error loading character.");
     }
-  };
-
-  reader.readAsText(file);
-}
-
-//Load Character From Data
-
-function loadCharacterFromData(data) {
-  if (!data) return;
-
-  // Agent & Player
-  document.getElementById("agent").value = data.agent || "";
-  document.getElementById("player").value = data.player || "";
-
-  // Core Toggle
-  const coreToggleInput = document.getElementById("core-toggle");
-  if (coreToggleInput) {
-    coreToggleInput.checked = !!data.coreToggle;
-    coreToggleInput.dispatchEvent(new Event("change"));
   }
-
-  // Dots
-  document.querySelectorAll(".dot").forEach((dot, i) => {
-    dot.className = "dot";
-    data.dots?.[i]?.classes?.forEach(cls => {
-      if (cls !== "dot") dot.classList.add(cls);
+  
+  function setSheetLocked(locked) {
+    const allInputs = document.querySelectorAll("input, select, textarea");
+    const allDots = document.querySelectorAll(".dot");
+    const lockToggle = document.getElementById("lock-toggle");
+    allInputs.forEach((el) => {
+      if (el.type !== "file") el.disabled = locked;
     });
-  });
-
-  // Text fields (excluding special class ones)
-  document.querySelectorAll('input[type="text"]').forEach(input => {
-    const key = input.id || input.previousElementSibling?.innerText.toLowerCase();
-    if (key && !input.classList.contains("combat-weapon") && !input.classList.contains("bond-name")) {
-      if (data[key] !== undefined) input.value = data[key];
+    allDots.forEach((dot) => {
+      const insideDiceModal = dot.closest("#dice-modal");
+      if (!insideDiceModal) {
+        dot.style.pointerEvents = locked ? "none" : "auto";
+      }
+    });
+    if (lockToggle) {
+      lockToggle.classList.toggle("locked", locked);
+      lockToggle.innerText = locked ? "🔒 Locked" : "🔓 Unlocked";
     }
-  });
-
-  // Bonds
-  if (Array.isArray(data.bonds)) {
-    document.querySelectorAll(".bond-name").forEach((input, i) => {
-      input.value = data.bonds[i] || "";
+  }
+  
+  //Open-Close Dice Modal 
+  
+  function openDiceModal() {
+    document.getElementById("dice-modal").style.display = "flex";
+    document.querySelectorAll("#dice-modal .dot").forEach(dot => {
+      dot.classList.remove("orange", "red");
+      dot.classList.add("yellow");
     });
   }
-
-  // Combat fields
-  const weapons = document.querySelectorAll(".combat-weapon");
-  const skills = document.querySelectorAll(".combat-skill");
-  const ranges = document.querySelectorAll(".combat-range");
-  const types = document.querySelectorAll(".combat-type");
-  const damages = document.querySelectorAll(".combat-damage");
-
-  if (Array.isArray(data.combat)) {
-    data.combat.forEach((entry, i) => {
-      if (weapons[i]) weapons[i].value = entry.weapon || "";
-      if (skills[i]) skills[i].value = entry.skill || "Melee";
-      if (ranges[i]) ranges[i].value = entry.range || "Close";
-      if (types[i]) types[i].value = entry.type || "Bludgeoning";
-      if (damages[i]) damages[i].value = entry.damage || "+1";
+  
+  function closeDiceModal() {
+    document.getElementById("dice-modal").style.display = "none";
+  }
+  
+  //Dice Roller Logic
+  
+  function rollDice() {
+    const diceDots = document.querySelectorAll('#dice-modal .dot');
+    const diceTables = {
+      yellow: [0, 0, 0, 1, 1, 2],
+      orange: [0, 0, 1, 1, 2, 2],
+      red: [0, 1, 1, 2, 2, 2]
+    };
+  
+    const resultsBox = document.getElementById('dice-results');
+    resultsBox.innerHTML = ''; // Clear previous results
+  
+    let total = 0;
+  
+    diceDots.forEach((dot, index) => {
+      let color = 'yellow';
+      if (dot.classList.contains('red')) color = 'red';
+      else if (dot.classList.contains('orange')) color = 'orange';
+    
+      const roll = diceTables[color][Math.floor(Math.random() * 6)];
+      total += roll;
+    
+      const result = document.createElement('div');
+      result.classList.add('dice-result');
+    
+      // Delay each result's appearance
+      result.style.animationDelay = `${index * 0.2}s`;
+    
+      result.innerHTML = `
+        <span class="dice-color-dot ${color}"></span>
+        <span class="dice-value">${roll}</span>
+      `;
+    
+      resultsBox.appendChild(result);
     });
+
+//Delay Results
+
+    setTimeout(() => {
+      const totalDiv = document.createElement('div');
+      totalDiv.classList.add('dice-total');
+      totalDiv.innerText = `Total: ${total}`;
+      resultsBox.appendChild(totalDiv);
+    }, diceDots.length * 200); // Match the delay from above
+  
+
+  
+    resultsBox.style.display = 'flex';
   }
-
-  // Notes
-  document.getElementById("personal-notes").value = data.personalNotes || "";
-  document.getElementById("wounds").value = data.wounds || "";
-  document.getElementById("equipment").value = data.equipment || "";
-
-  // Mission Notes (if present)
-  if (Array.isArray(data.missionNotes)) {
-    missionNotes = data.missionNotes;
-    renderMissionNotes?.(); // Only call if function exists
-    updateTagFilterOptions?.();
+  
+  //Gather Character Data
+  
+  function gatherCharacterData() {
+    const data = {
+      agent: document.getElementById("agent")?.value || "",
+      player: document.getElementById("player")?.value || "",
+      coreToggle: document.getElementById("core-toggle")?.checked || false,
+      dots: {},
+      bonds: [],
+      combat: [],
+      personalNotes: document.getElementById("personal-notes")?.value || "",
+      wounds: document.getElementById("wounds")?.value || "",
+      equipment: document.getElementById("equipment")?.value || ""
+    };
+  
+    // Save dots
+    document.querySelectorAll(".dot").forEach((dot, i) => {
+      data.dots[i] = {
+        classes: [...dot.classList]
+      };
+    });
+  
+    // Bond names
+    document.querySelectorAll(".bond-name").forEach(input => {
+      data.bonds.push(input.value || "");
+    });
+  
+    // Combat fields
+    const weapons = document.querySelectorAll(".combat-weapon");
+    const skills = document.querySelectorAll(".combat-skill");
+    const ranges = document.querySelectorAll(".combat-range");
+    const types = document.querySelectorAll(".combat-type");
+    const damages = document.querySelectorAll(".combat-damage");
+  
+    for (let i = 0; i < weapons.length; i++) {
+      data.combat.push({
+        weapon: weapons[i]?.value || "",
+        skill: skills[i]?.value || "",
+        range: ranges[i]?.value || "",
+        type: types[i]?.value || "",
+        damage: damages[i]?.value || ""
+      });
+    }
+  
+    return data;
   }
-
-  // Lock sheet after loading
-  setSheetLocked(true);
-}
-
-// Reset CHaracter
-
-function resetCharacter() {
-  // Clear all text inputs and bond names
-  document.querySelectorAll('input[type="text"]').forEach(input => input.value = "");
-  document.querySelectorAll('textarea').forEach(area => area.value = "");
-
-  // Reset dropdowns
-  document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-
-  // Clear all dot states
-  document.querySelectorAll('.dot').forEach(dot => {
-    dot.className = 'dot ' + [...dot.classList].filter(cls =>
-      ['core', 'skill', 'health', 'sanity', 'training', 'bond'].includes(cls)
-    ).join(' ');
-    dot.removeAttribute('data-returning'); // For sanity dots
-  });
-
-  // Reset and reapply core toggle coloring
-  document.getElementById('core-toggle')?.dispatchEvent(new Event('change'));
-
-  // Clear mission notes (if applicable)
-  if (typeof missionNotes !== "undefined") {
-    missionNotes = [];
-    renderMissionNotes?.();
-    updateTagFilterOptions?.();
+  
+  //Open-Close-Confirm Save Modal
+  
+  function openSaveModal() {
+    const modal = document.getElementById("save-modal");
+    const filenameInput = document.getElementById("filename-input");
+  
+    if (modal && filenameInput) {
+      filenameInput.value = "";
+      modal.style.display = "block";
+    }
   }
-
-  // Unlock sheet
-  setSheetLocked(false);
-}
-
-// Mission notes
-
-function addMissionNote() {
-  const title = document.getElementById('mission-title').value.trim();
-  const body = document.getElementById('mission-body').value.trim();
-  const tagsRaw = document.getElementById('mission-tags').value.trim();
-
-  if (!title && !body) return;
-
-  const tags = tagsRaw ? tagsRaw.split(',').map(tag => tag.trim()).filter(Boolean) : [];
-
-  const note = {
-    title,
-    body,
-    date: new Date().toLocaleDateString(),
-    tags
-  };
-
-  if (typeof missionNotes === "undefined") {
-    missionNotes = [];
+  
+  function closeSaveModal() {
+    const modal = document.getElementById("save-modal");
+    if (modal) {
+      modal.style.display = "none";
+    }
   }
-
-  missionNotes.push(note);
-  renderMissionNotes?.();
-  updateTagFilterOptions?.();
-
-  // Clear form
-  document.getElementById('mission-title').value = '';
-  document.getElementById('mission-body').value = '';
-  document.getElementById('mission-tags').value = '';
-}
-
-// Sort and Filter Mission Notes
-
-function renderMissionNotes() {
-  const container = document.getElementById('mission-notes-list');
-  const tagFilter = document.getElementById('tag-filter')?.value || '';
-  const sortOrder = document.getElementById('sort-order')?.value || 'desc';
-
-  container.innerHTML = '';
-
-  let filtered = missionNotes.filter(note => {
-    if (!tagFilter) return true;
-    return note.tags?.includes(tagFilter);
-  });
-
-  filtered.sort((a, b) => {
-    const d1 = new Date(a.date);
-    const d2 = new Date(b.date);
-    return sortOrder === 'desc' ? d2 - d1 : d1 - d2;
-  });
-
-  filtered.forEach(note => {
-    const div = document.createElement('div');
-    div.className = 'mission-note-entry';
-    div.innerHTML = `
-      <h4>${note.title || '(Untitled Mission)'}</h4>
-      <div class="date">${note.date}</div>
-      <div>${note.body.replace(/\n/g, '<br>')}</div>
-      ${note.tags?.length ? `<div><strong>Tags:</strong> ${note.tags.join(', ')}</div>` : ''}
-      <div class="note-controls">
-        <button onclick="editMissionNote(${missionNotes.indexOf(note)})">Edit</button>
-        <button onclick="deleteMissionNote(${missionNotes.indexOf(note)})">Delete</button>
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function updateTagFilterOptions() {
-  const tagFilter = document.getElementById('tag-filter');
-  if (!tagFilter) return;
-
-  const tagsSet = new Set();
-  missionNotes.forEach(note => {
-    note.tags?.forEach(tag => tagsSet.add(tag));
-  });
-
-  const current = tagFilter.value;
-  tagFilter.innerHTML = '<option value="">All</option>';
-  [...tagsSet].sort().forEach(tag => {
-    const opt = document.createElement('option');
-    opt.value = tag;
-    opt.innerText = tag;
-    tagFilter.appendChild(opt);
-  });
-
-  tagFilter.value = current;
-}
-
-//Toggle Tooltip Info
-
-function toggleInfo(button) {
-  // Try to find popup as a sibling of the label
-  const label = button.closest("label");
-  const parent = label?.parentElement;
-
-  const popup = parent?.querySelector(".info-popup");
-  if (popup) {
-    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  
+  function confirmSave() {
+    const filenameInput = document.getElementById("filename-input");
+    const filename = filenameInput?.value.trim() || "character";
+    closeSaveModal();
+    saveCharacter(filename);
   }
-}
+  
+  //Load Character From Data
+  
+  function loadCharacterFromData(data) {
+    if (!data) return;
+  
+    // Agent & Player
+    document.getElementById("agent").value = data.agent || "";
+    document.getElementById("player").value = data.player || "";
+  
+    // Dots
+    document.querySelectorAll(".dot").forEach((dot, i) => {
+      dot.className = "dot";
+      data.dots?.[i]?.classes?.forEach(cls => {
+        if (cls !== "dot") dot.classList.add(cls);
+      });
+    });
+  
+    // Text fields (excluding special class ones)
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+      const key = input.id || input.previousElementSibling?.innerText.toLowerCase();
+      if (key && !input.classList.contains("combat-weapon") && !input.classList.contains("bond-name")) {
+        if (data[key] !== undefined) input.value = data[key];
+      }
+    });
+  
+    // Bonds
+    if (Array.isArray(data.bonds)) {
+      document.querySelectorAll(".bond-name").forEach((input, i) => {
+        input.value = data.bonds[i] || "";
+      });
+    }
+  
+    // Combat fields
+    const weapons = document.querySelectorAll(".combat-weapon");
+    const skills = document.querySelectorAll(".combat-skill");
+    const ranges = document.querySelectorAll(".combat-range");
+    const types = document.querySelectorAll(".combat-type");
+    const damages = document.querySelectorAll(".combat-damage");
+  
+    if (Array.isArray(data.combat)) {
+      data.combat.forEach((entry, i) => {
+        if (weapons[i]) weapons[i].value = entry.weapon || "";
+        if (skills[i]) skills[i].value = entry.skill || "Melee";
+        if (ranges[i]) ranges[i].value = entry.range || "Close";
+        if (types[i]) types[i].value = entry.type || "Bludgeoning";
+        if (damages[i]) damages[i].value = entry.damage || "+1";
+      });
+    }
+  
+    // Notes
+    document.getElementById("personal-notes").value = data.personalNotes || "";
+    document.getElementById("wounds").value = data.wounds || "";
+    document.getElementById("equipment").value = data.equipment || "";
+  
+    // Lock sheet after loading
+    setSheetLocked(true);
+  }
+  
+  //Toggle Tooltip Info
+  
+  function toggleInfo(button) {
+    // Try to find popup as a sibling of the label
+    const label = button.closest("label");
+    const parent = label?.parentElement;
+  
+    const popup = parent?.querySelector(".info-popup");
+    if (popup) {
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    }
+  }

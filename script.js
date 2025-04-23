@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Firebase Authentication
   const auth = firebase.auth();
+  const db = firebase.firestore(); // ✅ Add this line
   
   // Auth state listener
   auth.onAuthStateChanged((user) => {

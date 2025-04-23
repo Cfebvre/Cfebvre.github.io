@@ -252,20 +252,25 @@ document.addEventListener("DOMContentLoaded", () => {
     startIntroLines();
   }
 
+  //Render Agent List
   function renderAgentList(userId) {
     const container = document.getElementById("agent-cards");
     if (!container) return;
+
+    console.log("🔍 Looking for agents owned by:", userId);
   
     db.collection("characters")
       .where("uid", "==", userId)
       .get()
       .then(snapshot => {
+        console.log("📦 Docs found:", snapshot.size);
         if (snapshot.empty) {
           container.innerHTML = "<p>No agents found.</p>";
           return;
         }
   
         snapshot.forEach(doc => {
+          console.log("🧪 Agent doc:", doc.id, doc.data());
           const data = doc.data();
           const card = document.createElement("div");
           card.classList.add("agent-card");

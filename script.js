@@ -251,6 +251,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startIntroLines();
   }
+
+  function renderAgentList(userId) {
+    const container = document.getElementById("agent-cards");
+    if (!container) return;
+  
+    db.collection("characters")
+      .where("uid", "==", userId)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          container.innerHTML = "<p>No agents found.</p>";
+          return;
+        }
+  
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const card = document.createElement("div");
+          card.classList.add("agent-card");
+          card.style.border = "1px solid #333";
+          card.style.padding = "1rem";
+          card.style.background = "#111";
+          card.style.borderRadius = "6px";
+          card.style.cursor = "pointer";
+  
+          card.innerHTML = `
+            <h3>${data.agent || "(Unnamed Agent)"}</h3>
+            <p><strong>Player:</strong> ${data.player || "N/A"}</p>
+          `;
+  
+          card.addEventListener("click", () => {
+            // Store the character name in localStorage and redirect
+            localStorage.setItem("loadAgentName", doc.id);
+            window.location.href = "character-sheet.html";
+          });
+  
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error("❌ Failed to load agents:", error);
+      });
+  }
+  
+  // Only run this on agent-profiles.html
+  if (window.location.pathname.includes("agent-profiles.html")) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        renderAgentList(user.uid);
+      }
+    });
+  }
+  
     
   
   });
@@ -260,7 +312,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // import { collection, doc, setDoc } from "firebase/firestore"; 
   
   function saveToFirebase(characterName, data) {
-    if (!characterName) return;
+    const user = firebase.auth().currentUser;
+    if (!characterName || !user) return;
+  
+    data.uid = user.uid; // ✅ tag this character with the user's ID
   
     console.log("📤 Saving character to Firebase:", characterName, data);
   
@@ -271,6 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("❌ Failed to save character.");
       });
   }
+  
   
   //Load Characters from Firebase
   

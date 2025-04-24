@@ -281,9 +281,10 @@ function renderAgentList(userId) {
         card.style.cursor = "pointer";
 
         card.innerHTML = `
-          <h3>${data.agent || "(Unnamed Agent)"}</h3>
-          <p><strong>Player:</strong> ${data.player || "N/A"}</p>
-        `;
+        <h4>${data.agent || "(Unnamed Agent)"}</h3>
+        <p><strong>Status:</strong> ${data.status || "Unknown"}</p>
+        <p><strong>Profession:</strong> ${data.profession || "N/A"}</p>
+      `;
 
         card.addEventListener("click", () => {
           // Store the character name in localStorage and redirect

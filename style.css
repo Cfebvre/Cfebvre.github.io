@@ -16,8 +16,6 @@ h1, h2, h3, h4, h5 {
 }
 
 h4 {
-  font-weight: bold;
-  margin: 0.5rem 0;
   color: #0f0;
 }
 
@@ -236,6 +234,25 @@ header,
 
 .main-container {
   padding-top: 3rem;
+}
+
+.header-icon {
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon svg {
+  stroke: #0f0;
+  transition: stroke 0.2s ease;
+}
+
+.header-icon:hover svg {
+  stroke: #000;
 }
 
 /* -------------------

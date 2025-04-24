@@ -446,7 +446,9 @@ function rollDice() {
 function gatherCharacterData() {
   const data = {
     agent: document.getElementById("agent")?.value || "",
-    player: document.getElementById("player")?.value || "",
+    age: document.getElementById("age")?.value || "",
+    profession: document.getElementById("profession")?.value || "",
+    status: document.getElementById("status")?.value || "Active",
     coreToggle: document.getElementById("core-toggle")?.checked || false,
     dots: {},
     bonds: [],
@@ -521,7 +523,9 @@ function loadCharacterFromData(data) {
 
   // Agent & Player
   document.getElementById("agent").value = data.agent || "";
-  document.getElementById("player").value = data.player || "";
+  document.getElementById("age").value = data.age || "";
+  document.getElementById("profession").value = data.profession || "";
+  document.getElementById("status").value = data.status || "Active";
 
   // Dots
   document.querySelectorAll(".dot").forEach((dot, i) => {

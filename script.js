@@ -317,7 +317,26 @@ if (overlay) {
     setTimeout(() => overlay.style.display = "none", 400);
   }, 2000);
 }
-  
+
+document.getElementById("save-icon")?.addEventListener("click", () => {
+  const characterName = document.getElementById("agent")?.value?.trim();
+  if (!characterName) {
+    alert("Please enter an Agent Name before saving.");
+    return;
+  }
+
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    alert("You must be signed in to save.");
+    return;
+  }
+
+  const data = gatherCharacterData();
+  data.uid = user.uid;
+
+  saveToFirebase(characterName, data);
+});
+
 
 });
 

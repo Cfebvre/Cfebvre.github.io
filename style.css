@@ -109,16 +109,20 @@ section h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   z-index: 999;
   transition: opacity 0.4s ease;
 }
 
 .triangle-loader {
+  display: inline-block;
   font-size: 6rem;
   color: #0f0;
   animation: spin-triangle 1s linear infinite;
-  transform-origin: center;
+  transform-origin: 50% 50%;
+  text-align: center;
 }
+
 
 @keyframes spin-triangle {
   from { transform: rotate(0deg); }

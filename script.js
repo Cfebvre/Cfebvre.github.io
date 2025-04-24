@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Handle both click and touchstart for mobile compatibility
     hamburgerButton.addEventListener("click", toggleMenu);
-    hamburgerButton.addEventListener("touchstart", toggleMenu); // ✅ Mobile fix
   }
 
   if (dropdown) {

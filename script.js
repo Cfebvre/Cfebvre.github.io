@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const lockToggle = document.getElementById("lock-toggle");
   const hamburgerButton = document.getElementById("hamburger-toggle");
   const hamburgerMenu = document.getElementById("hamburgerMenu");
+  const closeMenuButton = document.getElementById("closeMenu");
   const loginButton = document.getElementById("login");
   const mainLoginButton = document.getElementById("main-login-button");
 const mainGoogleLogin = document.getElementById("main-google-login");
@@ -73,29 +74,19 @@ mainGoogleLogin?.addEventListener("click", () => {
   }
 
  // Hamburger menu toggle
- 
+hamburgerButton?.addEventListener("click", () => {
+hamburgerMenu?.classList.toggle("open");
+});
 
- if (hamburgerButton && hamburgerMenu) {
-  const toggleMenu = () => {
-    console.log("✅ Hamburger toggled");
-    hamburgerMenu.classList.toggle("show");
-    document.body.classList.toggle("menu-open");
-  };
-
-  // Handle both click and touchstart for mobile compatibility
-  hamburgerButton.addEventListener("click", toggleMenu);
-}
-
-if (dropdown) {
-  dropdown.addEventListener("click", (e) => {
-    console.log("📦 Dropdown clicked", e.target);
-    if (e.target.closest("a, button")) {
-      console.log("🔻 Closing hamburger via dropdown");
-      hamburgerMenu.classList.remove("show");
-      document.body.classList.remove("menu-open");
-    }
+document.querySelectorAll(".hamburger-menu a").forEach(link => {
+  link.addEventListener("click", () => {
+    hamburgerMenu?.classList.remove("open");
   });
-}
+});
+
+closeMenuButton?.addEventListener("click", () => {
+  hamburgerMenu?.classList.remove("open");
+});
 
 
   // Core Attribute Dot Behavior (simple toggle fill)

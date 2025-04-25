@@ -58,6 +58,7 @@ mainGoogleLogin?.addEventListener("click", () => {
   auth.signInWithPopup(provider)
     .then(result => {
       console.log("✅ Signed in via main button:", result.user.displayName);
+      mainLoginButton?.classList.add("hidden"); // ✅ manually hide
     })
     .catch(console.error);
 });

@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Elements
   const lockToggle = document.getElementById("lock-toggle");
-  const lockToggleBtn = document.getElementById("lock-toggle");
   const hamburgerButton = document.getElementById("hamburger-toggle");
   const hamburgerMenu = document.getElementById("hamburgerMenu");
   const closeMenuButton = document.getElementById("closeMenu");
@@ -73,6 +72,7 @@ mainGoogleLogin?.addEventListener("click", () => {
       setSheetLocked(!isLocked);
     });
   }
+  
 
  // Hamburger menu toggle
 hamburgerButton?.addEventListener("click", () => {
@@ -97,25 +97,39 @@ document.getElementById("dice-icon")?.addEventListener("click", () => {
 
 //lock toggle button
 
-lockToggleBtn?.addEventListener("click", () => {
-  const isLocked = lockToggleBtn.classList.contains("locked");
-  setSheetLocked(!isLocked); // ✅ already defined
+function setSheetLocked(locked) {
+  const allInputs = document.querySelectorAll("input, select, textarea");
+  const allDots = document.querySelectorAll(".dot");
+  const lockToggle = document.getElementById("lock-toggle");
 
-  // Swap class
-  lockToggleBtn.classList.toggle("locked", !isLocked);
-  lockToggleBtn.classList.toggle("unlocked", isLocked);
+  allInputs.forEach((el) => {
+    if (el.type !== "file") el.disabled = locked;
+  });
 
-  // Swap SVG
-  lockToggleBtn.innerHTML = isLocked
-    ? `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-         <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
-         <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-       </svg>` // 🔒 locked
-    : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-         <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
-         <path d="M17 11V7a5 5 0 0 0-10 0v4"/> 
-       </svg>`; // 🔓 unlocked
-});
+  allDots.forEach((dot) => {
+    const insideDiceModal = dot.closest("#dice-modal");
+    if (!insideDiceModal) {
+      dot.style.pointerEvents = locked ? "none" : "auto";
+    }
+  });
+
+  if (lockToggle) {
+    lockToggle.classList.toggle("locked", locked);
+    lockToggle.classList.toggle("unlocked", !locked);
+
+    // Set correct SVG based on state
+    lockToggle.innerHTML = locked
+      ? `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
+           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+         </svg>` // 🔒 locked
+      : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
+           <path d="M17 11V7a5 5 0 0 0-10 0v4"/>
+         </svg>`; // 🔓 unlocked
+  }
+}
+
 
 
   // Core Attribute Dot Behavior (simple toggle fill)

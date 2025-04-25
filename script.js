@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburgerButton = document.getElementById("hamburger-toggle");
   const hamburgerMenu = document.getElementById("hamburgerMenu");
   const loginButton = document.getElementById("login");
+  const mainLoginButton = document.getElementById("main-login-button");
+const mainGoogleLogin = document.getElementById("main-google-login");
   const dropdown = document.querySelector(".hamburger-dropdown");
   console.log("🧪 loginButton found?", loginButton);
   console.log("🧪 hamburgerMenu:", hamburgerMenu);
@@ -32,14 +34,32 @@ auth.onAuthStateChanged((user) => {
       console.log("🚫 User is signed out");
       loginButton.textContent = "Sign In";
       loginButton.onclick = () => {
-        console.log("🔁 Sign in clicked");
+        console.log("🔁 Sign in clicked (header)");
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).catch(console.error);
       };
     }
-  } else {
-    console.warn("⚠️ loginButton not found in DOM");
   }
+
+  // Main login button visibility
+  if (mainLoginButton) {
+    if (user) {
+      mainLoginButton.classList.add("hidden");
+    } else {
+      mainLoginButton.classList.remove("hidden");
+    }
+  }
+});
+
+//Main Login Button
+mainGoogleLogin?.addEventListener("click", () => {
+  console.log("🔁 Sign in clicked (main button)");
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => {
+      console.log("✅ Signed in via main button:", result.user.displayName);
+    })
+    .catch(console.error);
 });
 
 

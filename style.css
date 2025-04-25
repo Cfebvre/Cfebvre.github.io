@@ -150,6 +150,10 @@ section h2 {
   letter-spacing: 2px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 @keyframes glow {
   from {
     text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;

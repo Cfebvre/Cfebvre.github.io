@@ -436,18 +436,35 @@ function setSheetLocked(locked) {
   const allInputs = document.querySelectorAll("input, select, textarea");
   const allDots = document.querySelectorAll(".dot");
   const lockToggle = document.getElementById("lock-toggle");
+
   allInputs.forEach((el) => {
     if (el.type !== "file") el.disabled = locked;
   });
+
   allDots.forEach((dot) => {
     const insideDiceModal = dot.closest("#dice-modal");
     if (!insideDiceModal) {
       dot.style.pointerEvents = locked ? "none" : "auto";
     }
   });
+
   if (lockToggle) {
-    lockToggle.classList.toggle("locked", locked);
-    lockToggle.innerText = locked ? "🔒 Locked" : "🔓 Unlocked";
+    lockToggle.classList.remove("locked", "unlocked");
+    lockToggle.classList.add(locked ? "locked" : "unlocked");
+
+    // ✅ Correct: Inject SVG dynamically
+    lockToggle.innerHTML = locked
+      ? `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
+           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+         </svg>` // Locked
+      : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
+           <path d="M17 11V7a5 5 0 0 0-10 0v4"/>
+         </svg>`; // Unlocked
+
+    // ✅ Also: Update tooltip
+    lockToggle.title = locked ? "Sheet Locked" : "Sheet Unlocked";
   }
 }
 

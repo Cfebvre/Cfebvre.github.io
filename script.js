@@ -31,6 +31,10 @@ auth.onAuthStateChanged((user) => {
           window.location.href = "index.html";
         });
       };
+
+      // ✅ Show hamburger menu when signed in
+      hamburgerButton?.classList.remove("hidden");
+
     } else {
       console.log("🚫 User is signed out");
       loginButton.textContent = "Sign In";
@@ -39,6 +43,9 @@ auth.onAuthStateChanged((user) => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).catch(console.error);
       };
+
+      // ✅ Hide hamburger menu when signed out
+      hamburgerButton?.classList.add("hidden");
     }
   }
 
@@ -52,7 +59,7 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-//Main Login Button
+// Main Login Button
 mainGoogleLogin?.addEventListener("click", () => {
   console.log("🔁 Sign in clicked (main button)");
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -63,6 +70,7 @@ mainGoogleLogin?.addEventListener("click", () => {
     })
     .catch(console.error);
 });
+
 
 
   // Lock toggle
@@ -390,6 +398,11 @@ document.getElementById("save-icon")?.addEventListener("click", () => {
   data.uid = user.uid;
 
   saveToFirebase(characterName, data);
+});
+
+//Home Button Back to Index Page
+document.getElementById("logo-button")?.addEventListener("click", () => {
+  window.location.href = "index.html";
 });
 
 

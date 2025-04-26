@@ -125,7 +125,7 @@ function setSheetLocked(locked) {
          </svg>` // 🔒 locked
       : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
-  <path d="M17 8V7a5 5 0 0 0-10 0v1"></path>
+  <path d="M17 6a5 5 0 0 0-10 0v4"></path>
 </svg>`; // 🔓 unlocked
   }
 }
@@ -460,7 +460,7 @@ function setSheetLocked(locked) {
          </svg>` // Locked
       : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
-  <path d="M17 8V7a5 5 0 0 0-10 0v1"></path>
+  <path d="M17 6a5 5 0 0 0-10 0v4"></path>
 </svg>`; // Unlocked
 
     // ✅ Also: Update tooltip

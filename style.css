@@ -290,9 +290,12 @@ header,
   justify-content: center;
 }
 
-.header-icon svg {
+.header-icon svg,
+.header-icon {
+  color: #0f0;
+  font-size: 1.5rem;
   stroke: #0f0;
-  transition: stroke 0.2s ease;
+  transition: color 0.2s ease, stroke 0.2s ease;
 }
 
 .header-icon:hover svg {

@@ -138,6 +138,22 @@ function setSheetLocked(locked) {
   }
 }
 
+// Load Fallbacl Logic
+
+const agentId = localStorage.getItem("loadAgentId");
+  const agentName = localStorage.getItem("loadAgentName");
+
+  if (agentId) {
+    console.log(`📥 Loading agent by ID from Firebase: ${agentId}`);
+    loadFromFirebase(agentId);
+    localStorage.removeItem("loadAgentId"); // ✅ Clean up
+  } else if (agentName) {
+    console.log(`📥 Loading agent by NAME from Firebase (legacy): ${agentName}`);
+    loadFromFirebase(agentName);
+    localStorage.removeItem("loadAgentName"); // ✅ Clean up
+  } else {
+    console.log("ℹ️ No agent ID or name found to load.");
+  }
 
 
   // Core Attribute Dot Behavior (simple toggle fill)
@@ -349,11 +365,10 @@ function renderAgentList(userId) {
         <p><strong>Profession:</strong> ${data.profession || "N/A"}</p>
       `;
 
-        card.addEventListener("click", () => {
-          // Store the character name in localStorage and redirect
-          localStorage.setItem("loadAgentName", doc.id);
-          window.location.href = "character-sheet.html";
-        });
+      card.addEventListener("click", () => {
+        localStorage.setItem("loadAgentId", doc.id); // store by agentId (doc.id)
+        window.location.href = "character-sheet.html";
+      });
 
         container.appendChild(card);
       });
@@ -381,6 +396,7 @@ if (overlay) {
   }, 2000);
 }
 
+//Save Icon Logic
 document.getElementById("save-icon")?.addEventListener("click", () => {
   const characterName = document.getElementById("agent")?.value?.trim();
   if (!characterName) {
@@ -396,6 +412,11 @@ document.getElementById("save-icon")?.addEventListener("click", () => {
 
   const data = gatherCharacterData();
   data.uid = user.uid;
+
+  // Assign a unique ID if missing
+  if (!data.agentId) {
+    data.agentId = crypto.randomUUID();
+  }
 
   saveToFirebase(characterName, data);
 });
@@ -416,11 +437,16 @@ function saveToFirebase(characterName, data) {
   const user = firebase.auth().currentUser;
   if (!characterName || !user) return;
 
-  data.uid = user.uid; // ✅ tag this character with the user's ID
+  // ✅ Assign UID if missing
+  if (!data.agentId) {
+    data.agentId = crypto.randomUUID(); // Modern browsers support crypto.randomUUID()
+  }
 
-  console.log("📤 Saving character to Firebase:", characterName, data);
+  data.uid = user.uid; // Link to user
 
-  db.collection("characters").doc(characterName).set(data)
+  console.log("📤 Saving character to Firebase:", data.agentId, data);
+
+  db.collection("characters").doc(data.agentId).set(data)
     .then(() => alert("✅ Character saved to cloud!"))
     .catch(err => {
       console.error("❌ Failed to save character:", err);
@@ -429,11 +455,11 @@ function saveToFirebase(characterName, data) {
 }
 
 
-//Load Characters from Firebase
+// Load Characters from Firebase
 
-async function loadFromFirebase(characterName) {
+async function loadFromFirebase(agentId) {
   try {
-    const doc = await db.collection("characters").doc(characterName).get();
+    const doc = await db.collection("characters").doc(agentId).get();
     if (doc.exists) {
       loadCharacterFromData(doc.data());
     } else {

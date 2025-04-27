@@ -473,7 +473,9 @@ async function loadFromFirebase(agentId) {
     if (doc.exists) {
       loadCharacterFromData(doc.data());
     } else {
-      alert("❌ Character not found.");
+      console.warn(`ℹ️ No data found for agent ID: ${agentId}. Probably a new character.`);
+      // Instead of alert, we silently allow the user to fill in fields.
+      // You could optionally pre-fill the agent field or leave blank.
     }
   } catch (err) {
     console.error("Load error:", err);

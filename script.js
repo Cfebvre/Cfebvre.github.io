@@ -1,3 +1,7 @@
+
+//Global var
+let currentAgentId = null;
+
 //DOM Logic
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM fully loaded");
@@ -144,15 +148,17 @@ const agentId = localStorage.getItem("loadAgentId");
   const agentName = localStorage.getItem("loadAgentName");
 
   if (agentId) {
-    console.log(`📥 Loading agent by ID from Firebase: ${agentId}`);
+    console.log(`📥 Loading agent by ID: ${agentId}`);
     loadFromFirebase(agentId);
-    localStorage.removeItem("loadAgentId"); // ✅ Clean up
+    currentAgentId = agentId; // ✅ Save for later when saving
+    localStorage.removeItem("loadAgentId");
   } else if (agentName) {
-    console.log(`📥 Loading agent by NAME from Firebase (legacy): ${agentName}`);
+    console.log(`📥 Loading agent by NAME: ${agentName}`);
     loadFromFirebase(agentName);
-    localStorage.removeItem("loadAgentName"); // ✅ Clean up
+    currentAgentId = agentName; // (fallback for old ones)
+    localStorage.removeItem("loadAgentName");
   } else {
-    console.log("ℹ️ No agent ID or name found to load.");
+    console.log("ℹ️ No agent selected.");
   }
 
 
@@ -398,29 +404,24 @@ if (overlay) {
 
 //Save Icon Logic
 document.getElementById("save-icon")?.addEventListener("click", () => {
-  const characterName = document.getElementById("agent")?.value?.trim();
-  if (!characterName) {
-    alert("Please enter an Agent Name before saving.");
-    return;
-  }
-
-  const user = firebase.auth().currentUser;
-  if (!user) {
-    alert("You must be signed in to save.");
+  if (!currentAgentId) {
+    alert("❌ No agent loaded. Cannot save.");
     return;
   }
 
   const data = gatherCharacterData();
-  data.uid = user.uid;
+  const user = firebase.auth().currentUser;
 
-  // Assign a unique ID if missing
-  if (!data.agentId) {
-    data.agentId = crypto.randomUUID();
+  if (!user) {
+    alert("❌ You must be signed in to save.");
+    return;
   }
 
-  saveToFirebase(characterName, data);
-});
+  data.uid = user.uid; // ✅ Keep owner
+  data.agentId = currentAgentId; // ✅ Attach the agentId if missing (optional but clean)
 
+  saveToFirebase(currentAgentId, data); // ✅ Save to ID, not to agentName
+});
 //Home Button Back to Index Page
 document.getElementById("logo-button")?.addEventListener("click", () => {
   window.location.href = "index.html";

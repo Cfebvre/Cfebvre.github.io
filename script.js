@@ -375,10 +375,23 @@ function renderAgentList(userId) {
         card.style.cursor = "pointer";
 
         card.innerHTML = `
-        <h4>${data.agent || "(Unnamed Agent)"}</h3>
+        <div class="agent-card-header">
+          <h4>${data.agent || "(Unnamed Agent)"}</h4>
+          <button class="delete-agent" data-id="${doc.id}" title="Delete Agent">
+            🗑️
+          </button>
+        </div>
         <p><strong>Status:</strong> ${data.status || "Unknown"}</p>
         <p><strong>Profession:</strong> ${data.profession || "N/A"}</p>
       `;
+
+      container.querySelectorAll(".delete-agent").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation(); // Stop card click
+          const agentId = btn.getAttribute("data-id");
+          confirmDeleteAgent(agentId, btn.closest(".agent-card"));
+        });
+      });
 
       card.addEventListener("click", () => {
         localStorage.setItem("loadAgentId", doc.id); // store by agentId (doc.id)
@@ -392,6 +405,22 @@ function renderAgentList(userId) {
       console.error("❌ Failed to load agents:", error);
     });
 }
+
+function confirmDeleteAgent(agentId, cardElement) {
+  const confirmed = confirm("Are you sure you want to delete this agent?");
+  if (!confirmed) return;
+
+  db.collection("characters").doc(agentId).delete()
+    .then(() => {
+      alert("✅ Agent deleted.");
+      cardElement.remove(); // Remove card from page
+    })
+    .catch((error) => {
+      console.error("❌ Failed to delete agent:", error);
+      alert("❌ Failed to delete agent.");
+    });
+}
+
 
 // Only run this on agent-profiles.html
 if (window.location.pathname.includes("agent-profiles.html")) {

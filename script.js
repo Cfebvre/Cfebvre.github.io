@@ -142,6 +142,15 @@ function setSheetLocked(locked) {
   }
 }
 
+//Create Agent Button
+
+document.getElementById("create-agent")?.addEventListener("click", () => {
+  const newAgentId = crypto.randomUUID(); // Generate a brand new UUID
+  localStorage.setItem("loadAgentId", newAgentId); // Store it for character-sheet.html
+  console.log("🆕 Creating new agent with ID:", newAgentId);
+  window.location.href = "character-sheet.html"; // Redirect
+});
+
 // Load Fallbacl Logic
 
 const agentId = localStorage.getItem("loadAgentId");

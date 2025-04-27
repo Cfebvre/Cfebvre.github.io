@@ -375,30 +375,32 @@ function renderAgentList(userId) {
         card.style.cursor = "pointer";
 
         card.innerHTML = `
-        <div class="agent-card-header">
-          <h4>${data.agent || "(Unnamed Agent)"}</h4>
-          <button class="delete-agent" data-id="${doc.id}" title="Delete Agent">
-            🗑️
-          </button>
-        </div>
-        <p><strong>Status:</strong> ${data.status || "Unknown"}</p>
-        <p><strong>Profession:</strong> ${data.profession || "N/A"}</p>
-      `;
+  <div class="agent-card-header">
+    <h4>${data.agent || "(Unnamed Agent)"}</h4>
+    <button class="delete-agent" data-id="${doc.id}" title="Delete Agent">
+      🗑️
+    </button>
+  </div>
+  <p><strong>Status:</strong> ${data.status || "Unknown"}</p>
+  <p><strong>Profession:</strong> ${data.profession || "N/A"}</p>
+`;
 
-      container.querySelectorAll(".delete-agent").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation(); // Stop card click
-          const agentId = btn.getAttribute("data-id");
-          confirmDeleteAgent(agentId, btn.closest(".agent-card"));
-        });
-      });
+// ✅ RIGHT AFTER card.innerHTML:
 
-      card.addEventListener("click", () => {
-        localStorage.setItem("loadAgentId", doc.id); // store by agentId (doc.id)
-        window.location.href = "character-sheet.html";
-      });
+card.querySelector(".delete-agent").addEventListener("click", (e) => {
+  e.stopPropagation();
+  const agentId = e.target.getAttribute("data-id");
+  confirmDeleteAgent(agentId, card);
+});
 
-        container.appendChild(card);
+// 🖱️ Card click to load agent
+card.addEventListener("click", () => {
+  localStorage.setItem("loadAgentId", doc.id);
+  window.location.href = "character-sheet.html";
+});
+
+// Append the card
+container.appendChild(card);
       });
     })
     .catch(error => {

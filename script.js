@@ -413,19 +413,44 @@ container.appendChild(card);
     });
 }
 
-function confirmDeleteAgent(agentId, cardElement) {
-  const confirmed = confirm("Are you sure you want to delete this agent?");
-  if (!confirmed) return;
+//Confirm Delete Agent
 
-  db.collection("characters").doc(agentId).delete()
+let agentToDelete = null;
+let agentCardToDelete = null;
+
+function confirmDeleteAgent(agentId, cardElement) {
+  agentToDelete = agentId;
+  agentCardToDelete = cardElement;
+  document.getElementById("delete-modal").classList.remove("hidden");
+}
+
+// Confirm button
+document.getElementById("confirm-delete")?.addEventListener("click", () => {
+  if (!agentToDelete || !agentCardToDelete) return;
+
+  db.collection("characters").doc(agentToDelete).delete()
     .then(() => {
       alert("✅ Agent deleted.");
-      cardElement.remove(); // Remove card from page
+      agentCardToDelete.remove();
     })
     .catch((error) => {
       console.error("❌ Failed to delete agent:", error);
       alert("❌ Failed to delete agent.");
+    })
+    .finally(() => {
+      closeDeleteModal();
     });
+});
+
+// Cancel button
+document.getElementById("cancel-delete")?.addEventListener("click", () => {
+  closeDeleteModal();
+});
+
+function closeDeleteModal() {
+  document.getElementById("delete-modal").classList.add("hidden");
+  agentToDelete = null;
+  agentCardToDelete = null;
 }
 
 

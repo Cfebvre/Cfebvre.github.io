@@ -302,6 +302,24 @@ header,
   stroke: #000;
 }
 
+.agent-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-agent {
+  background: none;
+  border: none;
+  color: #0f0;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.delete-agent:hover {
+  color: red;
+}
+
+
 /* -------------------
    HOMEPAGE STYLES
 ------------------- */

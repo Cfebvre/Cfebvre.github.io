@@ -311,12 +311,21 @@ header,
 .delete-agent {
   background: none;
   border: none;
-  color: #0f0;
-  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.delete-agent:hover {
-  color: red;
+
+.delete-agent svg {
+  stroke: #0f0;
+  transition: stroke 0.3s;
+}
+
+.delete-agent:hover svg {
+  stroke: red; /* 🔥 On hover it turns red */
 }
 
 

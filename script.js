@@ -473,6 +473,18 @@ if (overlay) {
   }, 2000);
 }
 
+// Animate Loading Dots
+const loadingDots = document.getElementById("loading-dots");
+
+if (loadingDots) {
+  let dotCount = 1;
+  
+  setInterval(() => {
+    dotCount = (dotCount % 3) + 1; // 1 -> 2 -> 3 -> 1
+    loadingDots.textContent = '.'.repeat(dotCount);
+  }, 400); // Speed of dots (adjust if you want faster/slower)
+}
+
 //Save Icon Logic
 document.getElementById("save-icon")?.addEventListener("click", () => {
   if (!currentAgentId) {

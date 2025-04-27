@@ -394,7 +394,7 @@ function renderAgentList(userId) {
 
 card.querySelector(".delete-agent").addEventListener("click", (e) => {
   e.stopPropagation();
-  const agentId = e.target.getAttribute("data-id");
+  const agentId = e.currentTarget.getAttribute("data-id");
   confirmDeleteAgent(agentId, card);
 });
 
@@ -425,6 +425,7 @@ function confirmDeleteAgent(agentId, cardElement) {
 }
 
 // Confirm button
+console.log("confirm-delete element", document.getElementById("confirm-delete"))
 document.getElementById("confirm-delete")?.addEventListener("click", () => {
   if (!agentToDelete || !agentCardToDelete) return;
 
